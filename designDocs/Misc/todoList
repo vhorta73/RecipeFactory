@@ -1,0 +1,69 @@
+TODO: Revise all this.
+
+=============================================================================================
+                                 create/edit/delete/manage
+=============================================================================================
+
+- Ingredient
+- Recipe
+- Recipe Orders
+- Ingredient Orders
+- Box orders
+- Client
+- Vendor
+- User
+
+
+=============================================================================================
+                                           DASH
+=============================================================================================
+[DASH - selected] - Defaults to last selected dash or any.
+ \-> [Daily Production]     - Predefined
+ \-> [Order progress]       - Predefined
+ \-> [Stock levels]         - Predefined
+ \-> [Statistics]           - Predefined
+ \-> [Customised]           - To be user defined
+
+[DASH - Daily Production]
+- Displays all blocks set for daily production 
+- Dash changes to Daily Production with following sub-menus:
+  \-> [Manage displayed blocks] - Two windowed lists of blocks. On the left the list of all 
+                              available blocks, and on the right all the ones that are 
+                              currently added and being displayed.
+                              A brief description should be shown when the user selects
+                              any block.
+  \-> [Order progress]
+  \-> [Stock levels]
+  \-> ...
+
+[Customised]
+- Displays no blocks and requests a name before anything else with options to cancel or save
+- Dash changes to [Customised name given] with following sub-menus:
+  [Add] - Adds a new block to the dash from all available, displayed as the list:
+   \-> block 1 - description
+   \-> block 3 - description
+   \-> ...
+  [Remove] - Remove an added block, only as an option if there is a block added.
+   \-> block 2 - description
+  [Dash] - To return to main menu or select a different dash from list.
+   \-> [Order progress]
+   \-> [Stock levels]
+   \-> ...
+  [Delete dash] - Deletes this customised and all added blocks will be lost. A message to confirm pops up.
+  
+
+[User defined in blocks]
+- Show Ingredient Stock Levels 
+    A - List Levels for all = INGREDIENTS = on:
+        * Red - Not enough for all existing orders
+        * Orange - below given threshold
+        * Yellow - close to threshold
+        * Green - above defined close to threshold
+        FOR:
+            1 - Current threshold levels
+            2 - Before all not started DP's ordered recipes
+            3 - After all DP's ordered recipes are completed
+            4 - Before all current queued orders are started
+            5 - After all current queued orders are finished
+
+- Show Recipe Stock Levels 
