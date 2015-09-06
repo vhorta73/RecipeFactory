@@ -51,10 +51,13 @@ public class DBUser extends ConnectDB {
 		// The SQL query to get this user data.
 		String sql = "SELECT * FROM " + DBTables.getUserTable() + " WHERE username = '"+username+"'";
 
+		ResultSet rs = null;
+		PreparedStatement prepSt = null;
 		try {
-			ResultSet rs = super
+			prepSt = super
 					.getConnection(DBTables.getUserDatabase())
-					.prepareStatement(sql)
+					.prepareStatement(sql);
+			rs = prepSt
 					.executeQuery();
 
 			while ( rs.next() ) {
@@ -75,6 +78,13 @@ public class DBUser extends ConnectDB {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				prepSt.close();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

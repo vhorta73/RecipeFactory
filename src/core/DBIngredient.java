@@ -1,5 +1,6 @@
 package core;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -10,7 +11,7 @@ import mySQL.ConnectDB;
 import constants.DBTables;
 
 /**
- * Inserting a DB record.
+ * The Ingredient table DB access.
  * 
  * @author Vasco
  *
@@ -63,10 +64,13 @@ public class DBIngredient extends ConnectDB {
 		// Initialise the final Ingredient object to be returned.
 		List<Ingredient> finalIngredientList = new LinkedList<Ingredient>();
 
+		ResultSet rs = null;
+		PreparedStatement prepSt = null;
 		try {
-			ResultSet rs = super
+			prepSt = super
 					.getConnection(DBTables.getIngredientDatabase())
-					.prepareStatement(sql)
+					.prepareStatement(sql);
+			rs = prepSt
 					.executeQuery();
 
 			while ( rs.next() ) {
@@ -85,6 +89,14 @@ public class DBIngredient extends ConnectDB {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				prepSt.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		return finalIngredientList;

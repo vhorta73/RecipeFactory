@@ -41,4 +41,22 @@ public class DBTables {
 	public static String getUserDatabase() {
 		return EnumDatabases.rfact_core.toString();
 	}
+
+	/**
+	 * The Privilege table name.
+	 * 
+	 * @return String privilege
+	 */
+	public static String getPrivilegeTable() {
+		return EnumTables.privilege.toString();
+	}
+	
+	/**
+	 * The Privilege database where the privilege table can be found.
+	 * 
+	 * @return String database
+	 */
+	public static String getPrivilegeDatabase() {
+		return EnumDatabases.rfact_core.toString();
+	}
 }
