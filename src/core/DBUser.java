@@ -4,8 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.LinkedList;
-import java.util.List;
 
 import mySQL.ConnectDB;
 import constants.DBTables;
@@ -18,31 +16,40 @@ import constants.DBTables;
  */
 public class DBUser extends ConnectDB {
 	/**
-	 * Select an User by username
+	 * This class can only be instantiated once per user.
+	 */
+	private User user;
+	
+	/**
+	 * The username.
+	 */
+	private final String username;
+
+	/**
+	 * An username must be supplied at the construction time.
 	 * 
-	 * @param name username
+	 * @param username
+	 */
+	public DBUser(String username) {
+		if ( username == null ) throw new IllegalArgumentException("Username cannot be null.");
+		this.username = username;
+		loadDBUser();
+	}
+	/**
+	 * Return the loaded user
+	 * 
 	 * @return User
 	 */
-	public User getUser(String username) {
-		// Validate argument
-		if ( username == null ) throw new IllegalArgumentException("username cannot be null.");
-
-        // Initialise the final Ingredient object to be returned.
-		return getResults("SELECT * FROM " + DBTables.getUserTable() + " WHERE username = '"+username+"'").get(0);
+	public User getUser() {
+		return user;
 	}
 
 	/**
-	 * Get a list of results from the database.
-	 * 
-	 * @param sql
-	 * @return List User
+	 * Load the user details from the database.
 	 */
-	private List<User> getResults(String sql) {
-		// Validate argument
-		if ( sql == null ) throw new IllegalArgumentException("SQL query cannot be null.");
-
-		// Initialise the final Ingredient object to be returned.
-		List<User> finalUserList = new LinkedList<User>();
+	private void loadDBUser() {
+		// The SQL query to get this user data.
+		String sql = "SELECT * FROM " + DBTables.getUserTable() + " WHERE username = '"+username+"'";
 
 		try {
 			ResultSet rs = super
@@ -61,26 +68,23 @@ public class DBUser extends ConnectDB {
 				String last_updated_by      = rs.getString(8);
 				Timestamp last_updated_date = rs.getTimestamp(9);
 
-				finalUserList.add(new UserImpl(id, username, password, status, privilegeId,
-						created_by, created_date, last_updated_by, last_updated_date));
+				// There should be only one since username is unique key in user table.
+				user = new UserImpl(id, username, password, status, privilegeId,
+						created_by, created_date, last_updated_by, last_updated_date);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		return finalUserList;
 	}
 
 	/**
-	 * For a given username, save the given password.
+	 * save the given password into this user records.
 	 * 
-	 * @param username 
 	 * @param password
 	 */
-	public void savePassword(String username, byte[] password) {
+	public void savePassword(byte[] password) {
 		// TODO: This should request username and password from user before deleting passwords...
-		User user = getUser(username);
 		int id = user.getId();
 		String sql = "UPDATE " + DBTables.getUserTable() + " SET password = ? WHERE id = ? ";
 
@@ -95,7 +99,5 @@ public class DBUser extends ConnectDB {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		
 	}
 }

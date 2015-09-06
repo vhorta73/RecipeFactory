@@ -26,10 +26,10 @@ public class LoginCredentials {
 	 */
 	private final String PBKDF2_SHA1 = "PBKDF2WithHmacSHA1";
 	private final String SPECIAL_SALT_CHARS = "@£";
-	private final int SIZE           = 8 * 3 * 64;
+	private final int SIZE           = 8 * 6 * 64;
 	private final int TOTAL_LENGTH   = SIZE;
 	private final int ITERACTIONS    = 10000;
-	private final int WORD_LENGTH    = 2 * SIZE / 3;
+	private final int WORD_LENGTH    = 5 * SIZE / 6;
 	private final int SALT_LENGTH    = TOTAL_LENGTH - WORD_LENGTH;
 
 	/**
@@ -38,25 +38,55 @@ public class LoginCredentials {
 	private byte[] generatedHash;
 	
 	/**
-	 * cached generated hash
+	 * cached generated initial hash
 	 */
 	private byte[] initialHash;
+	
+	/**
+	 * generated salt starting index in the hash.
+	 */
+	private int saltStartIndext;
+	
+	/**
+	 * The tired username
+	 */
+	private String username;
+	
+	/**
+	 * The tried password
+	 */
+	private String password;
+	
+	/**
+	 * The User data from the database
+	 */
+	private User user;
 
 	/**
 	 * Logging users in.
+	 * This is the one and only entry point in the code to check if the username
+	 * and password supplied do match up.
 	 * 
 	 * @param username
 	 * @param password
 	 * @return true if logged in
 	 */
 	public boolean logIn(String username, String password) {
+		// Validate input
+		if (username == null) throw new IllegalArgumentException("Username cannot be null");
+		if (password == null) throw new IllegalArgumentException("Password cannot be null");
+		
+		// Keep these at bay
+		this.username = username;
+		this.password = password;
+		
+		// Lets load the user data.. maybe there is no user...
+		loadUser();
+
 		// The generated hash for the given username and password, including the new salt
-		generatedHash = generateNewHash(username, password);
+		generatedHash = generateNewHash();
 
-		// The initially saved hash on the database with the random salt.
-		byte[] savedHash = getUserSavedHash(username);
-
-		return isSamePass(username, password, savedHash);
+		return isSamePass(user.getPassword());
 	}
 
 	/**
@@ -70,15 +100,22 @@ public class LoginCredentials {
 		return generatedHash;
 	}
 
-	private boolean isSamePass(String username, String password, byte[] saved) {
+	/**
+	 * Compare the given hash with the generated and return true if match.
+	 * The salt point is calculated and ignores throughout its length 
+	 * as it is totally random generated.
+	 * 
+	 * @param saved
+	 * @return true if match
+	 */
+	private boolean isSamePass(byte[] saved) {
 		// They must have the same length.
 		if ( generatedHash.length != saved.length ) return false;
-long start = System.currentTimeMillis();		
+
 		// Get the index where the salt starts for this user.
-		int saltStart = getSeed(username, password);
+		int saltStart = getSaltStartIndex();
 		int saltEnd   = saltStart + SALT_LENGTH;
-long end = System.currentTimeMillis();
-System.out.println(" getSeed: " +(end-start));
+
 		for ( int i = 0 ; i < generatedHash.length; i++ ) {
 			// Before the salt, indexes must match up
 			if ( i < saltStart ) if ( generatedHash[i] != saved[i] ) return false;
@@ -89,35 +126,30 @@ System.out.println(" getSeed: " +(end-start));
 	}
 
 	/**
-	 * Return the hashed password from the database.
-	 * 
-	 * @param username
-	 * @return byte[]
+	 * Load User data
 	 */
-	private byte[] getUserSavedHash(String username) {
-		// Validate arguments
-		if ( username == null ) throw new IllegalArgumentException("Username cannot be null.");
+	private void loadUser() {
+		// Get the db User handler for the user supplied at log in time.
+		DBUser db = new DBUser(username);
+		user = db.getUser();
 
-		DBUser db = new DBUser();
-		User user = db.getUser(username);
-		return user.getPassword();
+		// End problems here
+		if ( user == null ) throw new IllegalArgumentException("User not found."); 
 	}
 	
 	/**
 	 * Generate the final hash to be compared with the one on the database.
 	 * 
-	 * @param passKey List of Character
-	 * @param firstHash byte[]
 	 * @return byte[]
 	 */
-	private byte[] generateNewHash(String username, String password) { 
+	private byte[] generateNewHash() { 
 		// Build the final hash to be compared with the one on the database.
-		byte[] firstHash = getHash(username, password);
+		byte[] firstHash = getGeneratedHash();
 		byte[] randomSalt = getRandomSalt();
 		byte[] finalHash = new byte[TOTAL_LENGTH];
 
 		// initial index where the salt will start
-		int j = getSeed(username, password); 
+		int j = getSaltStartIndex(); 
 
 		for( int i = 0; i < TOTAL_LENGTH; i++ ) {
 			// First index for the salt is not yet here
@@ -151,17 +183,13 @@ System.out.println(" getSeed: " +(end-start));
 	 * @param passKey String
 	 * @return int seed
 	 */
-	private int getSeed(String username, String password) {
-		// Validate parameters.
-		if ( username == null ) throw new IllegalArgumentException("Username cannot be null.");
-		if ( password == null ) throw new IllegalArgumentException("Password cannot be null.");
-
+	private int getSaltStartIndex() {
 		// Add the username to the password and shuffle things a bit.
 		// Build the final hash to be compared with the one on the database.
 		String strPassKey = "";
-		List<Character> passKey = getPassKey(username, password);
+		List<Character> passKey = getPassKey();
 		for( Character c : passKey ) strPassKey += c.toString();
-		byte[] hash = getHash(username, password);
+		byte[] hash = getGeneratedHash();
 
 		// Get int value for the middle char in username ensuring it is positive.
 		int passIndex = (int)strPassKey.length()/2;
@@ -175,26 +203,26 @@ System.out.println(" getSeed: " +(end-start));
 		int hashInt = (int)hashChar;
 
 		// Return the value within word length to be the seed.
-		return ( hashInt % WORD_LENGTH );
+		saltStartIndext = ( hashInt % WORD_LENGTH );
+		return saltStartIndext;
 	}
 
 	/**
-	 * The Hash.
+	 * The generated hash.
 	 * 
-	 * @param password char[]
-	 * @param salt byte[]
-	 * @param length int
 	 * @return byte[]
 	 */
-	private byte[] getHash(String username, String password) { 
-		// This hash should only be generated once at the first time it is called.
+	private byte[] getGeneratedHash() { 
+		// Use cached hash if exists.
 		if ( initialHash == null ) {
-			// Add the username to the password and shuffle things a bit.
-			List<Character> passKey = getPassKey(username, password);
-			// Using the username as a salt
+			// Get the new username mingled with the password.
+			List<Character> passKey = getPassKey();
+			
+			// Add the the username some special characters to make it more difficult.
 			byte[] passSalt = (username + SPECIAL_SALT_CHARS).getBytes(); 
 			char[] key = new char[passKey.size()];
 			for( int i = 0; i < passKey.size(); i++ ) key[i] = passKey.get(i);
+
 			PBEKeySpec c = new PBEKeySpec(key,passSalt,ITERACTIONS,8 * WORD_LENGTH);
 			SecretKeyFactory skf;
 			try {
@@ -210,16 +238,11 @@ System.out.println(" getSeed: " +(end-start));
 	
 	/**
 	 * This aims to make any readable password and username less readable,
-	 * for the cases when the hacker tries to use the Dictionary to gain access.
+	 * for the cases when the hacker tries to use Dictionary words to gain access.
 	 * 
-	 * @param username
-	 * @param password
 	 * @return List of characters
 	 */
-	private List<Character> getPassKey(String username, String password) {
-		if ( username == null ) throw new IllegalArgumentException("Username cannot be null.");
-		if ( password == null ) throw new IllegalArgumentException("Password cannot be null.");
-		
+	private List<Character> getPassKey() {
 		List<Character> key = new LinkedList<Character>();
 		List<Character> initial = new LinkedList<Character>();
 
