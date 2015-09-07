@@ -9,6 +9,9 @@ import java.util.List;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+import mySQL.ConnectDB;
+import web.Session;
+import web.SessionImpl;
 import core.DBUser;
 import core.User;
 
@@ -32,6 +35,16 @@ public class LoginCredentials {
 	private final int WORD_LENGTH    = 5 * SIZE / 6;
 	private final int SALT_LENGTH    = TOTAL_LENGTH - WORD_LENGTH;
 
+	/**
+	 * The Session to be.
+	 */
+	private Session session;
+
+	/**
+	 * The temporary session to be used internally only.
+	 */
+	private Session temporarySession;
+	
 	/**
 	 * Cached generated hash
 	 */
@@ -63,6 +76,15 @@ public class LoginCredentials {
 	private User user;
 
 	/**
+	 * The session reference to update if logged in.
+	 * 
+	 * @param session
+	 */
+	public LoginCredentials(Session session) {
+		this.session = session;
+	}
+	
+	/**
 	 * Logging users in.
 	 * This is the one and only entry point in the code to check if the username
 	 * and password supplied do match up.
@@ -79,6 +101,8 @@ public class LoginCredentials {
 		// Keep these at bay
 		this.username = username;
 		this.password = password;
+		this.temporarySession = new SessionImpl();
+		this.temporarySession.setDB(new ConnectDB());
 		
 		// Lets load the user data.. maybe there is no user...
 		loadUser();
@@ -86,7 +110,15 @@ public class LoginCredentials {
 		// The generated hash for the given username and password, including the new salt
 		generatedHash = generateNewHash();
 
-		return isSamePass(user.getPassword());
+		// If the same password, we are logged in and return true.
+		if ( isSamePass(user.getPassword()) ) {
+			this.session.setDB(new ConnectDB());
+			return true;
+		}
+		else {
+			this.session.setDB(null);
+			return false;
+		}
 	}
 
 	/**
@@ -130,7 +162,7 @@ public class LoginCredentials {
 	 */
 	private void loadUser() {
 		// Get the db User handler for the user supplied at log in time.
-		DBUser db = new DBUser(username);
+		DBUser db = new DBUser(this.temporarySession, username);
 		user = db.getUser();
 
 		// End problems here
@@ -258,5 +290,14 @@ public class LoginCredentials {
 			if ( initial.size() > 1 ) key.add(initial.remove((int)initial.size()/2));
 		}
 		return key;
+	}
+
+	/**
+	 * The loaded session.
+	 * 
+	 * @return
+	 */
+	public Session getSession() {
+		return session;
 	}
 }

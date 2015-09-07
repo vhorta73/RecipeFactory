@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
-import mySQL.ConnectDB;
+import web.Session;
 import constants.DBTables;
 
 /**
@@ -16,7 +16,22 @@ import constants.DBTables;
  * @author Vasco
  *
  */
-public class DBIngredient extends ConnectDB {
+public class DBIngredient {
+	/**
+	 * Access can only be granted if a session is open.
+	 */
+	private Session session;
+
+	/**
+	 * The Constructor requiring a valid initialised session
+	 * to gain access to the database.
+	 * 
+	 * @param dbConnection
+	 */
+	public DBIngredient(Session session) {
+		this.session = session;
+	}
+	
 	/**
 	 * Select an Ingredient by name
 	 * 
@@ -67,7 +82,7 @@ public class DBIngredient extends ConnectDB {
 		ResultSet rs = null;
 		PreparedStatement prepSt = null;
 		try {
-			prepSt = super
+			prepSt = this.session.getDB()
 					.getConnection(DBTables.getIngredientDatabase())
 					.prepareStatement(sql);
 			rs = prepSt

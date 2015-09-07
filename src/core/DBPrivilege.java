@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-import mySQL.ConnectDB;
+import web.Session;
 import constants.DBTables;
 
 /**
@@ -14,7 +14,12 @@ import constants.DBTables;
  * @author Vasco
  *
  */
-public class DBPrivilege extends ConnectDB {
+public class DBPrivilege {
+	/**
+	 * The open Session to access the DB.
+	 */
+	private Session session;
+
 	/**
 	 * The privilege found
 	 */
@@ -25,7 +30,8 @@ public class DBPrivilege extends ConnectDB {
 	 * 
 	 * @param id
 	 */
-	public DBPrivilege(int id) {
+	public DBPrivilege(Session session, int id) {
+		this.session = session;
 		loadPrivilege(id);
 	}
 
@@ -53,7 +59,7 @@ public class DBPrivilege extends ConnectDB {
 		ResultSet rs = null;
 		PreparedStatement prepSt = null;
 		try {
-			prepSt = super
+			prepSt = this.session.getDB()
 					.getConnection(DBTables.getPrivilegeDatabase())
 					.prepareStatement(sql);
 			rs    = prepSt

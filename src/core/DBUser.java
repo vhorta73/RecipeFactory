@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-import mySQL.ConnectDB;
+import web.Session;
 import constants.DBTables;
 
 /**
@@ -14,7 +14,12 @@ import constants.DBTables;
  * @author Vasco
  *
  */
-public class DBUser extends ConnectDB {
+public class DBUser {
+	/**
+	 * The open Session to allow access to DB.
+	 */
+	private Session session;
+
 	/**
 	 * This class can only be instantiated once per user.
 	 */
@@ -30,9 +35,10 @@ public class DBUser extends ConnectDB {
 	 * 
 	 * @param username
 	 */
-	public DBUser(String username) {
+	public DBUser(Session session, String username) {
 		if ( username == null ) throw new IllegalArgumentException("Username cannot be null.");
 		this.username = username;
+		this.session = session;
 		loadDBUser();
 	}
 	/**
@@ -54,7 +60,7 @@ public class DBUser extends ConnectDB {
 		ResultSet rs = null;
 		PreparedStatement prepSt = null;
 		try {
-			prepSt = super
+			prepSt = this.session.getDB()
 					.getConnection(DBTables.getUserDatabase())
 					.prepareStatement(sql);
 			rs = prepSt
@@ -94,12 +100,12 @@ public class DBUser extends ConnectDB {
 	 * @param password
 	 */
 	public void savePassword(byte[] password) {
-		// TODO: This should request username and password from user before deleting passwords...
 		int id = user.getId();
 		String sql = "UPDATE " + DBTables.getUserTable() + " SET password = ? WHERE id = ? ";
 
+		PreparedStatement prep = null;
 		try {
-			PreparedStatement prep = super
+			prep = this.session.getDB()
 					.getConnection(DBTables.getUserDatabase())
 					.prepareStatement(sql);
 			prep.setBytes(1, password);
@@ -108,6 +114,12 @@ public class DBUser extends ConnectDB {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				prep.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
