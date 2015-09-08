@@ -1,4 +1,6 @@
-package core;
+package core.tables;
+
+import core.DBTableCommon;
 
 /**
  * The Ingredient interface.

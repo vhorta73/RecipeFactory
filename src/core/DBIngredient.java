@@ -9,6 +9,8 @@ import java.util.List;
 
 import web.Session;
 import constants.DBTables;
+import core.tables.Ingredient;
+import core.tables.IngredientImpl;
 
 /**
  * The Ingredient table DB access.

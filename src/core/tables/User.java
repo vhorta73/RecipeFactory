@@ -1,6 +1,7 @@
-package core;
+package core.tables;
 
 import constants.UserStatus;
+import core.DBTableCommon;
 
 /**
  * The User interface.

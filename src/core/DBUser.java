@@ -7,6 +7,8 @@ import java.sql.Timestamp;
 
 import web.Session;
 import constants.DBTables;
+import core.tables.User;
+import core.tables.UserImpl;
 
 /**
  * The User table database access.
@@ -37,6 +39,13 @@ public class DBUser {
 	 */
 	public DBUser(Session session, String username) {
 		if ( username == null ) throw new IllegalArgumentException("Username cannot be null.");
+		if ( session == null ) throw new IllegalArgumentException("Session cannot be null.");
+		if ( session.isUserValidated() ) {
+    		if ( !session.isLoggedIn() ) throw new IllegalStateException("User must be logged in.");
+    		if ( !session.getUserDetails().getUsername().equals(username) ) 
+    			throw new IllegalStateException("Cannot update other user's details.");
+		}
+
 		this.username = username;
 		this.session = session;
 		loadDBUser();

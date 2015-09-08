@@ -1,10 +1,8 @@
-package core;
+package core.tables;
 
 import java.sql.Timestamp;
 
-import constants.PrivilegeAccess;
 import constants.PrivilegeStatus;
-import constants.PrivilegeType;
 /**
  * The Privilege implementation.
  * 
@@ -23,19 +21,9 @@ public class PrivilegeImpl implements Privilege {
 	public final String NAME;
 	
 	/**
-	 * The privilege type.
-	 */
-	public final PrivilegeType TYPE;
-	
-	/**
 	 * The privilege status.
 	 */
 	public final PrivilegeStatus STATUS;
-	
-	/**
-	 * The privilege access.
-	 */
-	public final PrivilegeAccess ACCESS;
 	
 	/**
 	 * The privilege description.
@@ -67,17 +55,15 @@ public class PrivilegeImpl implements Privilege {
 	 * 
 	 * @param id 
 	 * @param name
-	 * @param type
 	 * @param status
-	 * @param access
 	 * @param description
 	 * @param createdBy
 	 * @param createdDate
 	 * @param lastUpdatedBy
 	 * @param lastUpdatedDate
 	 */
-	public PrivilegeImpl(int id, String name, String type, 
-			String status, String access, String description, 
+	public PrivilegeImpl(int id, String name, 
+			String status, String description, 
 			String createdBy, Timestamp createdDate, 
 			String lastUpdatedBy, Timestamp lastUpdatedDate  ) {
 		this.ID = id;
@@ -88,33 +74,11 @@ public class PrivilegeImpl implements Privilege {
 		this.LAST_UPDATED_BY = lastUpdatedBy;
 		this.LAST_UPDATED_DATE = lastUpdatedDate;
 
-		String upperType = type.toUpperCase();
-		switch (upperType) {
-		    case "SUPER_ADMIN" : { this.TYPE = PrivilegeType.SUPER_ADMIN; break; }
-    		case "ADMIN"       : { this.TYPE = PrivilegeType.ADMIN;       break; }
-		    case "MANAGER"     : { this.TYPE = PrivilegeType.MANAGER;     break; }
-	    	case "NORMAL"      : { this.TYPE = PrivilegeType.NORMAL;      break; }
-	    	case "TEMPORARY"   : { this.TYPE = PrivilegeType.TEMPORARY;   break; }
-    		default            : { throw new IllegalArgumentException("Unknwon type: "+type); }
-		}
-
 		String upperStatus = status.toUpperCase();
 		switch (upperStatus) {
 		    case "ACTIVE"         : { this.STATUS = PrivilegeStatus.ACTIVE;         break; }
     		case "INACTIVE"       : { this.STATUS = PrivilegeStatus.INACTIVE;       break; }
-		    case "BLOCKED"        : { this.STATUS = PrivilegeStatus.BLOCKED;        break; }
-	    	case "PASSWORD_RESET" : { this.STATUS = PrivilegeStatus.PASSWORD_RESET; break; }
-	    	case "DELETED"        : { this.STATUS = PrivilegeStatus.DELETED;        break; }
-	    	case "NEW"            : { this.STATUS = PrivilegeStatus.NEW;            break; }
     		default               : { throw new IllegalArgumentException("Unknown status: "+status); }
-		}
-
-		String upperAccess = access.toUpperCase();
-		switch (upperAccess) {
-		    case "READ_WRITE" : { this.ACCESS = PrivilegeAccess.READ_WRITE; break; }
-    		case "READ_ONLY"  : { this.ACCESS = PrivilegeAccess.READ_ONLY;  break; }
-		    case "WRITE_ONLY" : { this.ACCESS = PrivilegeAccess.WRITE_ONLY; break; }
-    		default           : { throw new IllegalArgumentException("Unknown acces: "+access); }
 		}
 	}
 
@@ -170,24 +134,8 @@ public class PrivilegeImpl implements Privilege {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public PrivilegeType getType() {
-		return TYPE;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public PrivilegeStatus getStatus() {
 		return STATUS;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public PrivilegeAccess getAccess() {
-		return ACCESS;
 	}
 
 	/**

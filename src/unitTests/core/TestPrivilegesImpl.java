@@ -11,8 +11,8 @@ import org.junit.Test;
 import constants.PrivilegeAccess;
 import constants.PrivilegeStatus;
 import constants.PrivilegeType;
-import core.Privilege;
-import core.PrivilegeImpl;
+import core.tables.Privilege;
+import core.tables.PrivilegeImpl;
 
 /**
  * Testing the Privilege implementation.

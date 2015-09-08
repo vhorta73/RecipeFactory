@@ -1,95 +1,37 @@
 package core;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.util.List;
 
-import web.Session;
-import constants.DBTables;
+import core.tables.Privilege;
+import core.tables.PrivilegeTool;
+import core.tables.PrivilegeToolFeatureAccess;
 
 /**
- * The privilege table DB access.
+ * The DBPrivilege interface.
  * 
  * @author Vasco
  *
  */
-public class DBPrivilege {
+public interface DBPrivilege {
 	/**
-	 * The open Session to access the DB.
-	 */
-	private Session session;
-
-	/**
-	 * The privilege found
-	 */
-	private Privilege privilege;
-
-	/**
-	 * Constructor requesting an id.
-	 * 
-	 * @param id
-	 */
-	public DBPrivilege(Session session, int id) {
-		this.session = session;
-		loadPrivilege(id);
-	}
-
-	/**
-	 * The loaded Privileges.
+	 * The loaded Privilege row.
 	 * 
 	 * @return Privilege
 	 */
-	public Privilege getPrivilege() {
-		return privilege;
-	}
-
+	public Privilege getPrivilege();
+	
 	/**
-	 * Load privilege data for the selected id.
+	 * The loaded list of all linked Privilege Tools.
 	 * 
-	 * @param id
+	 * @return List PrivilegeTool 
 	 */
-	private void loadPrivilege(int privilege_id) {
-		// Validate argument
-		if ( privilege_id == 0 ) throw new IllegalArgumentException("Id cannot be zero.");
+	public List<PrivilegeTool> getPrivilegeTools();
+	
+	/**
+	 * The loaded list of all respective Privilege Tool Feature Access.
+	 * 
+	 * @return List PrivilegeToolFeatureAccess
+	 */
+	public List<PrivilegeToolFeatureAccess> getToolFeatureAccess();
 
-		String sql = "SELECT * FROM " + DBTables.getPrivilegeTable() 
-				+ " WHERE id = '"+privilege_id+"'";
-		
-		ResultSet rs = null;
-		PreparedStatement prepSt = null;
-		try {
-			prepSt = this.session.getDB()
-					.getConnection(DBTables.getPrivilegeDatabase())
-					.prepareStatement(sql);
-			rs    = prepSt
-					.executeQuery();
-
-			while ( rs.next() ) {
-				int id                      = rs.getInt(1);
-				String name                 = rs.getString(2);
-				String type                 = rs.getString(3);
-				String status               = rs.getString(4);
-				String access               = rs.getString(5);
-				String description          = rs.getString(6);
-				String created_by           = rs.getString(7);
-				Timestamp created_date      = rs.getTimestamp(8);
-				String last_updated_by      = rs.getString(9);
-				Timestamp last_updated_date = rs.getTimestamp(10);
-
-				privilege = new PrivilegeImpl(id, name, type, status, access, description, 
-						created_by, created_date, last_updated_by, last_updated_date);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if ( prepSt != null ) prepSt.close();
-				if ( rs != null ) rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
 }

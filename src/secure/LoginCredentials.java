@@ -13,7 +13,7 @@ import mySQL.ConnectDB;
 import web.Session;
 import web.SessionImpl;
 import core.DBUser;
-import core.User;
+import core.tables.User;
 
 /**
  * Login Credentials manager.
@@ -91,9 +91,8 @@ public class LoginCredentials {
 	 * 
 	 * @param username
 	 * @param password
-	 * @return true if logged in
 	 */
-	public boolean logIn(String username, String password) {
+	public void logIn(String username, String password) {
 		// Validate input
 		if (username == null) throw new IllegalArgumentException("Username cannot be null");
 		if (password == null) throw new IllegalArgumentException("Password cannot be null");
@@ -103,6 +102,7 @@ public class LoginCredentials {
 		this.password = password;
 		this.temporarySession = new SessionImpl();
 		this.temporarySession.setDB(new ConnectDB());
+		this.temporarySession.setLoggedIn(true);
 		
 		// Lets load the user data.. maybe there is no user...
 		loadUser();
@@ -110,15 +110,11 @@ public class LoginCredentials {
 		// The generated hash for the given username and password, including the new salt
 		generatedHash = generateNewHash();
 
-		// If the same password, we are logged in and return true.
-		if ( isSamePass(user.getPassword()) ) {
-			this.session.setDB(new ConnectDB());
-			return true;
-		}
-		else {
-			this.session.setDB(null);
-			return false;
-		}
+		// Set the session logging status to the outcome of this action.
+		this.session.setLoggedIn(isSamePass(user.getPassword()));
+
+		// Grant DB access only if logged in.
+        if ( this.session.isLoggedIn() ) this.session.setDB(new ConnectDB());
 	}
 
 	/**

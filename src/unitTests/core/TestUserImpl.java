@@ -9,8 +9,8 @@ import java.sql.Timestamp;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.User;
-import core.UserImpl;
+import core.tables.User;
+import core.tables.UserImpl;
 
 /**
  * Testing the User implementation.

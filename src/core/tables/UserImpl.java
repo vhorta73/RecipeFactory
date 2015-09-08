@@ -1,4 +1,4 @@
-package core;
+package core.tables;
 
 import java.sql.Timestamp;
 

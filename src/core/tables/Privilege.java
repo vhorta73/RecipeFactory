@@ -1,8 +1,7 @@
-package core;
+package core.tables;
 
-import constants.PrivilegeAccess;
 import constants.PrivilegeStatus;
-import constants.PrivilegeType;
+import core.DBTableCommon;
 
 /**
  * The Privileges interface.
@@ -26,25 +25,11 @@ public interface Privilege extends DBTableCommon {
 	public String getName();
 	
 	/**
-	 * The privilege type.
-	 * 
-	 * @return PrivilegeType
-	 */
-	public PrivilegeType getType();
-	
-	/**
 	 * The privilege status.
 	 * 
 	 * @return PrivilegeStatus
 	 */
 	public PrivilegeStatus getStatus();
-	
-	/**
-	 * The privilege access.
-	 * 
-	 * @return PrivilegeAccess
-	 */
-	public PrivilegeAccess getAccess();
 	
 	/**
 	 * The privilege description.
