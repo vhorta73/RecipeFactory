@@ -1,5 +1,11 @@
 package constants;
 
+/**
+ * Known database tables.
+ * 
+ * @author Vasco
+ *
+ */
 public enum EnumTables {
 	ingredient,                            // The ingredient list
 	user,                                  // The user list

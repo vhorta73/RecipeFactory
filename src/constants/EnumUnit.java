@@ -1,6 +1,7 @@
 package constants;
+
 /**
- * Units of measurement.
+ * Known units of measurement.
  * 
  * @author Vasco
  *
