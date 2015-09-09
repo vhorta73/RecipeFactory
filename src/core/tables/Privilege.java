@@ -1,7 +1,7 @@
 package core.tables;
 
-import constants.PrivilegeStatus;
-import core.DBTableCommon;
+import constants.EnumStatus;
+import core.db.DBTableCommon;
 
 /**
  * The Privileges interface.
@@ -29,7 +29,7 @@ public interface Privilege extends DBTableCommon {
 	 * 
 	 * @return PrivilegeStatus
 	 */
-	public PrivilegeStatus getStatus();
+	public EnumStatus getStatus();
 	
 	/**
 	 * The privilege description.

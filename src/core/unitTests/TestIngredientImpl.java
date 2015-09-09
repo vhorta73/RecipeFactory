@@ -1,4 +1,4 @@
-package unitTests.core;
+package core.unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -9,20 +9,20 @@ import java.sql.Timestamp;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.tables.User;
-import core.tables.UserImpl;
+import core.tables.Ingredient;
+import core.tables.IngredientImpl;
 
 /**
- * Testing the User implementation.
+ * Testing the Ingredient implementation.
  * 
  * @author Vasco
  *
  */
-public class TestUserImpl {
+public class TestIngredientImpl {
 	/**
-	 * The User implementation object.
+	 * The ingredient implementation object.
 	 */
-	private User user;
+	private Ingredient ingredient;
 	
 	/**
 	 * The Auto-increment id.
@@ -30,27 +30,22 @@ public class TestUserImpl {
 	private final int ID = 1;
 	
 	/**
-	 * The User unique name.
+	 * The Ingredient unique name.
 	 */
-	private final String USERNAME = "myusername";
+	private final String NAME = "My First Ingredient";
 	
 	/**
-	 * The User hashed password.
+	 * The Ingredient description.
 	 */
-	private final byte[] HASHED_PASSWORD = { 0x2 };
+	private final String DESCRIPTION = "This is my first Ingredient description";
 	
 	/**
-	 * The User status.
+	 * The Ingredient notes.
 	 */
-	private final String STATUS = "active";
+	private final String NOTES = "This is my first Ingredient note";
 	
 	/**
-	 * The User privilege id.
-	 */
-	private final int PRIVILEGE_ID = 123;
-	
-	/**
-	 * The username that created this record.
+	 * The username that created this ingredient.
 	 */
 	private final String CREATED_BY = "snoopy";
 	
@@ -70,13 +65,13 @@ public class TestUserImpl {
 	private final Timestamp LAST_UPDATED_DATE = Timestamp.valueOf("2015-09-05 12:15:19");
 	
 	/**
-	 * Load all elements into User implementation
+	 * Load all elements into Ingredient implementation
 	 * and leave it ready for testing.
 	 */
 	@Before
 	public void before() {
-		user = new UserImpl(ID, USERNAME, HASHED_PASSWORD, STATUS, PRIVILEGE_ID,
-				CREATED_BY, CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE);
+		ingredient = new IngredientImpl(ID, NAME, DESCRIPTION, NOTES, CREATED_BY, 
+				CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE);
 	}
 
 	/**
@@ -84,7 +79,7 @@ public class TestUserImpl {
 	 */
 	@Test
 	public void testId() {
-		int foundId = user.getId();
+		int foundId = ingredient.getId();
 		assertNotNull(foundId);
 		assertTrue(ID == foundId);
 	}
@@ -94,19 +89,19 @@ public class TestUserImpl {
 	 */
 	@Test
 	public void testName() {
-		String foundUsername = user.getUsername();
-		assertNotNull(foundUsername);
-		assertEquals(foundUsername, USERNAME);
+		String foundName = ingredient.getName();
+		assertNotNull(foundName);
+		assertEquals(foundName, NAME);
 	}
 
 	/**
-	 * Test hashed password
+	 * Test description
 	 */
 	@Test
-	public void testHasedPassword() {
-		byte[] foundHashedPassword = user.getPassword();
-		assertNotNull(foundHashedPassword);
-		assertEquals(foundHashedPassword, HASHED_PASSWORD);
+	public void testDescription() {
+		String foundDescription = ingredient.getDescription();
+		assertNotNull(foundDescription);
+		assertEquals(foundDescription, DESCRIPTION);
 	}
 
 	/**
@@ -114,7 +109,7 @@ public class TestUserImpl {
 	 */
 	@Test
 	public void testCreatedBy() {
-		String foundCreatedBy = user.getCreatedBy();
+		String foundCreatedBy = ingredient.getCreatedBy();
 		assertNotNull(foundCreatedBy);
 		assertEquals(foundCreatedBy, CREATED_BY);
 	}
@@ -124,7 +119,7 @@ public class TestUserImpl {
 	 */
 	@Test
 	public void testCreatedDate() {
-		Timestamp foundCreatedDate = user.getCreatedDate();
+		Timestamp foundCreatedDate = ingredient.getCreatedDate();
 		assertNotNull(foundCreatedDate);
 		assertEquals(foundCreatedDate, CREATED_DATE);
 	}
@@ -134,7 +129,7 @@ public class TestUserImpl {
 	 */
 	@Test
 	public void testLastUpdatedBy() {
-		String foundLastUpdatedBy = user.getLastUpdatedBy();
+		String foundLastUpdatedBy = ingredient.getLastUpdatedBy();
 		assertNotNull(foundLastUpdatedBy);
 		assertEquals(foundLastUpdatedBy, LAST_UPDATED_BY);
 	}
@@ -144,7 +139,7 @@ public class TestUserImpl {
 	 */
 	@Test
 	public void testLastUpdatedDate() {
-		Timestamp foundLastUpdatedDate = user.getLastUpdatedDate();
+		Timestamp foundLastUpdatedDate = ingredient.getLastUpdatedDate();
 		assertNotNull(foundLastUpdatedDate);
 		assertEquals(foundLastUpdatedDate, LAST_UPDATED_DATE);
 	}

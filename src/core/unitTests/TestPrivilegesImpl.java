@@ -1,4 +1,4 @@
-package unitTests.core;
+package core.unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -8,8 +8,8 @@ import java.sql.Timestamp;
 import org.junit.Before;
 import org.junit.Test;
 
-import constants.PrivilegeAccess;
-import constants.PrivilegeStatus;
+import constants.EnumToolFeatureAccess;
+import constants.EnumStatus;
 import constants.PrivilegeType;
 import core.tables.Privilege;
 import core.tables.PrivilegeImpl;
@@ -39,12 +39,12 @@ public class TestPrivilegesImpl {
 	/**
 	 * The privilege status.
 	 */
-	private final PrivilegeStatus STATUS = PrivilegeStatus.ACTIVE;
+	private final EnumStatus STATUS = EnumStatus.ACTIVE;
 	
 	/**
 	 * The privilege access.
 	 */
-	private final PrivilegeAccess ACCESS = PrivilegeAccess.READ_ONLY;
+	private final EnumToolFeatureAccess ACCESS = EnumToolFeatureAccess.READ_ONLY;
 	
 	/**
 	 * The privilege description.

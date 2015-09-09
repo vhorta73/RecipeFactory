@@ -1,4 +1,4 @@
-package core;
+package core.db;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.StringJoiner;
 
 import web.Session;
-import constants.DBTables;
+import constants.DatabaseTableName;
 import core.tables.Privilege;
 import core.tables.PrivilegeImpl;
 import core.tables.PrivilegeTool;
@@ -101,14 +101,14 @@ public class DBPrivilegeImpl implements DBPrivilege {
 		// Validate argument
 		if ( privilegeId == 0 ) throw new IllegalArgumentException("Id cannot be zero.");
 
-		String sql = "SELECT * FROM " + DBTables.getPrivilegeTable() 
+		String sql = "SELECT * FROM " + DatabaseTableName.getPrivilegeTable() 
 				+ " WHERE id = '"+privilegeId+"'";
 		
 		ResultSet rs = null;
 		PreparedStatement prepSt = null;
 		try {
 			prepSt = this.session.getDB()
-					.getConnection(DBTables.getPrivilegeDatabase())
+					.getConnection(DatabaseTableName.getPrivilegeDatabase())
 					.prepareStatement(sql);
 			rs    = prepSt
 					.executeQuery();
@@ -145,7 +145,7 @@ public class DBPrivilegeImpl implements DBPrivilege {
 	private void loadPrivilegeTools() {
 		if ( privilegeId == 0 ) throw new IllegalArgumentException("Id cannot be zero.");
 
-		String sql = "SELECT * FROM " + DBTables.getPrivilegeToolTable() 
+		String sql = "SELECT * FROM " + DatabaseTableName.getPrivilegeToolTable() 
 				+ " WHERE privilege_id = '"+privilegeId+"'";
 		
 		ResultSet rs = null;
@@ -153,7 +153,7 @@ public class DBPrivilegeImpl implements DBPrivilege {
 		privilegeTool = new LinkedList<PrivilegeTool>();
 		try {
 			prepSt = this.session.getDB()
-					.getConnection(DBTables.getPrivilegeDatabase())
+					.getConnection(DatabaseTableName.getPrivilegeDatabase())
 					.prepareStatement(sql);
 			rs    = prepSt
 					.executeQuery();
@@ -198,14 +198,14 @@ public class DBPrivilegeImpl implements DBPrivilege {
 		privilegeTool.stream().forEach(p -> privilegeToolIds.add(""+p.getId()));
 
 		// Build the sql query
-		String sql = "SELECT * FROM " + DBTables.getPrivilegeToolFeatureAccessTable() 
+		String sql = "SELECT * FROM " + DatabaseTableName.getPrivilegeToolFeatureAccessTable() 
 				+ " WHERE privilege_tool_id IN('"+privilegeToolIds+"')";
 		
 		ResultSet rs = null;
 		PreparedStatement prepSt = null;
 		try {
 			prepSt = this.session.getDB()
-					.getConnection(DBTables.getPrivilegeDatabase())
+					.getConnection(DatabaseTableName.getPrivilegeDatabase())
 					.prepareStatement(sql);
 			rs    = prepSt
 					.executeQuery();

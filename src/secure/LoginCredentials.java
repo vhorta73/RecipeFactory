@@ -12,7 +12,7 @@ import javax.crypto.spec.PBEKeySpec;
 import mySQL.ConnectDB;
 import web.Session;
 import web.SessionImpl;
-import core.DBUser;
+import core.db.DBUser;
 import core.tables.User;
 
 /**

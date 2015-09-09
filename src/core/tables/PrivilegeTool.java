@@ -1,6 +1,6 @@
 package core.tables;
 
-import core.DBTableCommon;
+import core.db.DBTableCommon;
 
 /**
  * The Privilege Tool interface.

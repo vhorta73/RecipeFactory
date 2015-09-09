@@ -2,7 +2,7 @@ package core.tables;
 
 import java.sql.Timestamp;
 
-import constants.PrivilegeStatus;
+import constants.EnumStatus;
 /**
  * The Privilege implementation.
  * 
@@ -23,7 +23,7 @@ public class PrivilegeImpl implements Privilege {
 	/**
 	 * The privilege status.
 	 */
-	public final PrivilegeStatus STATUS;
+	public final EnumStatus STATUS;
 	
 	/**
 	 * The privilege description.
@@ -76,8 +76,8 @@ public class PrivilegeImpl implements Privilege {
 
 		String upperStatus = status.toUpperCase();
 		switch (upperStatus) {
-		    case "ACTIVE"         : { this.STATUS = PrivilegeStatus.ACTIVE;         break; }
-    		case "INACTIVE"       : { this.STATUS = PrivilegeStatus.INACTIVE;       break; }
+		    case "ACTIVE"         : { this.STATUS = EnumStatus.ACTIVE;         break; }
+    		case "INACTIVE"       : { this.STATUS = EnumStatus.INACTIVE;       break; }
     		default               : { throw new IllegalArgumentException("Unknown status: "+status); }
 		}
 	}
@@ -134,7 +134,7 @@ public class PrivilegeImpl implements Privilege {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public PrivilegeStatus getStatus() {
+	public EnumStatus getStatus() {
 		return STATUS;
 	}
 

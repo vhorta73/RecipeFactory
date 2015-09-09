@@ -1,4 +1,4 @@
-package core;
+package core.db;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import web.Session;
-import constants.DBTables;
+import constants.DatabaseTableName;
 import core.tables.Ingredient;
 import core.tables.IngredientImpl;
 
@@ -45,7 +45,7 @@ public class DBIngredient {
 		if ( name == null ) throw new IllegalArgumentException("Ingredient name cannot be null.");
 
         // Initialise the final Ingredient object to be returned.
-		return getResults("SELECT * FROM " + DBTables.getIngredientTable() + " WHERE name = '"+name+"'").get(0);
+		return getResults("SELECT * FROM " + DatabaseTableName.getIngredientTable() + " WHERE name = '"+name+"'").get(0);
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class DBIngredient {
 	 */
 	public Ingredient getIngredient(int id) {
         // Initialise the final Ingredient object to be returned.
-		return getResults("SELECT * FROM " + DBTables.getIngredientTable() + " WHERE id = '"+id+"'").get(0);
+		return getResults("SELECT * FROM " + DatabaseTableName.getIngredientTable() + " WHERE id = '"+id+"'").get(0);
 	}
 	
 	/**
@@ -65,7 +65,7 @@ public class DBIngredient {
 	 * @return List Ingredient
 	 */
 	public List<Ingredient> getIngredients() {
-		return getResults("SELECT * FROM " + DBTables.getIngredientTable());
+		return getResults("SELECT * FROM " + DatabaseTableName.getIngredientTable());
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class DBIngredient {
 		PreparedStatement prepSt = null;
 		try {
 			prepSt = this.session.getDB()
-					.getConnection(DBTables.getIngredientDatabase())
+					.getConnection(DatabaseTableName.getIngredientDatabase())
 					.prepareStatement(sql);
 			rs = prepSt
 					.executeQuery();

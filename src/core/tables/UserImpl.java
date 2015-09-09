@@ -2,7 +2,7 @@ package core.tables;
 
 import java.sql.Timestamp;
 
-import constants.UserStatus;
+import constants.EnumUserStatus;
 
 /**
  * The User implementation.
@@ -29,7 +29,7 @@ public class UserImpl implements User {
 	/**
 	 * The User status.
 	 */
-	private final UserStatus STATUS;
+	private final EnumUserStatus STATUS;
 	
 	/**
 	 * The User privilege id.
@@ -68,15 +68,15 @@ public class UserImpl implements User {
 		this.LAST_UPDATED_BY = lastUpdatedBy;
 		this.LAST_UPDATED_DATE = lastUpdatedDate;
 		String upperStatus = status.toUpperCase();
-		UserStatus userStatus = null;
+		EnumUserStatus userStatus = null;
 
 		switch (upperStatus) {
-		    case "ACTIVE"         : { userStatus = UserStatus.ACTIVE;         break; }
-		    case "BLOCKED"        : { userStatus = UserStatus.BLOCKED;        break; }
-	    	case "DELETED"        : { userStatus = UserStatus.DELETED;        break; }
-    		case "INACTIVE"       : { userStatus = UserStatus.INACTIVE;       break; }
-	    	case "NEW"            : { userStatus = UserStatus.NEW;            break; }
-	    	case "PASSWORD_RESET" : { userStatus = UserStatus.PASSWORD_RESET; break; }
+		    case "ACTIVE"         : { userStatus = EnumUserStatus.ACTIVE;         break; }
+		    case "BLOCKED"        : { userStatus = EnumUserStatus.BLOCKED;        break; }
+	    	case "DELETED"        : { userStatus = EnumUserStatus.DELETED;        break; }
+    		case "INACTIVE"       : { userStatus = EnumUserStatus.INACTIVE;       break; }
+	    	case "NEW"            : { userStatus = EnumUserStatus.NEW;            break; }
+	    	case "PASSWORD_RESET" : { userStatus = EnumUserStatus.PASSWORD_RESET; break; }
     		default               : { break; }
 		}
 
@@ -151,7 +151,7 @@ public class UserImpl implements User {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public UserStatus getStatus() {
+	public EnumUserStatus getStatus() {
 		return STATUS;
 	}
 

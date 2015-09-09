@@ -1,7 +1,7 @@
 package core.tables;
 
-import constants.UserStatus;
-import core.DBTableCommon;
+import constants.EnumUserStatus;
+import core.db.DBTableCommon;
 
 /**
  * The User interface.
@@ -47,5 +47,5 @@ public interface User extends DBTableCommon {
 	 * 
 	 * @return UserStatus
 	 */
-	public UserStatus getStatus();
+	public EnumUserStatus getStatus();
 }

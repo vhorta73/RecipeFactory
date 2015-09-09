@@ -1,4 +1,4 @@
-package core;
+package core.db;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import web.Session;
-import constants.DBTables;
+import constants.DatabaseTableName;
 import core.tables.User;
 import core.tables.UserImpl;
 
@@ -40,6 +40,8 @@ public class DBUser {
 	public DBUser(Session session, String username) {
 		if ( username == null ) throw new IllegalArgumentException("Username cannot be null.");
 		if ( session == null ) throw new IllegalArgumentException("Session cannot be null.");
+
+		// If user is not yet validated, user data must be retrieved for validation.
 		if ( session.isUserValidated() ) {
     		if ( !session.isLoggedIn() ) throw new IllegalStateException("User must be logged in.");
     		if ( !session.getUserDetails().getUsername().equals(username) ) 
@@ -64,13 +66,13 @@ public class DBUser {
 	 */
 	private void loadDBUser() {
 		// The SQL query to get this user data.
-		String sql = "SELECT * FROM " + DBTables.getUserTable() + " WHERE username = '"+username+"'";
+		String sql = "SELECT * FROM " + DatabaseTableName.getUserTable() + " WHERE username = '"+username+"'";
 
 		ResultSet rs = null;
 		PreparedStatement prepSt = null;
 		try {
 			prepSt = this.session.getDB()
-					.getConnection(DBTables.getUserDatabase())
+					.getConnection(DatabaseTableName.getUserDatabase())
 					.prepareStatement(sql);
 			rs = prepSt
 					.executeQuery();
@@ -110,12 +112,12 @@ public class DBUser {
 	 */
 	public void savePassword(byte[] password) {
 		int id = user.getId();
-		String sql = "UPDATE " + DBTables.getUserTable() + " SET password = ? WHERE id = ? ";
+		String sql = "UPDATE " + DatabaseTableName.getUserTable() + " SET password = ? WHERE id = ? ";
 
 		PreparedStatement prep = null;
 		try {
 			prep = this.session.getDB()
-					.getConnection(DBTables.getUserDatabase())
+					.getConnection(DatabaseTableName.getUserDatabase())
 					.prepareStatement(sql);
 			prep.setBytes(1, password);
 			prep.setInt(2, id);
