@@ -8,9 +8,7 @@ import java.sql.Timestamp;
 import org.junit.Before;
 import org.junit.Test;
 
-import constants.EnumToolFeatureAccess;
 import constants.EnumStatus;
-import constants.PrivilegeType;
 import core.tables.Privilege;
 import core.tables.PrivilegeImpl;
 
@@ -20,7 +18,7 @@ import core.tables.PrivilegeImpl;
  * @author Vasco
  *
  */
-public class TestPrivilegesImpl {
+public class TestPrivilegeImpl {
 	/**
 	 * The auto-increment id.
 	 */
@@ -32,19 +30,9 @@ public class TestPrivilegesImpl {
 	private final String NAME = "Privilege name";
 	
 	/**
-	 * The privilege type.
-	 */
-	private final PrivilegeType TYPE = PrivilegeType.ADMIN;
-	
-	/**
 	 * The privilege status.
 	 */
 	private final EnumStatus STATUS = EnumStatus.ACTIVE;
-	
-	/**
-	 * The privilege access.
-	 */
-	private final EnumToolFeatureAccess ACCESS = EnumToolFeatureAccess.READ_ONLY;
 	
 	/**
 	 * The privilege description.
@@ -81,8 +69,7 @@ public class TestPrivilegesImpl {
 	 */
 	@Before
 	public void before() {
-		privilege = new PrivilegeImpl(ID, NAME, TYPE.toString().toLowerCase(), 
-				STATUS.toString().toLowerCase(), ACCESS.toString().toLowerCase(), 
+		privilege = new PrivilegeImpl(ID, NAME, STATUS.toString().toLowerCase(), 
 				DESCRIPTION, CREATED_BY, CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE);
 	}
 	
@@ -103,27 +90,11 @@ public class TestPrivilegesImpl {
 	}
 
 	/**
-	 * Test type.
-	 */
-	@Test
-	public void testType() {
-		assertEquals(TYPE, privilege.getType());
-	}
-
-	/**
 	 * Test status.
 	 */
 	@Test
 	public void testStatus() {
 		assertEquals(STATUS, privilege.getStatus());
-	}
-
-	/**
-	 * Test access.
-	 */
-	@Test
-	public void testAccess() {
-		assertEquals(ACCESS, privilege.getAccess());
 	}
 
 	/**
