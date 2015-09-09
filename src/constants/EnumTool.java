@@ -15,6 +15,7 @@ public enum EnumTool {
 	// Managing elements - create, edit, delete etc
 	BOX_MANAGEMENT,
     INGREDIENT_MANAGEMENT,
+    MACHINE_MANAGEMENT,
     RECIPE_MANAGEMENT,
 
     // Managing orders
