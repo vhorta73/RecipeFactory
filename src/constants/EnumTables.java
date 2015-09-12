@@ -15,5 +15,6 @@ public enum EnumTables {
 	status,                                // List of all possible statuses
 	tool,                                  // List of all known tools
 	tool_feature,                          // List of all features tools may have
+	access,                                // List of all types of known accesses
 	
 }

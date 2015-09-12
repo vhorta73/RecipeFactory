@@ -132,4 +132,22 @@ public class DatabaseTableName {
 		return EnumTables.tool_feature.toString();
 	}
 
+	/**
+	 * The access database where the access table can be found.
+	 * 
+	 * @return String database
+	 */
+	public static String getAccessDatabase() {
+		return EnumDatabases.rfact_core.toString();
+	}
+
+	/**
+	 * The Access table name.
+	 * 
+	 * @return String access
+	 */
+	public static String getAccessTable() {
+		return EnumTables.access.toString();
+	}
+
 }
