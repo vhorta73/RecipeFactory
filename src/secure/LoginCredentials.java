@@ -12,6 +12,8 @@ import javax.crypto.spec.PBEKeySpec;
 import mySQL.ConnectDB;
 import web.impl.SessionImpl;
 import web.interfaces.Session;
+import core.UserPrivilege;
+import core.UserPrivilegeImpl;
 import core.db.impl.DBUserImpl;
 import core.db.interfaces.DBUser;
 import core.tables.interfaces.User;
@@ -77,6 +79,11 @@ public class LoginCredentials {
 	private User user;
 
 	/**
+	 * The User Privilege data from the database
+	 */
+	private UserPrivilege userPrivilege;
+
+	/**
 	 * Logging users in.
 	 * This is the one and only entry point in the code to check if the username
 	 * and password supplied do match up.
@@ -108,8 +115,15 @@ public class LoginCredentials {
 
 		// Grant DB access only if logged in.
         if ( this.session.isLoggedIn() ) {
+        	// Grant DB access
         	this.session.setDB(new ConnectDB());
+        	
+        	// Set the user to the session.
         	this.session.setUser(user);
+        	
+        	// Load all user privileges.
+    		loadUserPrivileges();
+    		this.session.setUserPrivileges(userPrivilege);
         }
 	}
 
@@ -159,6 +173,17 @@ public class LoginCredentials {
 
 		// End problems here
 		if ( user == null ) throw new IllegalArgumentException("User not found."); 
+	}
+	
+	/**
+	 * Load User Privilege data
+	 */
+	private void loadUserPrivileges() {
+		// Get the UserPrivilege details after a successful log in.
+		userPrivilege = new UserPrivilegeImpl(this.session);
+
+		// End problems here
+		if ( userPrivilege == null ) throw new IllegalArgumentException("User Privileges given."); 		
 	}
 	
 	/**

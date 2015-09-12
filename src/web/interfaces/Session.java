@@ -1,6 +1,7 @@
 package web.interfaces;
 
 import mySQL.ConnectDB;
+import core.UserPrivilege;
 import core.tables.interfaces.User;
 
 /**
@@ -54,4 +55,16 @@ public interface Session {
 	 * Set the user details.
 	 */
 	public void setUser(User user);
+
+	/**
+	 * The loaded user privileges.
+	 * 
+	 * @return UserPrivileges
+	 */
+	public UserPrivilege getUserPrivileges();
+
+	/**
+	 * Set the user privileges details.
+	 */
+	public void setUserPrivileges(UserPrivilege userPrivilege);
 }
