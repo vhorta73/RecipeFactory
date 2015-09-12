@@ -5,7 +5,7 @@ package constants;
  * @author Vasco
  *
  */
-public enum EnumToolFeature {
+public enum EnumFeature {
     EDIT,
     SAVE,
     SELECT,

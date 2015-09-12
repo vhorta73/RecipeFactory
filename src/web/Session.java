@@ -1,7 +1,7 @@
 package web;
 
-import core.UserDetails;
 import mySQL.ConnectDB;
+import core.tables.User;
 
 /**
  * The Session interface.
@@ -46,7 +46,12 @@ public interface Session {
 	/**
 	 * The loaded user details.
 	 * 
-	 * @return UserDetails
+	 * @return User
 	 */
-	public UserDetails getUserDetails();
+	public User getUser();
+
+	/**
+	 * Set the user details.
+	 */
+	public void setUser(User user);
 }

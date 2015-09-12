@@ -51,15 +51,14 @@ public class DBPrivilegeImpl implements DBPrivilege {
 	
 	/**
 	 * Constructor requesting an id.
-	 * 
-	 * @param id
 	 */
-	public DBPrivilegeImpl(Session session, int id) {
+	public DBPrivilegeImpl(Session session) {
 		if ( session == null ) throw new IllegalArgumentException("Session cannot be null.");
 		if ( !session.isLoggedIn() ) throw new IllegalStateException("User must be logged in at this point.");
+		if ( session.getUser() == null ) throw new IllegalStateException("No user loaded.");
 
 		this.session = session;
-		this.privilegeId = id;
+		this.privilegeId = session.getUser().getId();
 		
 		loadPrivilegeData();
 		loadPrivilegeTools();
@@ -234,5 +233,5 @@ public class DBPrivilegeImpl implements DBPrivilege {
 				e.printStackTrace();
 			}
 		}
-	};
+	}
 }

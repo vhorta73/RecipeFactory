@@ -44,7 +44,7 @@ public class DBUser {
 		// If user is not yet validated, user data must be retrieved for validation.
 		if ( session.isUserValidated() ) {
     		if ( !session.isLoggedIn() ) throw new IllegalStateException("User must be logged in.");
-    		if ( !session.getUserDetails().getUsername().equals(username) ) 
+    		if ( !session.getUser().getUsername().equals(username) ) 
     			throw new IllegalStateException("Cannot update other user's details.");
 		}
 

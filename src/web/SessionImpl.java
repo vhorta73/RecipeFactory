@@ -1,7 +1,7 @@
 package web;
 
-import core.UserDetails;
 import mySQL.ConnectDB;
+import core.tables.User;
 /**
  * The Session implementation.
  * 
@@ -15,9 +15,9 @@ public class SessionImpl implements Session {
 	private boolean loggedIn = false;
 	
 	/**
-	 * The User Details.
+	 * The User.
 	 */
-	private UserDetails userDetails;
+	private User user;
 	
 	/**
 	 * The dbConnection.
@@ -41,8 +41,8 @@ public class SessionImpl implements Session {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public UserDetails getUserDetails() {
-		return userDetails;
+	public User getUser() {
+		return user;
 	}
 
 	/**
@@ -76,5 +76,11 @@ public class SessionImpl implements Session {
 	@Override
 	public boolean isUserValidated() {
 		return isLoadingSession;
+	}
+
+	@Override
+	public void setUser(User user) {
+		// Only set it once.
+		if ( this.user == null ) this.user = user;
 	}
 }

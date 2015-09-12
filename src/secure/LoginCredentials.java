@@ -76,15 +76,6 @@ public class LoginCredentials {
 	private User user;
 
 	/**
-	 * The session reference to update if logged in.
-	 * 
-	 * @param session
-	 */
-	public LoginCredentials(Session session) {
-		this.session = session;
-	}
-	
-	/**
 	 * Logging users in.
 	 * This is the one and only entry point in the code to check if the username
 	 * and password supplied do match up.
@@ -103,6 +94,7 @@ public class LoginCredentials {
 		this.temporarySession = new SessionImpl();
 		this.temporarySession.setDB(new ConnectDB());
 		this.temporarySession.setLoggedIn(true);
+		this.session = new SessionImpl();
 		
 		// Lets load the user data.. maybe there is no user...
 		loadUser();
@@ -114,7 +106,10 @@ public class LoginCredentials {
 		this.session.setLoggedIn(isSamePass(user.getPassword()));
 
 		// Grant DB access only if logged in.
-        if ( this.session.isLoggedIn() ) this.session.setDB(new ConnectDB());
+        if ( this.session.isLoggedIn() ) {
+        	this.session.setDB(new ConnectDB());
+        	this.session.setUser(user);
+        }
 	}
 
 	/**
