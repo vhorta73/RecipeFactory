@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 import org.junit.Before;
 import org.junit.Test;
 
-import constants.EnumStatus;
 import core.tables.Privilege;
 import core.tables.PrivilegeImpl;
 
@@ -32,7 +31,7 @@ public class TestPrivilegeImpl {
 	/**
 	 * The privilege status.
 	 */
-	private final EnumStatus STATUS = EnumStatus.ACTIVE;
+	private final int STATUS = 1;
 	
 	/**
 	 * The privilege description.
@@ -69,8 +68,8 @@ public class TestPrivilegeImpl {
 	 */
 	@Before
 	public void before() {
-		privilege = new PrivilegeImpl(ID, NAME, STATUS.toString().toLowerCase(), 
-				DESCRIPTION, CREATED_BY, CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE);
+		privilege = new PrivilegeImpl(ID, NAME, STATUS, DESCRIPTION, 
+				CREATED_BY, CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE);
 	}
 	
 	/**
@@ -86,7 +85,7 @@ public class TestPrivilegeImpl {
 	 */
 	@Test
 	public void testName() {
-		assertEquals(NAME, privilege.getName());
+		assertEquals(NAME, privilege.getDisplayName());
 	}
 
 	/**

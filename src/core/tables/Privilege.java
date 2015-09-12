@@ -1,6 +1,5 @@
 package core.tables;
 
-import constants.EnumStatus;
 import core.db.DBTableCommon;
 
 /**
@@ -18,18 +17,18 @@ public interface Privilege extends DBTableCommon {
 	public int getId();
 	
 	/**
-	 * The privilege name.
+	 * The privilege display name.
 	 * 
 	 * @return String
 	 */
-	public String getName();
+	public String getDisplayName();
 	
 	/**
-	 * The privilege status.
+	 * The privilege status id.
 	 * 
-	 * @return PrivilegeStatus
+	 * @return int 
 	 */
-	public EnumStatus getStatus();
+	public int getStatus();
 	
 	/**
 	 * The privilege description.

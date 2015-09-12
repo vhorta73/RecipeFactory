@@ -8,22 +8,21 @@ import java.sql.Timestamp;
  * @author Vasco
  *
  */
-public class PrivilegeToolFeatureAcessImpl implements
-		PrivilegeToolFeatureAccess {
+public class PrivilegeToolFeatureAcessImpl implements PrivilegeToolFeatureAccess {
 	/**
 	 * The privilege tool id.
 	 */
 	public final int PRIVILEGE_TOOL_ID;
 	
 	/**
-	 * The feature code.
+	 * The feature id.
 	 */
-	public final String FEATURE_CD;
+	public final int FEATURE_ID;
 	
 	/**
-	 * The access code.
+	 * The access id.
 	 */
-	public final String ACCESS_CD;
+	public final int ACCESS_ID;
 
 	/**
 	 * The username that created this record.
@@ -49,20 +48,20 @@ public class PrivilegeToolFeatureAcessImpl implements
 	 * The constructor.
 	 * 
 	 * @param privilegeToolId int
-	 * @param featureCd String
-	 * @param accessCd String
+	 * @param featureId int
+	 * @param accessId int
 	 * @param createdBy String
 	 * @param createdDate Timestamp
 	 * @param lastUpdatedBy String 
 	 * @param lastUpdatedDate Timestamp
 	 */
 	public PrivilegeToolFeatureAcessImpl(int privilegeToolId,
-			String featureCd, String accessCd,
+			int featureId, int accessId,
 			String createdBy, Timestamp createdDate, 
 			String lastUpdatedBy, Timestamp lastUpdatedDate  ) {
 		this.PRIVILEGE_TOOL_ID = privilegeToolId;
-		this.FEATURE_CD = featureCd;
-		this.ACCESS_CD = accessCd;
+		this.FEATURE_ID = featureId;
+		this.ACCESS_ID = accessId;
 		this.CREATED_BY = createdBy;
 		this.CREATED_DATE = createdDate;
 		this.LAST_UPDATED_BY = lastUpdatedBy;
@@ -81,16 +80,16 @@ public class PrivilegeToolFeatureAcessImpl implements
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getFeatureCd() {
-		return FEATURE_CD;
+	public int getFeatureId() {
+		return FEATURE_ID;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getAccessCd() {
-		return ACCESS_CD;
+	public int getAccessId() {
+		return ACCESS_ID;
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 package web;
 
+import core.UserDetails;
 import mySQL.ConnectDB;
 /**
  * The Session implementation.

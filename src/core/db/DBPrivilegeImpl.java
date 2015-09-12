@@ -116,14 +116,14 @@ public class DBPrivilegeImpl implements DBPrivilege {
 			while ( rs.next() ) {
 				int id                      = rs.getInt(1);
 				String name                 = rs.getString(2);
-				String status               = rs.getString(3);
+				int status_id               = rs.getInt(3);
 				String description          = rs.getString(4);
 				String created_by           = rs.getString(5);
 				Timestamp created_date      = rs.getTimestamp(6);
 				String last_updated_by      = rs.getString(7);
 				Timestamp last_updated_date = rs.getTimestamp(8);
 
-				privilege = new PrivilegeImpl(id, name, status, description, 
+				privilege = new PrivilegeImpl(id, name, status_id, description, 
 						created_by, created_date, last_updated_by, last_updated_date);
 			}
 
@@ -161,13 +161,13 @@ public class DBPrivilegeImpl implements DBPrivilege {
 			while ( rs.next() ) {
 				int id                      = rs.getInt(1);
 				int privilegeId             = rs.getInt(2);
-				String toolCd               = rs.getString(3);
+				int toolId                  = rs.getInt(3);
 				String created_by           = rs.getString(4);
 				Timestamp created_date      = rs.getTimestamp(5);
 				String last_updated_by      = rs.getString(6);
 				Timestamp last_updated_date = rs.getTimestamp(7);
 
-				privilegeTool.add(new PrivilegeToolImpl(id, privilegeId, toolCd, 
+				privilegeTool.add(new PrivilegeToolImpl(id, privilegeId, toolId, 
 						created_by, created_date, last_updated_by, last_updated_date));
 			}
 
@@ -212,15 +212,15 @@ public class DBPrivilegeImpl implements DBPrivilege {
 
 			while ( rs.next() ) {
 				int privilegeToolId         = rs.getInt(1);
-				String featureCd            = rs.getString(2);
-				String accessCd             = rs.getString(3);
+				int featureId               = rs.getInt(2);
+				int accessId                = rs.getInt(3);
 				String created_by           = rs.getString(4);
 				Timestamp created_date      = rs.getTimestamp(5);
 				String last_updated_by      = rs.getString(6);
 				Timestamp last_updated_date = rs.getTimestamp(7);
 
 				privilegeToolFeatureAccess.add(new PrivilegeToolFeatureAcessImpl(
-						privilegeToolId, featureCd, accessCd, 
+						privilegeToolId, featureId, accessId, 
 						created_by, created_date, last_updated_by, last_updated_date));
 			}
 

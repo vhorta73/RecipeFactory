@@ -20,9 +20,9 @@ public class PrivilegeToolImpl implements PrivilegeTool {
 	public final int PRIVILEGE_ID;
 	
 	/**
-	 * The tool code.
+	 * The tool id.
 	 */
-	public final String TOOL_CD;
+	public final int TOOL_ID;
 
 	/**
 	 * The username that created this record.
@@ -49,18 +49,18 @@ public class PrivilegeToolImpl implements PrivilegeTool {
 	 * 
 	 * @param id int
 	 * @param privilegeId int
-	 * @param toolCd String
+	 * @param toolId int
 	 * @param createdBy String
 	 * @param createdDate Timestamp
 	 * @param lastUpdatedBy String
 	 * @param lastUpdatedDate Timestamp
 	 */
-	public PrivilegeToolImpl(int id, int privilegeId, String toolCd,
+	public PrivilegeToolImpl(int id, int privilegeId, int toolId,
 			String createdBy, Timestamp createdDate, 
 			String lastUpdatedBy, Timestamp lastUpdatedDate  ) {
 		this.ID = id;
 		this.PRIVILEGE_ID = privilegeId;
-		this.TOOL_CD = toolCd;
+		this.TOOL_ID = toolId;
 		this.CREATED_BY = createdBy;
 		this.CREATED_DATE = createdDate;
 		this.LAST_UPDATED_BY = lastUpdatedBy;
@@ -119,7 +119,7 @@ public class PrivilegeToolImpl implements PrivilegeTool {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getToolCd() {
-		return TOOL_CD;
+	public int getToolId() {
+		return TOOL_ID;
 	}
 }

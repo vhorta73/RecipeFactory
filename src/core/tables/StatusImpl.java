@@ -1,35 +1,36 @@
 package core.tables;
 
 import java.sql.Timestamp;
+
 /**
- * The Privilege implementation.
+ * The Status implementation.
  * 
  * @author Vasco
  *
  */
-public class PrivilegeImpl implements Privilege {
+public class StatusImpl implements Status {
 	/**
-	 * The auto-increment id.
+	 * The Auto-increment id.
 	 */
-	public final int ID;
+	private final int ID;
 	
 	/**
-	 * The privilege display name.
+	 * The Status unique code.
 	 */
-	public final String DISPLAY_NAME;
+	private final String STATUS_CD;
 	
 	/**
-	 * The privilege status id.
+	 * The Status display code.
 	 */
-	public final int STATUS;
+	private final String DISPLAY_NAME;
 	
 	/**
-	 * The privilege description.
+	 * The Ingredient description.
 	 */
-	public final String DESCRIPTION;
-
+	private final String DESCRIPTION;
+		
 	/**
-	 * The username that created this privilege.
+	 * The username that created this ingredient.
 	 */
 	private final String CREATED_BY;
 	
@@ -49,29 +50,29 @@ public class PrivilegeImpl implements Privilege {
 	private final Timestamp LAST_UPDATED_DATE;
 
 	/**
-	 * Constructor requested each column from the table to be given.
+	 * This constructor requires all the table database columns
+	 * that matter for the system, which must be always supplied
+	 * and the construction time.
 	 * 
-	 * @param id 
-	 * @param display_name
-	 * @param status_id
-	 * @param description
-	 * @param createdBy
-	 * @param createdDate
-	 * @param lastUpdatedBy
-	 * @param lastUpdatedDate
+	 * @param id int auto increment
+	 * @param name of the ingredient
+	 * @param description for the ingredient
+	 * @param notes on the ingredient
+	 * @param createdBy username
+	 * @param createdDate String date time
+	 * @param lastUpdatedBy username
+	 * @param lastUpdatedDate String date time
 	 */
-	public PrivilegeImpl(int id, String display_name, 
-			int status_id, String description, 
-			String createdBy, Timestamp createdDate, 
-			String lastUpdatedBy, Timestamp lastUpdatedDate  ) {
+	public StatusImpl(int id, String status_cd, String displayName, String description, 
+			String createdBy, Timestamp createdDate, String lastUpdatedBy, Timestamp lastUpdatedDate ) {
 		this.ID = id;
-		this.DISPLAY_NAME = display_name;
+		this.STATUS_CD = status_cd;
+		this.DISPLAY_NAME = displayName;
 		this.DESCRIPTION = description;
 		this.CREATED_BY = createdBy;
 		this.CREATED_DATE = createdDate;
 		this.LAST_UPDATED_BY = lastUpdatedBy;
 		this.LAST_UPDATED_DATE = lastUpdatedDate;
-        this.STATUS = status_id;
 	}
 
 	/**
@@ -118,16 +119,16 @@ public class PrivilegeImpl implements Privilege {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getDisplayName() {
-		return DISPLAY_NAME;
+	public String getStatusCd() {
+		return STATUS_CD;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int getStatus() {
-		return STATUS;
+	public String getDisplayName() {
+		return DISPLAY_NAME;
 	}
 
 	/**

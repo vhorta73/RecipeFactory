@@ -17,16 +17,16 @@ public interface PrivilegeToolFeatureAccess extends DBTableCommon {
 	public int getPrivilegeToolId();
 	
 	/**
-	 * The feture code.
+	 * The feature id.
 	 * 
-	 * @return String
+	 * @return int
 	 */
-	public String getFeatureCd();
+	public int getFeatureId();
 	
 	/**
-	 * The access code.
+	 * The access id.
 	 * 
-	 * @return String
+	 * @return int
 	 */
-	public String getAccessCd();
+	public int getAccessId();
 }

@@ -77,4 +77,22 @@ public class DatabaseTableName {
 	public static String getPrivilegeToolFeatureAccessTable() {
 		return EnumTables.privilege_tool_feature_access.toString();
 	}
+
+	/**
+	 * The Status database where the status table can be found.
+	 * 
+	 * @return String database
+	 */
+	public static String getStatusDatabase() {
+		return EnumDatabases.rfact_core.toString();
+	}
+
+	/**
+	 * The Status table name.
+	 * 
+	 * @return String status
+	 */
+	public static String getStatusTable() {
+		return EnumTables.status.toString();
+	}
 }

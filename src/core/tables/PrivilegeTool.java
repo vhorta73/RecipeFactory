@@ -24,9 +24,9 @@ public interface PrivilegeTool extends DBTableCommon {
 	public int getPrivilegeId();
 	
 	/**
-	 * The tool code.
+	 * The tool id.
 	 * 
-	 * @return String
+	 * @return int
 	 */
-	public String getToolCd();
+	public int getToolId();
 }
