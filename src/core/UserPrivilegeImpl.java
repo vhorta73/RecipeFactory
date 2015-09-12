@@ -7,9 +7,10 @@ import web.interfaces.Session;
 import constants.EnumAccess;
 import constants.EnumFeature;
 import constants.EnumTool;
-import core.db.DBAccess;
-import core.db.DBFeature;
+import core.db.DBAccessImpl;
+import core.db.DBFeatureImpl;
 import core.db.DBTool;
+import core.db.DBToolImpl;
 import core.db.impl.DBPrivilegeImpl;
 import core.db.interfaces.DBPrivilege;
 import core.tables.interfaces.PrivilegeTool;
@@ -24,8 +25,8 @@ import core.tables.interfaces.PrivilegeToolFeatureAccess;
 public class UserPrivilegeImpl implements UserPrivilege {
 	private DBPrivilege privileges;
 	private DBTool tools;
-	private DBFeature features;
-	private DBAccess accesses;
+	private DBFeatureImpl features;
+	private DBAccessImpl accesses;
 	private List<PrivilegeTool> allowedTools;
 
 	/**
@@ -40,10 +41,10 @@ public class UserPrivilegeImpl implements UserPrivilege {
 		if ( !session.isLoggedIn() ) throw new IllegalArgumentException("User must be logged in at this point.");
 
     	this.privileges = new DBPrivilegeImpl(session);
-    	this.tools = new DBTool(session);
+    	this.tools = new DBToolImpl(session);
     	this.allowedTools = privileges.getPrivilegeTools();
-    	this.features = new DBFeature(session);
-    	this.accesses = new DBAccess(session);
+    	this.features = new DBFeatureImpl(session);
+    	this.accesses = new DBAccessImpl(session);
 	}
 
 	@Override

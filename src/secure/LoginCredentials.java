@@ -13,6 +13,7 @@ import mySQL.ConnectDB;
 import web.impl.SessionImpl;
 import web.interfaces.Session;
 import core.db.DBUser;
+import core.db.DBUserImpl;
 import core.tables.interfaces.User;
 
 /**
@@ -153,7 +154,7 @@ public class LoginCredentials {
 	 */
 	private void loadUser() {
 		// Get the db User handler for the user supplied at log in time.
-		DBUser db = new DBUser(this.temporarySession, username);
+		DBUser db = new DBUserImpl(this.temporarySession, username);
 		user = db.getUser();
 
 		// End problems here
