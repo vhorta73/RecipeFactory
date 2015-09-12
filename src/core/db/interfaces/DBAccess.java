@@ -1,4 +1,4 @@
-package core.db;
+package core.db.interfaces;
 
 import core.tables.interfaces.Access;
 /**

@@ -7,12 +7,12 @@ import web.interfaces.Session;
 import constants.EnumAccess;
 import constants.EnumFeature;
 import constants.EnumTool;
-import core.db.DBAccessImpl;
-import core.db.DBFeatureImpl;
-import core.db.DBTool;
-import core.db.DBToolImpl;
+import core.db.impl.DBAccessImpl;
+import core.db.impl.DBFeatureImpl;
 import core.db.impl.DBPrivilegeImpl;
+import core.db.impl.DBToolImpl;
 import core.db.interfaces.DBPrivilege;
+import core.db.interfaces.DBTool;
 import core.tables.interfaces.PrivilegeTool;
 import core.tables.interfaces.PrivilegeToolFeatureAccess;
 

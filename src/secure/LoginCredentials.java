@@ -12,8 +12,8 @@ import javax.crypto.spec.PBEKeySpec;
 import mySQL.ConnectDB;
 import web.impl.SessionImpl;
 import web.interfaces.Session;
-import core.db.DBUser;
-import core.db.DBUserImpl;
+import core.db.impl.DBUserImpl;
+import core.db.interfaces.DBUser;
 import core.tables.interfaces.User;
 
 /**
