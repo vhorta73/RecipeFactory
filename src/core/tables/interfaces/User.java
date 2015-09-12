@@ -1,7 +1,7 @@
-package core.tables;
+package core.tables.interfaces;
 
 import constants.EnumUserStatus;
-import core.db.DBTableCommon;
+import core.db.interfaces.DBTableCommon;
 
 /**
  * The User interface.

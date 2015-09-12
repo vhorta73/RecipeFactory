@@ -7,10 +7,10 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
-import web.Session;
+import web.interfaces.Session;
 import constants.DatabaseTableName;
-import core.tables.Ingredient;
-import core.tables.IngredientImpl;
+import core.tables.impl.IngredientImpl;
+import core.tables.interfaces.Ingredient;
 
 /**
  * The Ingredient table DB access.

@@ -1,31 +1,33 @@
-package core.tables;
+package core.tables.impl;
 
 import java.sql.Timestamp;
 
+import core.tables.interfaces.Tool;
+
 /**
- * The Access implementation.
+ * The Tool implementation.
  * 
  * @author Vasco
  *
  */
-public class AccessImpl implements Access {
+public class ToolImpl implements Tool {
 	/**
 	 * The Auto-increment id.
 	 */
 	private final int ID;
 	
 	/**
-	 * The Access unique code.
+	 * The Tool unique code.
 	 */
-	private final String ACCESS_CD;
+	private final String TOOL_CD;
 	
 	/**
-	 * The Access display name.
+	 * The Tool display name.
 	 */
 	private final String DISPLAY_NAME;
 	
 	/**
-	 * The Feature description.
+	 * The Tool description.
 	 */
 	private final String DESCRIPTION;
 		
@@ -53,18 +55,18 @@ public class AccessImpl implements Access {
 	 * Constructor.
 	 * 
 	 * @param id int
-	 * @param accessCd String
+	 * @param toolCd String
 	 * @param displayName String
 	 * @param description String
 	 * @param createdBy String
 	 * @param createdDate Timestamp
-	 * @param lastUpdatedBy String
+	 * @param lastUpdatedBy String 
 	 * @param lastUpdatedDate Timestamp
 	 */
-	public AccessImpl(int id, String accessCd, String displayName, String description, 
+	public ToolImpl(int id, String toolCd, String displayName, String description, 
 			String createdBy, Timestamp createdDate, String lastUpdatedBy, Timestamp lastUpdatedDate ) {
 		this.ID = id;
-		this.ACCESS_CD = accessCd;
+		this.TOOL_CD = toolCd;
 		this.DISPLAY_NAME = displayName;
 		this.DESCRIPTION = description;
 		this.CREATED_BY = createdBy;
@@ -117,8 +119,8 @@ public class AccessImpl implements Access {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getAccessCd() {
-		return ACCESS_CD;
+	public String getToolCd() {
+		return TOOL_CD;
 	}
 
 	/**

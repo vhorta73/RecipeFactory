@@ -10,10 +10,10 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 import mySQL.ConnectDB;
-import web.Session;
-import web.SessionImpl;
+import web.impl.SessionImpl;
+import web.interfaces.Session;
 import core.db.DBUser;
-import core.tables.User;
+import core.tables.interfaces.User;
 
 /**
  * Login Credentials manager.

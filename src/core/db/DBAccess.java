@@ -7,10 +7,10 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
-import web.Session;
+import web.interfaces.Session;
 import constants.DatabaseTableName;
-import core.tables.Access;
-import core.tables.AccessImpl;
+import core.tables.impl.AccessImpl;
+import core.tables.interfaces.Access;
 
 /**
  * The Access table DB access.

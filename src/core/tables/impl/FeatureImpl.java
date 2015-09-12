@@ -1,29 +1,36 @@
-package core.tables;
+package core.tables.impl;
 
 import java.sql.Timestamp;
 
+import core.tables.interfaces.Feature;
+
 /**
- * The Privilege Tool implementation.
+ * The Feature implementation.
  * 
  * @author Vasco
  *
  */
-public class PrivilegeToolImpl implements PrivilegeTool {
+public class FeatureImpl implements Feature {
 	/**
-	 * The auto-increment id.
+	 * The Auto-increment id.
 	 */
-	public final int ID;
+	private final int ID;
 	
 	/**
-	 * The privilege id.
+	 * The Feature unique code.
 	 */
-	public final int PRIVILEGE_ID;
+	private final String FEATURE_CD;
 	
 	/**
-	 * The tool id.
+	 * The Feature display name.
 	 */
-	public final int TOOL_ID;
-
+	private final String DISPLAY_NAME;
+	
+	/**
+	 * The Feature description.
+	 */
+	private final String DESCRIPTION;
+		
 	/**
 	 * The username that created this record.
 	 */
@@ -45,22 +52,23 @@ public class PrivilegeToolImpl implements PrivilegeTool {
 	private final Timestamp LAST_UPDATED_DATE;
 
 	/**
-	 * The Constructor.
+	 * Constructor.
 	 * 
 	 * @param id int
-	 * @param privilegeId int
-	 * @param toolId int
+	 * @param featureCd String
+	 * @param displayName String
+	 * @param description String
 	 * @param createdBy String
 	 * @param createdDate Timestamp
 	 * @param lastUpdatedBy String
 	 * @param lastUpdatedDate Timestamp
 	 */
-	public PrivilegeToolImpl(int id, int privilegeId, int toolId,
-			String createdBy, Timestamp createdDate, 
-			String lastUpdatedBy, Timestamp lastUpdatedDate  ) {
+	public FeatureImpl(int id, String featureCd, String displayName, String description, 
+			String createdBy, Timestamp createdDate, String lastUpdatedBy, Timestamp lastUpdatedDate ) {
 		this.ID = id;
-		this.PRIVILEGE_ID = privilegeId;
-		this.TOOL_ID = toolId;
+		this.FEATURE_CD = featureCd;
+		this.DISPLAY_NAME = displayName;
+		this.DESCRIPTION = description;
 		this.CREATED_BY = createdBy;
 		this.CREATED_DATE = createdDate;
 		this.LAST_UPDATED_BY = lastUpdatedBy;
@@ -111,15 +119,23 @@ public class PrivilegeToolImpl implements PrivilegeTool {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int 	getPrivilegeId() {
-		return PRIVILEGE_ID;
+	public String getFeatureCd() {
+		return FEATURE_CD;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int getToolId() {
-		return TOOL_ID;
+	public String getDisplayName() {
+		return DISPLAY_NAME;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getDescription() {
+		return DESCRIPTION;
 	}
 }

@@ -1,36 +1,38 @@
-package core.tables;
+package core.tables.impl;
 
 import java.sql.Timestamp;
 
+import core.tables.interfaces.Status;
+
 /**
- * The Feature implementation.
+ * The Status implementation.
  * 
  * @author Vasco
  *
  */
-public class FeatureImpl implements Feature {
+public class StatusImpl implements Status {
 	/**
 	 * The Auto-increment id.
 	 */
 	private final int ID;
 	
 	/**
-	 * The Feature unique code.
+	 * The Status unique code.
 	 */
-	private final String FEATURE_CD;
+	private final String STATUS_CD;
 	
 	/**
-	 * The Feature display name.
+	 * The Status display code.
 	 */
 	private final String DISPLAY_NAME;
 	
 	/**
-	 * The Feature description.
+	 * The Ingredient description.
 	 */
 	private final String DESCRIPTION;
 		
 	/**
-	 * The username that created this record.
+	 * The username that created this ingredient.
 	 */
 	private final String CREATED_BY;
 	
@@ -50,21 +52,23 @@ public class FeatureImpl implements Feature {
 	private final Timestamp LAST_UPDATED_DATE;
 
 	/**
-	 * Constructor.
+	 * This constructor requires all the table database columns
+	 * that matter for the system, which must be always supplied
+	 * and the construction time.
 	 * 
-	 * @param id int
-	 * @param featureCd String
-	 * @param displayName String
-	 * @param description String
-	 * @param createdBy String
-	 * @param createdDate Timestamp
-	 * @param lastUpdatedBy String
-	 * @param lastUpdatedDate Timestamp
+	 * @param id int auto increment
+	 * @param name of the ingredient
+	 * @param description for the ingredient
+	 * @param notes on the ingredient
+	 * @param createdBy username
+	 * @param createdDate String date time
+	 * @param lastUpdatedBy username
+	 * @param lastUpdatedDate String date time
 	 */
-	public FeatureImpl(int id, String featureCd, String displayName, String description, 
+	public StatusImpl(int id, String status_cd, String displayName, String description, 
 			String createdBy, Timestamp createdDate, String lastUpdatedBy, Timestamp lastUpdatedDate ) {
 		this.ID = id;
-		this.FEATURE_CD = featureCd;
+		this.STATUS_CD = status_cd;
 		this.DISPLAY_NAME = displayName;
 		this.DESCRIPTION = description;
 		this.CREATED_BY = createdBy;
@@ -117,8 +121,8 @@ public class FeatureImpl implements Feature {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getFeatureCd() {
-		return FEATURE_CD;
+	public String getStatusCd() {
+		return STATUS_CD;
 	}
 
 	/**

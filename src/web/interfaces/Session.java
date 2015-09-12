@@ -1,7 +1,7 @@
-package web;
+package web.interfaces;
 
 import mySQL.ConnectDB;
-import core.tables.User;
+import core.tables.interfaces.User;
 
 /**
  * The Session interface.

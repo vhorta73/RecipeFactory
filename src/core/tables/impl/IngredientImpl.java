@@ -1,34 +1,36 @@
-package core.tables;
+package core.tables.impl;
 
 import java.sql.Timestamp;
 
+import core.tables.interfaces.Ingredient;
+
 /**
- * The Status implementation.
+ * The Ingredient implementation.
  * 
  * @author Vasco
  *
  */
-public class StatusImpl implements Status {
+public class IngredientImpl implements Ingredient {
 	/**
 	 * The Auto-increment id.
 	 */
 	private final int ID;
 	
 	/**
-	 * The Status unique code.
+	 * The Ingredient unique name.
 	 */
-	private final String STATUS_CD;
-	
-	/**
-	 * The Status display code.
-	 */
-	private final String DISPLAY_NAME;
+	private final String NAME;
 	
 	/**
 	 * The Ingredient description.
 	 */
 	private final String DESCRIPTION;
-		
+	
+	/**
+	 * The Ingredient notes.
+	 */
+	private final String NOTES;
+	
 	/**
 	 * The username that created this ingredient.
 	 */
@@ -63,12 +65,12 @@ public class StatusImpl implements Status {
 	 * @param lastUpdatedBy username
 	 * @param lastUpdatedDate String date time
 	 */
-	public StatusImpl(int id, String status_cd, String displayName, String description, 
+	public IngredientImpl(int id, String name, String description, String notes, 
 			String createdBy, Timestamp createdDate, String lastUpdatedBy, Timestamp lastUpdatedDate ) {
 		this.ID = id;
-		this.STATUS_CD = status_cd;
-		this.DISPLAY_NAME = displayName;
+		this.NAME = name;
 		this.DESCRIPTION = description;
+		this.NOTES = notes;
 		this.CREATED_BY = createdBy;
 		this.CREATED_DATE = createdDate;
 		this.LAST_UPDATED_BY = lastUpdatedBy;
@@ -119,16 +121,8 @@ public class StatusImpl implements Status {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getStatusCd() {
-		return STATUS_CD;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getDisplayName() {
-		return DISPLAY_NAME;
+	public String getName() {
+		return NAME;
 	}
 
 	/**
@@ -137,5 +131,13 @@ public class StatusImpl implements Status {
 	@Override
 	public String getDescription() {
 		return DESCRIPTION;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getNotes() {
+		return NOTES;
 	}
 }

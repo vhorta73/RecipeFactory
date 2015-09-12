@@ -1,4 +1,4 @@
-package core.db;
+package core.db.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,14 +8,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringJoiner;
 
-import web.Session;
+import web.interfaces.Session;
 import constants.DatabaseTableName;
-import core.tables.Privilege;
-import core.tables.PrivilegeImpl;
-import core.tables.PrivilegeTool;
-import core.tables.PrivilegeToolFeatureAccess;
-import core.tables.PrivilegeToolFeatureAcessImpl;
-import core.tables.PrivilegeToolImpl;
+import core.db.interfaces.DBPrivilege;
+import core.tables.impl.PrivilegeImpl;
+import core.tables.impl.PrivilegeToolFeatureAcessImpl;
+import core.tables.impl.PrivilegeToolImpl;
+import core.tables.interfaces.Privilege;
+import core.tables.interfaces.PrivilegeTool;
+import core.tables.interfaces.PrivilegeToolFeatureAccess;
 
 /**
  * The privilege table DB access.

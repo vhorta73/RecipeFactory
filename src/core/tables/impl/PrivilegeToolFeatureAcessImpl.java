@@ -1,6 +1,8 @@
-package core.tables;
+package core.tables.impl;
 
 import java.sql.Timestamp;
+
+import core.tables.interfaces.PrivilegeToolFeatureAccess;
 
 /**
  * The Privilege Tool Feature Access implementation.

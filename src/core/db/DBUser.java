@@ -5,10 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-import web.Session;
+import web.interfaces.Session;
 import constants.DatabaseTableName;
-import core.tables.User;
-import core.tables.UserImpl;
+import core.tables.impl.UserImpl;
+import core.tables.interfaces.User;
 
 /**
  * The User table database access.

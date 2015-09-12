@@ -7,10 +7,10 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
-import web.Session;
+import web.interfaces.Session;
 import constants.DatabaseTableName;
-import core.tables.Status;
-import core.tables.StatusImpl;
+import core.tables.impl.StatusImpl;
+import core.tables.interfaces.Status;
 
 /**
  * The Status table DB access.

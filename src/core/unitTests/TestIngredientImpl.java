@@ -9,8 +9,8 @@ import java.sql.Timestamp;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.tables.Ingredient;
-import core.tables.IngredientImpl;
+import core.tables.impl.IngredientImpl;
+import core.tables.interfaces.Ingredient;
 
 /**
  * Testing the Ingredient implementation.

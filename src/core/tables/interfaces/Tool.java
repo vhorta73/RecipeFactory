@@ -1,6 +1,6 @@
-package core.tables;
+package core.tables.interfaces;
 
-import core.db.DBTableCommon;
+import core.db.interfaces.DBTableCommon;
 
 /**
  * The Tool interface.

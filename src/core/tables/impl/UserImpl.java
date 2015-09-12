@@ -1,8 +1,9 @@
-package core.tables;
+package core.tables.impl;
 
 import java.sql.Timestamp;
 
 import constants.EnumUserStatus;
+import core.tables.interfaces.User;
 
 /**
  * The User implementation.

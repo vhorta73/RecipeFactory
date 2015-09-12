@@ -7,10 +7,10 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
-import web.Session;
+import web.interfaces.Session;
 import constants.DatabaseTableName;
-import core.tables.Tool;
-import core.tables.ToolImpl;
+import core.tables.impl.ToolImpl;
+import core.tables.interfaces.Tool;
 
 /**
  * The Tool table DB access.

@@ -7,10 +7,10 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
-import web.Session;
+import web.interfaces.Session;
 import constants.DatabaseTableName;
-import core.tables.Feature;
-import core.tables.FeatureImpl;
+import core.tables.impl.FeatureImpl;
+import core.tables.interfaces.Feature;
 
 /**
  * The Feature table DB access.

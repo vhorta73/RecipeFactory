@@ -3,17 +3,17 @@ package core;
 import java.util.List;
 import java.util.Optional;
 
-import web.Session;
+import web.interfaces.Session;
 import constants.EnumAccess;
 import constants.EnumFeature;
 import constants.EnumTool;
 import core.db.DBAccess;
 import core.db.DBFeature;
-import core.db.DBPrivilege;
-import core.db.DBPrivilegeImpl;
 import core.db.DBTool;
-import core.tables.PrivilegeTool;
-import core.tables.PrivilegeToolFeatureAccess;
+import core.db.impl.DBPrivilegeImpl;
+import core.db.interfaces.DBPrivilege;
+import core.tables.interfaces.PrivilegeTool;
+import core.tables.interfaces.PrivilegeToolFeatureAccess;
 
 /**
  * The user privilege checks.

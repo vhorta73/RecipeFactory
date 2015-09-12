@@ -8,8 +8,8 @@ import java.sql.Timestamp;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.tables.Privilege;
-import core.tables.PrivilegeImpl;
+import core.tables.impl.PrivilegeImpl;
+import core.tables.interfaces.Privilege;
 
 /**
  * Testing the Privilege implementation.

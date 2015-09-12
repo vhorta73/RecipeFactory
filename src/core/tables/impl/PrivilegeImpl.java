@@ -1,36 +1,37 @@
-package core.tables;
+package core.tables.impl;
 
 import java.sql.Timestamp;
 
+import core.tables.interfaces.Privilege;
 /**
- * The Ingredient implementation.
+ * The Privilege implementation.
  * 
  * @author Vasco
  *
  */
-public class IngredientImpl implements Ingredient {
+public class PrivilegeImpl implements Privilege {
 	/**
-	 * The Auto-increment id.
+	 * The auto-increment id.
 	 */
-	private final int ID;
+	public final int ID;
 	
 	/**
-	 * The Ingredient unique name.
+	 * The privilege display name.
 	 */
-	private final String NAME;
+	public final String DISPLAY_NAME;
 	
 	/**
-	 * The Ingredient description.
+	 * The privilege status id.
 	 */
-	private final String DESCRIPTION;
+	public final int STATUS;
 	
 	/**
-	 * The Ingredient notes.
+	 * The privilege description.
 	 */
-	private final String NOTES;
-	
+	public final String DESCRIPTION;
+
 	/**
-	 * The username that created this ingredient.
+	 * The username that created this privilege.
 	 */
 	private final String CREATED_BY;
 	
@@ -50,29 +51,29 @@ public class IngredientImpl implements Ingredient {
 	private final Timestamp LAST_UPDATED_DATE;
 
 	/**
-	 * This constructor requires all the table database columns
-	 * that matter for the system, which must be always supplied
-	 * and the construction time.
+	 * Constructor requested each column from the table to be given.
 	 * 
-	 * @param id int auto increment
-	 * @param name of the ingredient
-	 * @param description for the ingredient
-	 * @param notes on the ingredient
-	 * @param createdBy username
-	 * @param createdDate String date time
-	 * @param lastUpdatedBy username
-	 * @param lastUpdatedDate String date time
+	 * @param id 
+	 * @param display_name
+	 * @param status_id
+	 * @param description
+	 * @param createdBy
+	 * @param createdDate
+	 * @param lastUpdatedBy
+	 * @param lastUpdatedDate
 	 */
-	public IngredientImpl(int id, String name, String description, String notes, 
-			String createdBy, Timestamp createdDate, String lastUpdatedBy, Timestamp lastUpdatedDate ) {
+	public PrivilegeImpl(int id, String display_name, 
+			int status_id, String description, 
+			String createdBy, Timestamp createdDate, 
+			String lastUpdatedBy, Timestamp lastUpdatedDate  ) {
 		this.ID = id;
-		this.NAME = name;
+		this.DISPLAY_NAME = display_name;
 		this.DESCRIPTION = description;
-		this.NOTES = notes;
 		this.CREATED_BY = createdBy;
 		this.CREATED_DATE = createdDate;
 		this.LAST_UPDATED_BY = lastUpdatedBy;
 		this.LAST_UPDATED_DATE = lastUpdatedDate;
+        this.STATUS = status_id;
 	}
 
 	/**
@@ -119,8 +120,16 @@ public class IngredientImpl implements Ingredient {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getName() {
-		return NAME;
+	public String getDisplayName() {
+		return DISPLAY_NAME;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getStatus() {
+		return STATUS;
 	}
 
 	/**
@@ -129,13 +138,5 @@ public class IngredientImpl implements Ingredient {
 	@Override
 	public String getDescription() {
 		return DESCRIPTION;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getNotes() {
-		return NOTES;
 	}
 }

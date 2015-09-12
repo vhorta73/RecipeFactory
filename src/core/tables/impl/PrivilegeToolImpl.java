@@ -1,35 +1,33 @@
-package core.tables;
+package core.tables.impl;
 
 import java.sql.Timestamp;
+
+import core.tables.interfaces.PrivilegeTool;
+
 /**
- * The Privilege implementation.
+ * The Privilege Tool implementation.
  * 
  * @author Vasco
  *
  */
-public class PrivilegeImpl implements Privilege {
+public class PrivilegeToolImpl implements PrivilegeTool {
 	/**
 	 * The auto-increment id.
 	 */
 	public final int ID;
 	
 	/**
-	 * The privilege display name.
+	 * The privilege id.
 	 */
-	public final String DISPLAY_NAME;
+	public final int PRIVILEGE_ID;
 	
 	/**
-	 * The privilege status id.
+	 * The tool id.
 	 */
-	public final int STATUS;
-	
-	/**
-	 * The privilege description.
-	 */
-	public final String DESCRIPTION;
+	public final int TOOL_ID;
 
 	/**
-	 * The username that created this privilege.
+	 * The username that created this record.
 	 */
 	private final String CREATED_BY;
 	
@@ -49,29 +47,26 @@ public class PrivilegeImpl implements Privilege {
 	private final Timestamp LAST_UPDATED_DATE;
 
 	/**
-	 * Constructor requested each column from the table to be given.
+	 * The Constructor.
 	 * 
-	 * @param id 
-	 * @param display_name
-	 * @param status_id
-	 * @param description
-	 * @param createdBy
-	 * @param createdDate
-	 * @param lastUpdatedBy
-	 * @param lastUpdatedDate
+	 * @param id int
+	 * @param privilegeId int
+	 * @param toolId int
+	 * @param createdBy String
+	 * @param createdDate Timestamp
+	 * @param lastUpdatedBy String
+	 * @param lastUpdatedDate Timestamp
 	 */
-	public PrivilegeImpl(int id, String display_name, 
-			int status_id, String description, 
+	public PrivilegeToolImpl(int id, int privilegeId, int toolId,
 			String createdBy, Timestamp createdDate, 
 			String lastUpdatedBy, Timestamp lastUpdatedDate  ) {
 		this.ID = id;
-		this.DISPLAY_NAME = display_name;
-		this.DESCRIPTION = description;
+		this.PRIVILEGE_ID = privilegeId;
+		this.TOOL_ID = toolId;
 		this.CREATED_BY = createdBy;
 		this.CREATED_DATE = createdDate;
 		this.LAST_UPDATED_BY = lastUpdatedBy;
 		this.LAST_UPDATED_DATE = lastUpdatedDate;
-        this.STATUS = status_id;
 	}
 
 	/**
@@ -118,23 +113,15 @@ public class PrivilegeImpl implements Privilege {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getDisplayName() {
-		return DISPLAY_NAME;
+	public int 	getPrivilegeId() {
+		return PRIVILEGE_ID;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int getStatus() {
-		return STATUS;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getDescription() {
-		return DESCRIPTION;
+	public int getToolId() {
+		return TOOL_ID;
 	}
 }

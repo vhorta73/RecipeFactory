@@ -1,10 +1,10 @@
-package core.db;
+package core.db.interfaces;
 
 import java.util.List;
 
-import core.tables.Privilege;
-import core.tables.PrivilegeTool;
-import core.tables.PrivilegeToolFeatureAccess;
+import core.tables.interfaces.Privilege;
+import core.tables.interfaces.PrivilegeTool;
+import core.tables.interfaces.PrivilegeToolFeatureAccess;
 
 /**
  * The DBPrivilege interface.

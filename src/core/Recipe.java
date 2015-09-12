@@ -1,6 +1,6 @@
 package core;
 
-import core.db.DBTableCommon;
+import core.db.interfaces.DBTableCommon;
 
 /**
  * The Recipe interface.
