@@ -95,4 +95,22 @@ public class DatabaseTableName {
 	public static String getStatusTable() {
 		return EnumTables.status.toString();
 	}
+
+	/**
+	 * The Tool database where the tool table can be found.
+	 * 
+	 * @return String database
+	 */
+	public static String getToolDatabase() {
+		return EnumDatabases.rfact_core.toString();
+	}
+
+	/**
+	 * The Tool table name.
+	 * 
+	 * @return String tool
+	 */
+	public static String getToolTable() {
+		return EnumTables.tool.toString();
+	}
 }
