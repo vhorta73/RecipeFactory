@@ -113,4 +113,23 @@ public class DatabaseTableName {
 	public static String getToolTable() {
 		return EnumTables.tool.toString();
 	}
+
+	/**
+	 * The Feature database where the feature table can be found.
+	 * 
+	 * @return String database
+	 */
+	public static String getFeatureDatabase() {
+		return EnumDatabases.rfact_core.toString();
+	}
+
+	/**
+	 * The Feature table name.
+	 * 
+	 * @return String tool_feature
+	 */
+	public static String getFeatureTable() {
+		return EnumTables.tool_feature.toString();
+	}
+
 }

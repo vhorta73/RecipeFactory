@@ -3,29 +3,29 @@ package core.tables;
 import java.sql.Timestamp;
 
 /**
- * The Tool implementation.
+ * The Feature implementation.
  * 
  * @author Vasco
  *
  */
-public class ToolImpl implements Tool {
+public class FeatureImpl implements Feature {
 	/**
 	 * The Auto-increment id.
 	 */
 	private final int ID;
 	
 	/**
-	 * The Tool unique code.
+	 * The Feature unique code.
 	 */
-	private final String TOOL_CD;
+	private final String FEATURE_CD;
 	
 	/**
-	 * The Tool display name.
+	 * The Feature display name.
 	 */
 	private final String DISPLAY_NAME;
 	
 	/**
-	 * The Tool description.
+	 * The Feature description.
 	 */
 	private final String DESCRIPTION;
 		
@@ -53,18 +53,18 @@ public class ToolImpl implements Tool {
 	 * Constructor.
 	 * 
 	 * @param id int
-	 * @param toolCd String
+	 * @param featureCd String
 	 * @param displayName String
 	 * @param description String
 	 * @param createdBy String
 	 * @param createdDate Timestamp
-	 * @param lastUpdatedBy String 
+	 * @param lastUpdatedBy String
 	 * @param lastUpdatedDate Timestamp
 	 */
-	public ToolImpl(int id, String toolCd, String displayName, String description, 
+	public FeatureImpl(int id, String featureCd, String displayName, String description, 
 			String createdBy, Timestamp createdDate, String lastUpdatedBy, Timestamp lastUpdatedDate ) {
 		this.ID = id;
-		this.TOOL_CD = toolCd;
+		this.FEATURE_CD = featureCd;
 		this.DISPLAY_NAME = displayName;
 		this.DESCRIPTION = description;
 		this.CREATED_BY = createdBy;
@@ -117,8 +117,8 @@ public class ToolImpl implements Tool {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getToolCd() {
-		return TOOL_CD;
+	public String getFeatureCd() {
+		return FEATURE_CD;
 	}
 
 	/**

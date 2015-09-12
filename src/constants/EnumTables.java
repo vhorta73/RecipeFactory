@@ -14,5 +14,6 @@ public enum EnumTables {
 	privilege_tool_feature_access,         // Type of access granted per tool feature
 	status,                                // List of all possible statuses
 	tool,                                  // List of all known tools
+	tool_feature,                          // List of all features tools may have
 	
 }
