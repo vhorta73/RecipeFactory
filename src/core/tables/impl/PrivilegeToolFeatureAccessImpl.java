@@ -10,7 +10,7 @@ import core.tables.interfaces.PrivilegeToolFeatureAccess;
  * @author Vasco
  *
  */
-public class PrivilegeToolFeatureAcessImpl implements PrivilegeToolFeatureAccess {
+public class PrivilegeToolFeatureAccessImpl implements PrivilegeToolFeatureAccess {
 	/**
 	 * The privilege tool id.
 	 */
@@ -57,7 +57,7 @@ public class PrivilegeToolFeatureAcessImpl implements PrivilegeToolFeatureAccess
 	 * @param lastUpdatedBy String 
 	 * @param lastUpdatedDate Timestamp
 	 */
-	public PrivilegeToolFeatureAcessImpl(int privilegeToolId,
+	public PrivilegeToolFeatureAccessImpl(int privilegeToolId,
 			int featureId, int accessId,
 			String createdBy, Timestamp createdDate, 
 			String lastUpdatedBy, Timestamp lastUpdatedDate  ) {

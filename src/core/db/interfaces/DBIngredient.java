@@ -32,4 +32,32 @@ public interface DBIngredient {
 	 * @return List Ingredient
 	 */
 	public List<Ingredient> getIngredients();
+
+	/**
+     * Create a new record with given information.
+     * 
+     * @param ingredient Ingredient
+     */
+    public void createRecord(Ingredient ingredient);
+    
+    /**
+     * Create new records with given information.
+     * 
+     * @param ingredientList List Ingredient
+     */
+    public void createRecords(List<Ingredient> ingredientList);
+    
+    /**
+     * Update an existing record with given information.
+     * 
+     * @param ingredient Ingredient
+     */
+    public void updateRecord(Ingredient ingredient);
+    
+    /**
+     * Update existing records with given information.
+     * 
+     * @param ingredient List Ingredient
+     */
+    public void updateRecords(List<Ingredient> ingredient);
 }

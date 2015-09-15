@@ -1,6 +1,5 @@
 package core.tables.interfaces;
 
-import constants.EnumUserStatus;
 
 /**
  * The User interface.
@@ -46,5 +45,5 @@ public interface User extends TableCommon {
 	 * 
 	 * @return UserStatus
 	 */
-	public EnumUserStatus getStatus();
+	public String getStatus();
 }

@@ -26,6 +26,20 @@ public class DBIngredientImpl implements DBIngredient {
 	private Session session;
 
 	/**
+	 * The final insert sql to create new records.
+	 */
+	private final String INSERT_SQL = "INSERT INTO " + DatabaseTableName.getIngredientTable() 
+            + " (name,description,notes,created_by,last_updated_by)"
+            + " VALUES(?,?,?,?,?)";
+
+	/**
+	 * The final updating sql to update old records.
+	 */
+    private final String UPDATE_SQL = "UPDATE " + DatabaseTableName.getIngredientTable() 
+    		+ " SET access_cd = ?, display_name = ?, description = ?,"
+    		+ " last_updated_by = ? WHERE id = ? ";
+
+	/**
 	 * The Constructor requiring a valid initialised session
 	 * to gain access to the database.
 	 * 
@@ -122,4 +136,134 @@ public class DBIngredientImpl implements DBIngredient {
 
 		return finalIngredientList;
 	}
+
+	/**
+     * {@inheritDoc}
+     */
+    @Override
+    public void createRecord(Ingredient ingredient) {
+        if ( ingredient == null ) throw new IllegalArgumentException("Ingredient record cannot be null.");
+        
+        PreparedStatement prepSt = null;
+        try {
+            prepSt = this.session.getDB()
+                    .getConnection(DatabaseTableName.getIngredientDatabase())
+                    .prepareStatement(INSERT_SQL);
+            
+            prepSt.setString(1, ingredient.getName());
+            prepSt.setString(2, ingredient.getDescription());
+            prepSt.setString(3, ingredient.getNotes());
+            prepSt.setString(4, ingredient.getCreatedBy());
+            prepSt.setString(5, ingredient.getLastUpdatedBy());            
+            prepSt.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prepSt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void createRecords(List<Ingredient> ingredientList) {
+        if ( ingredientList == null ) throw new IllegalArgumentException("Ingredient list record cannot be null.");
+        
+        PreparedStatement prepSt = null;
+        try {
+            prepSt = this.session.getDB()
+            		.getConnection(DatabaseTableName.getIngredientDatabase())
+            		.prepareStatement(INSERT_SQL);
+    
+            for( Ingredient ingredient : ingredientList ) {
+                prepSt.setString(1, ingredient.getName());
+                prepSt.setString(2, ingredient.getDescription());
+                prepSt.setString(3, ingredient.getNotes());
+                prepSt.setString(4, ingredient.getCreatedBy());
+                prepSt.setString(5, ingredient.getLastUpdatedBy());            
+                prepSt.addBatch();
+            }
+            prepSt.executeBatch();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prepSt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateRecord(Ingredient ingredient) {
+        if ( ingredient == null ) throw new IllegalArgumentException("Ingredient record cannot be null.");
+
+        PreparedStatement prepSt = null;
+        try {
+            prepSt = this.session.getDB()
+                    .getConnection(DatabaseTableName.getIngredientDatabase())
+                    .prepareStatement(UPDATE_SQL);
+            
+            prepSt.setString(1, ingredient.getName());
+            prepSt.setString(2, ingredient.getDescription());
+            prepSt.setString(3, ingredient.getNotes());
+            prepSt.setString(4, ingredient.getLastUpdatedBy());            
+            prepSt.setInt(5, ingredient.getId());
+            prepSt.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prepSt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateRecords(List<Ingredient> ingredientList) {
+        if ( ingredientList == null ) throw new IllegalArgumentException("Ingredient list record cannot be null.");
+
+        PreparedStatement prepSt = null;
+        try {
+            prepSt = this.session.getDB()
+            		.getConnection(DatabaseTableName.getIngredientDatabase())
+            		.prepareStatement(UPDATE_SQL);
+                
+            for( Ingredient ingredient : ingredientList ) {
+                prepSt.setString(1, ingredient.getName());
+                prepSt.setString(2, ingredient.getDescription());
+                prepSt.setString(3, ingredient.getNotes());
+                prepSt.setString(4, ingredient.getLastUpdatedBy());
+                prepSt.setInt(5, ingredient.getId());            
+                prepSt.addBatch();
+            }
+            prepSt.executeBatch();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prepSt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

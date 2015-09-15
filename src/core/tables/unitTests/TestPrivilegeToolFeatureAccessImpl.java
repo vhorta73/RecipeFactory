@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.tables.impl.PrivilegeToolFeatureAcessImpl;
+import core.tables.impl.PrivilegeToolFeatureAccessImpl;
 import core.tables.interfaces.PrivilegeToolFeatureAccess;
 
 /**
@@ -65,7 +65,7 @@ public class TestPrivilegeToolFeatureAccessImpl {
 	 */
 	@Before
 	public void before() {
-		privilegeToolFeatureAccess = new PrivilegeToolFeatureAcessImpl(PRIVILEGE_TOOL_ID,
+		privilegeToolFeatureAccess = new PrivilegeToolFeatureAccessImpl(PRIVILEGE_TOOL_ID,
 				FEATURE_ID, ACCESS_ID, CREATED_BY, CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE);
 	}
 

@@ -26,6 +26,20 @@ public class DBFeatureImpl implements DBFeature {
 	private Session session;
 
 	/**
+	 * The final insert sql for new records.
+	 */
+	private final String INSERT_SQL = "INSERT INTO " + DatabaseTableName.getFeatureTable() 
+            + " (feature_cd,display_name,description,created_by,last_updated_by)"
+            + " VALUES(?,?,?,?,?)";
+
+	/**
+	 * The final update sql for old record changes.
+	 */
+	private final String UPDATE_SQL = "UPDATE " + DatabaseTableName.getFeatureTable() 
+            + " SET feature_cd = ?, display_name = ?, description = ?,"
+            + " last_updated_by = ? WHERE id = ?";
+
+	/**
 	 * The Constructor requiring a valid initialised session
 	 * to gain access to the database.
 	 * 
@@ -112,4 +126,135 @@ public class DBFeatureImpl implements DBFeature {
 
 		return finalFeatureList;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void createRecord(Feature feature) {
+        if ( feature == null ) throw new IllegalArgumentException("Feature record cannot be null.");
+        
+        PreparedStatement prepSt = null;
+        try {
+            prepSt = this.session.getDB()
+                    .getConnection(DatabaseTableName.getFeatureDatabase())
+                    .prepareStatement(INSERT_SQL);
+            
+            prepSt.setString(1, feature.getFeatureCd());
+            prepSt.setString(2, feature.getDisplayName());
+            prepSt.setString(3, feature.getDescription());
+            prepSt.setString(4, feature.getCreatedBy());
+            prepSt.setString(5, feature.getLastUpdatedBy());            
+            prepSt.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prepSt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+	}
+
+	/**
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void createRecords(List<Feature> featureList) {
+        if ( featureList == null ) throw new IllegalArgumentException("Feature list record cannot be null.");
+        
+        PreparedStatement prepSt = null;
+        try {
+            prepSt = this.session.getDB()
+            		.getConnection(DatabaseTableName.getFeatureDatabase())
+            		.prepareStatement(INSERT_SQL);
+    
+            for( Feature feature : featureList ) {
+                prepSt.setString(1, feature.getFeatureCd());
+                prepSt.setString(2, feature.getDisplayName());
+                prepSt.setString(3, feature.getDescription());
+                prepSt.setString(4, feature.getCreatedBy());
+                prepSt.setString(5, feature.getLastUpdatedBy());            
+                prepSt.addBatch();
+            }
+            prepSt.executeBatch();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prepSt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateRecord(Feature feature) {
+        if ( feature == null ) throw new IllegalArgumentException("Feature record cannot be null.");
+
+        PreparedStatement prepSt = null;
+        try {
+            prepSt = this.session.getDB()
+                    .getConnection(DatabaseTableName.getFeatureDatabase())
+                    .prepareStatement(UPDATE_SQL);
+            
+            prepSt.setString(1, feature.getFeatureCd());
+            prepSt.setString(2, feature.getDisplayName());
+            prepSt.setString(3, feature.getDescription());
+            prepSt.setString(4, feature.getLastUpdatedBy());            
+            prepSt.setInt(5, feature.getId());            
+            prepSt.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prepSt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateRecords(List<Feature> featureList) {
+        if ( featureList == null ) throw new IllegalArgumentException("Feature list record cannot be null.");
+
+        PreparedStatement prepSt = null;
+        try {
+            prepSt = this.session.getDB()
+            		.getConnection(DatabaseTableName.getFeatureDatabase())
+            		.prepareStatement(UPDATE_SQL);
+    
+            for( Feature feature : featureList ) {
+                prepSt.setString(1, feature.getFeatureCd());
+                prepSt.setString(2, feature.getDisplayName());
+                prepSt.setString(3, feature.getDescription());
+                prepSt.setString(4, feature.getLastUpdatedBy());
+                prepSt.setInt(5, feature.getId());            
+                prepSt.addBatch();
+            }
+            prepSt.executeBatch();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prepSt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

@@ -25,7 +25,21 @@ public class DBStatusImpl implements DBStatus {
 	 */
 	private Session session;
 
-	/**
+    /**
+     * The insert sql for new records.
+     */
+    private final String INSERT_SQL = "INSERT INTO " + DatabaseTableName.getStatusTable() 
+            + " (status_cd,display_name,description,created_by,last_updated_by)"
+            + " VALUES(?,?,?,?,?)";
+    
+    /**
+     * The update sql for old record changes.
+     */
+    private final String UPDATE_SQL = "UPDATE " + DatabaseTableName.getStatusTable() 
+            + " SET status_cd = ?, display_name = ?, description = ?,"
+            + " last_updated_by = ? WHERE id = ?";
+
+    /**
 	 * The Constructor requiring a valid initialised session
 	 * to gain access to the database.
 	 * 
@@ -112,4 +126,95 @@ public class DBStatusImpl implements DBStatus {
 
 		return finalStatusList;
 	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void createRecord(Status status) {
+        if ( status == null ) throw new IllegalArgumentException("Status record cannot be null.");
+
+        List<Status> statusList = new LinkedList<Status>();
+        statusList.add(status);
+        createRecords(statusList);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void createRecords(List<Status> statusList) {
+        if ( statusList == null ) throw new IllegalArgumentException("Status list record cannot be null.");
+        
+        PreparedStatement prepSt = null;
+        try {
+            prepSt = this.session.getDB()
+            		.getConnection(DatabaseTableName.getAccessDatabase())
+            		.prepareStatement(INSERT_SQL);
+    
+            for( Status status : statusList ) {
+                prepSt.setString(1, status.getStatusCd());
+                prepSt.setString(2, status.getDisplayName());
+                prepSt.setString(3, status.getDescription());
+                prepSt.setString(4, status.getCreatedBy());
+                prepSt.setString(5, status.getLastUpdatedBy());            
+                prepSt.addBatch();
+            }
+            prepSt.executeBatch();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prepSt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateRecord(Status status) {
+        if ( status == null ) throw new IllegalArgumentException("Status record cannot be null.");
+
+        List<Status> statusList = new LinkedList<Status>();
+        statusList.add(status);
+        updateRecords(statusList);
+            }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateRecords(List<Status> statusList) {
+        if ( statusList == null ) throw new IllegalArgumentException("Status list record cannot be null.");
+
+        PreparedStatement prepSt = null;
+        try {
+            prepSt = this.session.getDB()
+            		.getConnection(DatabaseTableName.getAccessDatabase())
+            		.prepareStatement(UPDATE_SQL);
+    
+            for( Status status : statusList ) {
+                prepSt.setString(1, status.getStatusCd());
+                prepSt.setString(2, status.getDisplayName());
+                prepSt.setString(3, status.getDescription());
+                prepSt.setString(4, status.getLastUpdatedBy());
+                prepSt.setInt(5, status.getId());            
+                prepSt.addBatch();
+            }
+            prepSt.executeBatch();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prepSt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

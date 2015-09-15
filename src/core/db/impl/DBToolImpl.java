@@ -25,6 +25,21 @@ public class DBToolImpl implements DBTool {
 	 */
 	private Session session;
 
+    /**
+     * The insert sql for new records.
+     */
+    private final String INSERT_SQL = "INSERT INTO " + DatabaseTableName.getToolTable() 
+            + " (tool_cd,display_name,description,created_by,last_updated_by)"
+            + " VALUES(?,?,?,?,?)";
+    
+    /**
+     * The update sql for old record changes.
+     */
+    private final String UPDATE_SQL = "UPDATE " + DatabaseTableName.getToolTable() 
+            + " SET tool_cd = ?, display_name = ?, description = ?,"
+            + " last_updated_by = ? WHERE id = ?";
+
+
 	/**
 	 * The Constructor requiring a valid initialised session
 	 * to gain access to the database.
@@ -111,4 +126,94 @@ public class DBToolImpl implements DBTool {
 
 		return finalToolList;
 	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void createRecord(Tool tool) {
+        if ( tool == null ) throw new IllegalArgumentException("Tool record cannot be null.");
+        List<Tool> toolList = new LinkedList<Tool>();
+        toolList.add(tool);
+        createRecords(toolList);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void createRecords(List<Tool> toolList) {
+        if ( toolList == null ) throw new IllegalArgumentException("Tool list record cannot be null.");
+        
+        PreparedStatement prepSt = null;
+        try {
+            prepSt = this.session.getDB()
+            		.getConnection(DatabaseTableName.getAccessDatabase())
+            		.prepareStatement(INSERT_SQL);
+
+            for( Tool tool : toolList ) {
+                prepSt.setString(1, tool.getToolCd());
+                prepSt.setString(2, tool.getDisplayName());
+                prepSt.setString(3, tool.getDescription());
+                prepSt.setString(4, tool.getCreatedBy());
+                prepSt.setString(5, tool.getLastUpdatedBy());            
+                prepSt.addBatch();
+            }
+            prepSt.executeBatch();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prepSt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateRecord(Tool tool) {
+        if ( tool == null ) throw new IllegalArgumentException("Tool record cannot be null.");
+
+        List<Tool> toolList = new LinkedList<Tool>();
+        toolList.add(tool);
+        updateRecords(toolList);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateRecords(List<Tool> toolList) {
+        if ( toolList == null ) throw new IllegalArgumentException("Tool list record cannot be null.");
+
+        PreparedStatement prepSt = null;
+        try {
+            prepSt = this.session.getDB()
+            		.getConnection(DatabaseTableName.getToolDatabase())
+            		.prepareStatement(UPDATE_SQL);
+
+            for( Tool tool : toolList ) {
+                prepSt.setString(1, tool.getToolCd());
+                prepSt.setString(2, tool.getDisplayName());
+                prepSt.setString(3, tool.getDescription());
+                prepSt.setString(4, tool.getLastUpdatedBy());
+                prepSt.setInt(5, tool.getId());            
+                prepSt.addBatch();
+            }
+            prepSt.executeBatch();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prepSt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

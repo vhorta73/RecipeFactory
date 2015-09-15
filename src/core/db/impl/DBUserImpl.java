@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.LinkedList;
+import java.util.List;
 
 import web.interfaces.Session;
 import constants.DatabaseTableName;
@@ -22,6 +24,20 @@ public class DBUserImpl implements DBUser {
 	 * The open Session to allow access to DB.
 	 */
 	private Session session;
+
+    /**
+     * The insert sql for new records.
+     */
+    private final String INSERT_SQL = "INSERT INTO " + DatabaseTableName.getUserTable() 
+            + " (username,password,privilege_id,status,created_by,last_updated_by)"
+            + " VALUES(?,'',?,?,?,?)";
+    
+    /**
+     * The update sql for old record changes.
+     */
+    private final String UPDATE_SQL = "UPDATE " + DatabaseTableName.getUserTable() 
+            + " SET username = ?, privilege_id = ?, status = ?,"
+            + " last_updated_by = ? WHERE id = ?";
 
 	/**
 	 * This class can only be instantiated once per user.
@@ -137,4 +153,95 @@ public class DBUserImpl implements DBUser {
 			}
 		}
 	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void createRecord(User user) {
+        if ( user == null ) throw new IllegalArgumentException("User record cannot be null.");
+        
+        List<User> userList = new LinkedList<User>();
+        userList.add(user);
+        createRecords(userList);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void createRecords(List<User> userList) {
+        if ( userList == null ) throw new IllegalArgumentException("User list record cannot be null.");
+        
+        PreparedStatement prepSt = null;
+        try {
+            prepSt = this.session.getDB()
+            		.getConnection(DatabaseTableName.getUserDatabase())
+            		.prepareStatement(INSERT_SQL);
+    
+            for( User user : userList ) {
+                prepSt.setString(1, user.getUsername());
+                prepSt.setInt(2, user.getPrivilegeId());
+                prepSt.setString(3, user.getStatus());
+                prepSt.setString(4, user.getCreatedBy());
+                prepSt.setString(5, user.getLastUpdatedBy());            
+                prepSt.addBatch();
+            }
+            prepSt.executeBatch();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prepSt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateRecord(User user) {
+        if ( user == null ) throw new IllegalArgumentException("User record cannot be null.");
+
+        List<User> userList = new LinkedList<User>();
+        userList.add(user);
+        updateRecords(userList);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateRecords(List<User> userList) {
+        if ( userList == null ) throw new IllegalArgumentException("User list record cannot be null.");
+
+        PreparedStatement prepSt = null;
+        try {
+            prepSt = this.session.getDB()
+            		.getConnection(DatabaseTableName.getAccessDatabase())
+            		.prepareStatement(UPDATE_SQL);
+    
+            for( User user : userList ) {
+                prepSt.setString(1, user.getUsername());
+                prepSt.setInt(2, user.getPrivilegeId());
+                prepSt.setString(3, user.getStatus());
+                prepSt.setString(4, user.getLastUpdatedBy());
+                prepSt.setInt(5, user.getId());            
+                prepSt.addBatch();
+            }
+            prepSt.executeBatch();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prepSt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

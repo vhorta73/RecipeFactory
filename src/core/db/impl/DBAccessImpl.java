@@ -26,6 +26,20 @@ public class DBAccessImpl implements DBAccess {
     private Session session;
 
     /**
+     * The insert sql for new records.
+     */
+    private final String INSERT_SQL = "INSERT INTO " + DatabaseTableName.getAccessTable() 
+            + " (access_cd,display_name,description,created_by,last_updated_by)"
+            + " VALUES(?,?,?,?,?)";
+    
+    /**
+     * The update sql for old record changes.
+     */
+    private final String UPDATE_SQL = "UPDATE " + DatabaseTableName.getAccessTable() 
+            + " SET access_cd = ?, display_name = ?, description = ?,"
+            + " last_updated_by = ? WHERE id = ?";
+
+    /**
      * The Constructor requiring a valid initialised session
      * to gain access to the database.
      * 
@@ -124,11 +138,7 @@ public class DBAccessImpl implements DBAccess {
         try {
             prepSt = this.session.getDB()
                     .getConnection(DatabaseTableName.getAccessDatabase())
-                    .prepareStatement(
-                            "INSERT INTO " + DatabaseTableName.getAccessTable() 
-                            + " (access_cd,display_name,description,created_by,last_updated_by)"
-                            + " VALUES(?,?,?,?,?)"
-                    );
+                    .prepareStatement(INSERT_SQL);
             
             prepSt.setString(1, access.getAccessCd());
             prepSt.setString(2, access.getDisplayName());
@@ -157,11 +167,9 @@ public class DBAccessImpl implements DBAccess {
         
         PreparedStatement prepSt = null;
         try {
-            prepSt = this.session.getDB().getConnection(DatabaseTableName.getAccessDatabase()).prepareStatement(
-                    "INSERT INTO " + DatabaseTableName.getAccessTable() 
-                    + " (access_cd,display_name,description,created_by,last_updated_by)"
-                    + " VALUES(?,?,?,?,?)"
-            );
+            prepSt = this.session.getDB()
+            		.getConnection(DatabaseTableName.getAccessDatabase())
+            		.prepareStatement(INSERT_SQL);
     
             for( Access access : accessList ) {
                 prepSt.setString(1, access.getAccessCd());
@@ -195,11 +203,7 @@ public class DBAccessImpl implements DBAccess {
         try {
             prepSt = this.session.getDB()
                     .getConnection(DatabaseTableName.getAccessDatabase())
-                    .prepareStatement(
-                            "UPDATE " + DatabaseTableName.getAccessTable() 
-                            + " SET access_cd = ?, display_name = ?, description = ?,"
-                            + " last_updated_by = ? WHERE id = ?"
-                    );
+                    .prepareStatement(UPDATE_SQL);
             
             prepSt.setString(1, access.getAccessCd());
             prepSt.setString(2, access.getDisplayName());
@@ -228,11 +232,9 @@ public class DBAccessImpl implements DBAccess {
 
         PreparedStatement prepSt = null;
         try {
-            prepSt = this.session.getDB().getConnection(DatabaseTableName.getAccessDatabase()).prepareStatement(
-                    "UPDATE " + DatabaseTableName.getAccessTable() 
-                    + " SET access_cd = ?, display_name = ?, description = ?, last_updated_by = ? "
-                    + " WHERE id = ? "
-            );
+            prepSt = this.session.getDB()
+            		.getConnection(DatabaseTableName.getAccessDatabase())
+            		.prepareStatement(UPDATE_SQL);
     
             for( Access access : accessList ) {
                 prepSt.setString(1, access.getAccessCd());
