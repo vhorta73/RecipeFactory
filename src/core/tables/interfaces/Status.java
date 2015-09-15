@@ -1,6 +1,6 @@
 package core.tables.interfaces;
 
-import core.db.interfaces.DBTableCommon;
+import core.db.interfaces.TableCommon;
 
 /**
  * The Status interface.
@@ -8,7 +8,7 @@ import core.db.interfaces.DBTableCommon;
  * @author Vasco
  * 
  */
-public interface Status extends DBTableCommon {
+public interface Status extends TableCommon {
 	/**
 	 * The primary id from the status table,
 	 * 

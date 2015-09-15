@@ -1,6 +1,6 @@
 package core.tables.interfaces;
 
-import core.db.interfaces.DBTableCommon;
+import core.db.interfaces.TableCommon;
 
 /**
  * The Privileges interface.
@@ -8,7 +8,7 @@ import core.db.interfaces.DBTableCommon;
  * @author Vasco
  *
  */
-public interface Privilege extends DBTableCommon {
+public interface Privilege extends TableCommon {
 	/**
 	 * The auto-increment table unique id.
 	 * 

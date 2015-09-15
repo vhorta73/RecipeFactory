@@ -1,6 +1,6 @@
 package core.tables.interfaces;
 
-import core.db.interfaces.DBTableCommon;
+import core.db.interfaces.TableCommon;
 
 /**
  * The Privilege Tool Feature Access interface.
@@ -8,7 +8,7 @@ import core.db.interfaces.DBTableCommon;
  * @author Vasco
  *
  */
-public interface PrivilegeToolFeatureAccess extends DBTableCommon {
+public interface PrivilegeToolFeatureAccess extends TableCommon {
 	/**
 	 * The privilege tool id.
 	 * 

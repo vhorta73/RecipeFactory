@@ -1,6 +1,6 @@
 package core.tables.interfaces;
 
-import core.db.interfaces.DBTableCommon;
+import core.db.interfaces.TableCommon;
 
 /**
  * The Access interface.
@@ -8,7 +8,7 @@ import core.db.interfaces.DBTableCommon;
  * @author Vasco
  * 
  */
-public interface Access extends DBTableCommon {
+public interface Access extends TableCommon {
 	/**
 	 * The primary id from the access table,
 	 * 

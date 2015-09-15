@@ -1,6 +1,6 @@
 package core.tables.interfaces;
 
-import core.db.interfaces.DBTableCommon;
+import core.db.interfaces.TableCommon;
 
 /**
  * The Feature interface.
@@ -8,7 +8,7 @@ import core.db.interfaces.DBTableCommon;
  * @author Vasco
  * 
  */
-public interface Feature extends DBTableCommon {
+public interface Feature extends TableCommon {
 	/**
 	 * The primary id from the feature table,
 	 * 

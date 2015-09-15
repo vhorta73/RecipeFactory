@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  * @author Vasco
  *
  */
-public interface DBTableCommon {
+public interface TableCommon {
 	/**
 	 * The user responsible for the creation of this
 	 * record on the database.

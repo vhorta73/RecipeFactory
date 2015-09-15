@@ -1,6 +1,6 @@
 package core;
 
-import core.db.interfaces.DBTableCommon;
+import core.db.interfaces.TableCommon;
 
 /**
  * The Recipe interface.
@@ -8,7 +8,7 @@ import core.db.interfaces.DBTableCommon;
  * @author Vasco
  *
  */
-public interface Recipe extends DBTableCommon {
+public interface Recipe extends TableCommon {
 	/**
 	 * The auto-increment id.
 	 * 

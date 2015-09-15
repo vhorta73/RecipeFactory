@@ -1,6 +1,6 @@
 package core.tables.interfaces;
 
-import core.db.interfaces.DBTableCommon;
+import core.db.interfaces.TableCommon;
 
 /**
  * The Privilege Tool interface.
@@ -8,7 +8,7 @@ import core.db.interfaces.DBTableCommon;
  * @author Vasco
  *
  */
-public interface PrivilegeTool extends DBTableCommon {
+public interface PrivilegeTool extends TableCommon {
 	/**
 	 * The auto-increment table unique id.
 	 * 

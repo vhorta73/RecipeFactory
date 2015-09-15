@@ -1,6 +1,6 @@
 package core.tables.interfaces;
 
-import core.db.interfaces.DBTableCommon;
+import core.db.interfaces.TableCommon;
 
 /**
  * The Ingredient interface.
@@ -8,7 +8,7 @@ import core.db.interfaces.DBTableCommon;
  * @author Vasco
  * 
  */
-public interface Ingredient extends DBTableCommon {
+public interface Ingredient extends TableCommon {
 	/**
 	 * The primary id from the ingredients table,
 	 * used mostly internally for efficiency on updating
