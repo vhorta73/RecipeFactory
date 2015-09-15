@@ -1,6 +1,5 @@
 package core.tables.interfaces;
 
-import core.db.interfaces.TableCommon;
 
 /**
  * The Ingredient interface.

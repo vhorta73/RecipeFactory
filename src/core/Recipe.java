@@ -1,6 +1,6 @@
 package core;
 
-import core.db.interfaces.TableCommon;
+import core.tables.interfaces.TableCommon;
 
 /**
  * The Recipe interface.

@@ -1,4 +1,4 @@
-package core.db.interfaces;
+package core.tables.interfaces;
 
 import java.sql.Timestamp;
 

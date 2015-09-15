@@ -1,7 +1,6 @@
 package core.tables.interfaces;
 
 import constants.EnumUserStatus;
-import core.db.interfaces.TableCommon;
 
 /**
  * The User interface.
