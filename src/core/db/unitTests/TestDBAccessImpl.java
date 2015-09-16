@@ -1,6 +1,7 @@
 package core.db.unitTests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +18,7 @@ import org.mockito.Mockito;
 import web.interfaces.Session;
 import core.db.impl.DBAccessImpl;
 import core.db.interfaces.DBAccess;
+import core.tables.impl.AccessImpl;
 import core.tables.interfaces.Access;
 import core.tables.interfaces.User;
 
@@ -66,17 +68,6 @@ public class TestDBAccessImpl {
 		try {
 			Mockito.when(connection.prepareStatement(Mockito.anyString())).thenReturn(preparedStatement);
 			Mockito.when(preparedStatement.executeQuery()).thenReturn(resultSet);
-			Mockito.when(resultSet.next()).thenReturn(true).thenReturn(false);
-			Mockito.when(resultSet.getInt(1)).thenReturn(ID);
-			Mockito.when(resultSet.getString(2)).thenReturn(ACCESS_CD);
-			Mockito.when(resultSet.getString(3)).thenReturn(DISPLAY_NAME);
-			Mockito.when(resultSet.getString(4)).thenReturn(DESCRIPTION);
-			Mockito.when(resultSet.getBoolean(5)).thenReturn(SHOW);
-			Mockito.when(resultSet.getBoolean(6)).thenReturn(DELETED);
-			Mockito.when(resultSet.getString(7)).thenReturn(CREATED_BY);
-			Mockito.when(resultSet.getTimestamp(8)).thenReturn(CREATED_DATE);
-			Mockito.when(resultSet.getString(9)).thenReturn(LAST_UPDATED_BY);
-			Mockito.when(resultSet.getTimestamp(10)).thenReturn(LAST_UPDATED_DATE);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -84,102 +75,80 @@ public class TestDBAccessImpl {
 	}
 
 	/**
-	 * Test id.
+	 * Test getAccess(id).
+	 * 
+	 * @throws SQLException 
 	 */
 	@Test
-	public void testId() {
+	public void testGetAccessById() throws SQLException {
+		Access expectedAccess = new AccessImpl(ID, ACCESS_CD, DISPLAY_NAME, DESCRIPTION, 
+				SHOW, DELETED, CREATED_BY, CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE);
+
+		Mockito.when(resultSet.next()).thenReturn(true).thenReturn(false);
+		Mockito.when(resultSet.getInt(1)).thenReturn(ID);
+		Mockito.when(resultSet.getString(2)).thenReturn(ACCESS_CD);
+		Mockito.when(resultSet.getString(3)).thenReturn(DISPLAY_NAME);
+		Mockito.when(resultSet.getString(4)).thenReturn(DESCRIPTION);
+		Mockito.when(resultSet.getBoolean(5)).thenReturn(SHOW);
+		Mockito.when(resultSet.getBoolean(6)).thenReturn(DELETED);
+		Mockito.when(resultSet.getString(7)).thenReturn(CREATED_BY);
+		Mockito.when(resultSet.getTimestamp(8)).thenReturn(CREATED_DATE);
+		Mockito.when(resultSet.getString(9)).thenReturn(LAST_UPDATED_BY);
+		Mockito.when(resultSet.getTimestamp(10)).thenReturn(LAST_UPDATED_DATE);
+
 		Access foundAccess = dbAccess.getAccess(ID);
+
 		assertNotNull(foundAccess);
-		assertEquals(ID, foundAccess.getId());
+
+		verify(expectedAccess,foundAccess);
 	}
 
 	/**
-	 * Test access code.
+	 * Test getAccess(code).
+	 * 
+	 * @throws SQLException 
 	 */
 	@Test
-	public void testAccessCd() {
-		Access foundAccess = dbAccess.getAccess(ID);
+	public void testGetAccessByCode() throws SQLException {
+		Access expectedAccess = new AccessImpl(ID, ACCESS_CD, DISPLAY_NAME, DESCRIPTION, 
+				SHOW, DELETED, CREATED_BY, CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE);
+
+		Mockito.when(resultSet.next()).thenReturn(true).thenReturn(false);
+		Mockito.when(resultSet.getInt(1)).thenReturn(ID);
+		Mockito.when(resultSet.getString(2)).thenReturn(ACCESS_CD);
+		Mockito.when(resultSet.getString(3)).thenReturn(DISPLAY_NAME);
+		Mockito.when(resultSet.getString(4)).thenReturn(DESCRIPTION);
+		Mockito.when(resultSet.getBoolean(5)).thenReturn(SHOW);
+		Mockito.when(resultSet.getBoolean(6)).thenReturn(DELETED);
+		Mockito.when(resultSet.getString(7)).thenReturn(CREATED_BY);
+		Mockito.when(resultSet.getTimestamp(8)).thenReturn(CREATED_DATE);
+		Mockito.when(resultSet.getString(9)).thenReturn(LAST_UPDATED_BY);
+		Mockito.when(resultSet.getTimestamp(10)).thenReturn(LAST_UPDATED_DATE);
+
+		Access foundAccess = dbAccess.getAccess(ACCESS_CD);
+
 		assertNotNull(foundAccess);
-		assertEquals(ACCESS_CD, foundAccess.getAccessCd());
+
+		verify(expectedAccess,foundAccess);
 	}
 
 	/**
-	 * Test display name.
+	 * Check if both given Access rows match.
+	 * 
+	 * @param expectedAccess Access
+	 * @param foundAccess Access
 	 */
-	@Test
-	public void testDisplayName() {
-		Access foundAccess = dbAccess.getAccess(ID);
+	private void verify(Access expectedAccess, Access foundAccess) {
 		assertNotNull(foundAccess);
-		assertEquals(DISPLAY_NAME, foundAccess.getDisplayName());
-	}
-
-	/**
-	 * Test description.
-	 */
-	@Test
-	public void testDescription() {
-		Access foundAccess = dbAccess.getAccess(ID);
-		assertNotNull(foundAccess);
-		assertEquals(DESCRIPTION, foundAccess.getDescription());
-	}
-
-	/**
-	 * Test Deleted.
-	 */
-	@Test
-	public void testDeleted() {
-		Access foundAccess = dbAccess.getAccess(ID);
-		assertNotNull(foundAccess);
-		assertEquals(DELETED, foundAccess.isDeleted());
-	}
-
-	/**
-	 * Test show.
-	 */
-	@Test
-	public void testShow() {
-		Access foundAccess = dbAccess.getAccess(ID);
-		assertNotNull(foundAccess);
-		assertEquals(SHOW, foundAccess.isShow());
-	}
-
-	/**
-	 * Test created by.
-	 */
-	@Test
-	public void testCreatedBy() {
-		Access foundAccess = dbAccess.getAccess(ID);
-		assertNotNull(foundAccess);
-		assertEquals(CREATED_BY, foundAccess.getCreatedBy());
-	}
-
-	/**
-	 * Test created date.
-	 */
-	@Test
-	public void testCreatedDate() {
-		Access foundAccess = dbAccess.getAccess(ID);
-		assertNotNull(foundAccess);
-		assertEquals(CREATED_DATE, foundAccess.getCreatedDate());
-	}
-
-	/**
-	 * Test last updated by
-	 */
-	@Test
-	public void testLastUpdatedBy() {
-		Access foundAccess = dbAccess.getAccess(ID);
-		assertNotNull(foundAccess);
-		assertEquals(LAST_UPDATED_BY, foundAccess.getLastUpdatedBy());
-	}
-
-	/**
-	 * Test last updated date.
-	 */
-	@Test
-	public void testLastUpdatedDate() {
-		Access foundAccess = dbAccess.getAccess(ID);
-		assertNotNull(foundAccess);
-		assertEquals(LAST_UPDATED_DATE, foundAccess.getLastUpdatedDate());
+		assertEquals(expectedAccess.getId(),foundAccess.getId());
+		assertEquals(expectedAccess.getAccessCd(),foundAccess.getAccessCd());
+		assertEquals(expectedAccess.getDisplayName(),foundAccess.getDisplayName());
+		assertEquals(expectedAccess.getDescription(),foundAccess.getDescription());
+		assertEquals(expectedAccess.isDeleted(),foundAccess.isDeleted());
+		assertEquals(expectedAccess.isShow(),foundAccess.isShow());
+		assertEquals(expectedAccess.getCreatedBy(),foundAccess.getCreatedBy());
+		assertEquals(expectedAccess.getCreatedDate(),foundAccess.getCreatedDate());
+		assertEquals(expectedAccess.getLastUpdatedBy(),foundAccess.getLastUpdatedBy());
+		assertEquals(expectedAccess.getLastUpdatedDate(),foundAccess.getLastUpdatedDate());
 	}
 }
