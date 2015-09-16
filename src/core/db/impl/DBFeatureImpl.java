@@ -29,14 +29,14 @@ public class DBFeatureImpl implements DBFeature {
 	 * The final insert sql for new records.
 	 */
 	private final String INSERT_SQL = "INSERT INTO " + DatabaseTableName.getFeatureTable() 
-            + " (feature_cd,display_name,description,created_by,last_updated_by)"
-            + " VALUES(?,?,?,?,?)";
+            + " (feature_cd,display_name,show,delete,description,created_by,last_updated_by)"
+            + " VALUES(?,?,?,?,?,?,?)";
 
 	/**
 	 * The final update sql for old record changes.
 	 */
 	private final String UPDATE_SQL = "UPDATE " + DatabaseTableName.getFeatureTable() 
-            + " SET feature_cd = ?, display_name = ?, description = ?,"
+            + " SET feature_cd = ?, display_name = ?, description = ?, show = ?, delete = ?, "
             + " last_updated_by = ? WHERE id = ?";
 
 	/**
@@ -103,12 +103,14 @@ public class DBFeatureImpl implements DBFeature {
 				String featureCd            = rs.getString(2);
 				String displayName          = rs.getString(3);
 				String description          = rs.getString(4);
-				String created_by           = rs.getString(5);
-				Timestamp created_date      = rs.getTimestamp(6);
-				String last_updated_by      = rs.getString(7);
-				Timestamp last_updated_date = rs.getTimestamp(8);
+				boolean show                = rs.getBoolean(5);
+				boolean deleted             = rs.getBoolean(6);
+				String created_by           = rs.getString(7);
+				Timestamp created_date      = rs.getTimestamp(8);
+				String last_updated_by      = rs.getString(9);
+				Timestamp last_updated_date = rs.getTimestamp(10);
 
-				finalFeatureList.add(new FeatureImpl(id, featureCd, displayName, description, 
+				finalFeatureList.add(new FeatureImpl(id, featureCd, displayName, description, show, deleted,
 						created_by, created_date, last_updated_by, last_updated_date));
 			}
 
@@ -134,28 +136,9 @@ public class DBFeatureImpl implements DBFeature {
 	public void createRecord(Feature feature) {
         if ( feature == null ) throw new IllegalArgumentException("Feature record cannot be null.");
         
-        PreparedStatement prepSt = null;
-        try {
-            prepSt = this.session.getDB()
-                    .getConnection(DatabaseTableName.getFeatureDatabase())
-                    .prepareStatement(INSERT_SQL);
-            
-            prepSt.setString(1, feature.getFeatureCd());
-            prepSt.setString(2, feature.getDisplayName());
-            prepSt.setString(3, feature.getDescription());
-            prepSt.setString(4, feature.getCreatedBy());
-            prepSt.setString(5, feature.getLastUpdatedBy());            
-            prepSt.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                prepSt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        List<Feature> featureList = new LinkedList<Feature>();
+        featureList.add(feature);
+        createRecords(featureList);
 	}
 
 	/**
@@ -176,8 +159,10 @@ public class DBFeatureImpl implements DBFeature {
                 prepSt.setString(1, feature.getFeatureCd());
                 prepSt.setString(2, feature.getDisplayName());
                 prepSt.setString(3, feature.getDescription());
-                prepSt.setString(4, feature.getCreatedBy());
-                prepSt.setString(5, feature.getLastUpdatedBy());            
+                prepSt.setBoolean(4, feature.isShow());
+                prepSt.setBoolean(5, feature.isDeleted());
+                prepSt.setString(6, feature.getCreatedBy());
+                prepSt.setString(7, feature.getLastUpdatedBy());            
                 prepSt.addBatch();
             }
             prepSt.executeBatch();
@@ -200,28 +185,9 @@ public class DBFeatureImpl implements DBFeature {
     public void updateRecord(Feature feature) {
         if ( feature == null ) throw new IllegalArgumentException("Feature record cannot be null.");
 
-        PreparedStatement prepSt = null;
-        try {
-            prepSt = this.session.getDB()
-                    .getConnection(DatabaseTableName.getFeatureDatabase())
-                    .prepareStatement(UPDATE_SQL);
-            
-            prepSt.setString(1, feature.getFeatureCd());
-            prepSt.setString(2, feature.getDisplayName());
-            prepSt.setString(3, feature.getDescription());
-            prepSt.setString(4, feature.getLastUpdatedBy());            
-            prepSt.setInt(5, feature.getId());            
-            prepSt.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                prepSt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        List<Feature> featureList = new LinkedList<Feature>();
+        featureList.add(feature);
+        updateRecords(featureList);
     }
 
     /**
@@ -241,8 +207,10 @@ public class DBFeatureImpl implements DBFeature {
                 prepSt.setString(1, feature.getFeatureCd());
                 prepSt.setString(2, feature.getDisplayName());
                 prepSt.setString(3, feature.getDescription());
-                prepSt.setString(4, feature.getLastUpdatedBy());
-                prepSt.setInt(5, feature.getId());            
+                prepSt.setBoolean(4, feature.isShow());
+                prepSt.setBoolean(5, feature.isDeleted());
+                prepSt.setString(6, feature.getLastUpdatedBy());
+                prepSt.setInt(7, feature.getId());            
                 prepSt.addBatch();
             }
             prepSt.executeBatch();
