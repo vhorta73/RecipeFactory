@@ -32,6 +32,16 @@ public class AccessImpl implements Access {
 	private final String DESCRIPTION;
 		
 	/**
+	 * Show or no show flag.
+	 */
+	private final boolean SHOW;
+		
+	/**
+	 * The deleted flag.
+	 */
+	private final boolean DELETED;
+		
+	/**
 	 * The username that created this record.
 	 */
 	private final String CREATED_BY;
@@ -58,17 +68,21 @@ public class AccessImpl implements Access {
 	 * @param accessCd String
 	 * @param displayName String
 	 * @param description String
+	 * @param show Boolean
+	 * @param deleted Boolean
 	 * @param createdBy String
 	 * @param createdDate Timestamp
 	 * @param lastUpdatedBy String
 	 * @param lastUpdatedDate Timestamp
 	 */
-	public AccessImpl(int id, String accessCd, String displayName, String description, 
+	public AccessImpl(int id, String accessCd, String displayName, String description, boolean show, boolean deleted,
 			String createdBy, Timestamp createdDate, String lastUpdatedBy, Timestamp lastUpdatedDate ) {
 		this.ID = id;
 		this.ACCESS_CD = accessCd;
 		this.DISPLAY_NAME = displayName;
 		this.DESCRIPTION = description;
+		this.SHOW = show;
+		this.DELETED = deleted;
 		this.CREATED_BY = createdBy;
 		this.CREATED_DATE = createdDate;
 		this.LAST_UPDATED_BY = lastUpdatedBy;
@@ -137,5 +151,21 @@ public class AccessImpl implements Access {
 	@Override
 	public String getDescription() {
 		return DESCRIPTION;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isDeleted() {
+		return DELETED;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isShow() {
+		return SHOW;
 	}
 }

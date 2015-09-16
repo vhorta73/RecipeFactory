@@ -29,14 +29,14 @@ public class DBAccessImpl implements DBAccess {
      * The insert sql for new records.
      */
     private final String INSERT_SQL = "INSERT INTO " + DatabaseTableName.getAccessTable() 
-            + " (access_cd,display_name,description,created_by,last_updated_by)"
-            + " VALUES(?,?,?,?,?)";
+            + " (access_cd,display_name,description,`show`,deleted,created_by,last_updated_by)"
+            + " VALUES(?,?,?,?,?,?,?)";
     
     /**
      * The update sql for old record changes.
      */
     private final String UPDATE_SQL = "UPDATE " + DatabaseTableName.getAccessTable() 
-            + " SET access_cd = ?, display_name = ?, description = ?,"
+            + " SET access_cd = ?, display_name = ?, description = ?, `show` = ?, deleted = ?, "
             + " last_updated_by = ? WHERE id = ?";
 
     /**
@@ -95,6 +95,7 @@ public class DBAccessImpl implements DBAccess {
             prepSt = this.session.getDB()
                     .getConnection(DatabaseTableName.getAccessDatabase())
                     .prepareStatement(sql);
+
             rs = prepSt
                     .executeQuery();
 
@@ -103,12 +104,14 @@ public class DBAccessImpl implements DBAccess {
                 String accessCd             = rs.getString(2);
                 String displayName          = rs.getString(3);
                 String description          = rs.getString(4);
-                String created_by           = rs.getString(5);
-                Timestamp created_date      = rs.getTimestamp(6);
-                String last_updated_by      = rs.getString(7);
-                Timestamp last_updated_date = rs.getTimestamp(8);
+                boolean show                = rs.getBoolean(5);
+                boolean deleted             = rs.getBoolean(6);
+                String created_by           = rs.getString(7);
+                Timestamp created_date      = rs.getTimestamp(8);
+                String last_updated_by      = rs.getString(9);
+                Timestamp last_updated_date = rs.getTimestamp(10);
 
-                finalAccessList.add(new AccessImpl(id, accessCd, displayName, description, 
+                finalAccessList.add(new AccessImpl(id, accessCd, displayName, description, show, deleted,
                         created_by, created_date, last_updated_by, last_updated_date));
             }
 
@@ -119,7 +122,6 @@ public class DBAccessImpl implements DBAccess {
                 prepSt.close();
                 rs.close();
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -133,29 +135,9 @@ public class DBAccessImpl implements DBAccess {
     @Override
     public void createRecord(Access access) {
         if ( access == null ) throw new IllegalArgumentException("Access record cannot be null.");
-        
-        PreparedStatement prepSt = null;
-        try {
-            prepSt = this.session.getDB()
-                    .getConnection(DatabaseTableName.getAccessDatabase())
-                    .prepareStatement(INSERT_SQL);
-            
-            prepSt.setString(1, access.getAccessCd());
-            prepSt.setString(2, access.getDisplayName());
-            prepSt.setString(3, access.getDescription());
-            prepSt.setString(4, access.getCreatedBy());
-            prepSt.setString(5, access.getLastUpdatedBy());            
-            prepSt.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                prepSt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        List<Access> accessList = new LinkedList<Access>();
+        accessList.add(access);
+        createRecords(accessList);
     }
 
     /**
@@ -175,10 +157,13 @@ public class DBAccessImpl implements DBAccess {
                 prepSt.setString(1, access.getAccessCd());
                 prepSt.setString(2, access.getDisplayName());
                 prepSt.setString(3, access.getDescription());
-                prepSt.setString(4, access.getCreatedBy());
-                prepSt.setString(5, access.getLastUpdatedBy());            
+                prepSt.setBoolean(4, access.isShow());
+                prepSt.setBoolean(5, access.isDeleted());
+                prepSt.setString(6, access.getCreatedBy());
+                prepSt.setString(7, access.getLastUpdatedBy());            
                 prepSt.addBatch();
             }
+
             prepSt.executeBatch();
 
         } catch (SQLException e) {
@@ -198,29 +183,9 @@ public class DBAccessImpl implements DBAccess {
     @Override
     public void updateRecord(Access access) {
         if ( access == null ) throw new IllegalArgumentException("Access record cannot be null.");
-
-        PreparedStatement prepSt = null;
-        try {
-            prepSt = this.session.getDB()
-                    .getConnection(DatabaseTableName.getAccessDatabase())
-                    .prepareStatement(UPDATE_SQL);
-            
-            prepSt.setString(1, access.getAccessCd());
-            prepSt.setString(2, access.getDisplayName());
-            prepSt.setString(3, access.getDescription());
-            prepSt.setString(4, access.getLastUpdatedBy());            
-            prepSt.setInt(5, access.getId());            
-            prepSt.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                prepSt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        List<Access> accessList = new LinkedList<Access>();
+        accessList.add(access);
+        updateRecords(accessList);
     }
 
     /**
@@ -240,8 +205,10 @@ public class DBAccessImpl implements DBAccess {
                 prepSt.setString(1, access.getAccessCd());
                 prepSt.setString(2, access.getDisplayName());
                 prepSt.setString(3, access.getDescription());
-                prepSt.setString(4, access.getLastUpdatedBy());
-                prepSt.setInt(5, access.getId());            
+                prepSt.setBoolean(4, access.isShow());
+                prepSt.setBoolean(5, access.isDeleted());
+                prepSt.setString(6, access.getLastUpdatedBy());
+                prepSt.setInt(7, access.getId());            
                 prepSt.addBatch();
             }
             prepSt.executeBatch();
