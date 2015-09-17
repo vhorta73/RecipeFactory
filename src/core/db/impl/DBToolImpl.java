@@ -29,14 +29,14 @@ public class DBToolImpl implements DBTool {
      * The insert sql for new records.
      */
     private final String INSERT_SQL = "INSERT INTO " + DatabaseTableName.getToolTable() 
-            + " (tool_cd,display_name,description,show,deleted,created_by,last_updated_by)"
+            + " (tool_cd,display_name,description,`show`,deleted,created_by,last_updated_by)"
             + " VALUES(?,?,?,?,?,?,?)";
     
     /**
      * The update sql for old record changes.
      */
     private final String UPDATE_SQL = "UPDATE " + DatabaseTableName.getToolTable() 
-            + " SET tool_cd = ?, display_name = ?, description = ?, show = ?, delete = ?,"
+            + " SET tool_cd = ?, display_name = ?, description = ?, `show` = ?, delete = ?,"
             + " last_updated_by = ? WHERE id = ?";
 
 

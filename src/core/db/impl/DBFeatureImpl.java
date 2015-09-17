@@ -29,14 +29,14 @@ public class DBFeatureImpl implements DBFeature {
 	 * The final insert sql for new records.
 	 */
 	private final String INSERT_SQL = "INSERT INTO " + DatabaseTableName.getFeatureTable() 
-            + " (feature_cd,display_name,show,delete,description,created_by,last_updated_by)"
+            + " (feature_cd,display_name,`show`,deleted,description,created_by,last_updated_by)"
             + " VALUES(?,?,?,?,?,?,?)";
 
 	/**
 	 * The final update sql for old record changes.
 	 */
 	private final String UPDATE_SQL = "UPDATE " + DatabaseTableName.getFeatureTable() 
-            + " SET feature_cd = ?, display_name = ?, description = ?, show = ?, delete = ?, "
+            + " SET feature_cd = ?, display_name = ?, description = ?, `show` = ?, deleted = ?, "
             + " last_updated_by = ? WHERE id = ?";
 
 	/**

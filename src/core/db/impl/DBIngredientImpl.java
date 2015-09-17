@@ -29,14 +29,14 @@ public class DBIngredientImpl implements DBIngredient {
 	 * The final insert sql to create new records.
 	 */
 	private final String INSERT_SQL = "INSERT INTO " + DatabaseTableName.getIngredientTable() 
-            + " (name,description,notes,show,delete,created_by,last_updated_by)"
+            + " (name,description,notes,`show`,deleted,created_by,last_updated_by)"
             + " VALUES(?,?,?,?,?,?,?)";
 
 	/**
 	 * The final updating sql to update old records.
 	 */
     private final String UPDATE_SQL = "UPDATE " + DatabaseTableName.getIngredientTable() 
-    		+ " SET access_cd = ?, display_name = ?, description = ?, show = ?, delete = ?, "
+    		+ " SET access_cd = ?, display_name = ?, description = ?, `show` = ?, deleted = ?, "
     		+ " last_updated_by = ? WHERE id = ? ";
 
 	/**
