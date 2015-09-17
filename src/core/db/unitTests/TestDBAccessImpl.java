@@ -79,6 +79,7 @@ public class TestDBAccessImpl {
     
     /**
      * Check if methods are always called at the end.
+     * 
      * @throws SQLException 
      */
     @After
