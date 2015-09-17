@@ -43,4 +43,18 @@ public interface Ingredient extends TableCommon {
 	 * @return String
 	 */
 	public String getNotes();
+
+	/**
+	 * True if this record is deleted.
+	 * 
+	 * @return true if deleted.
+	 */
+	public boolean isDeleted();
+
+	/**
+	 * True if this record is showing.
+	 * 
+	 * @return true if showing
+	 */
+	public boolean isShow();
 }

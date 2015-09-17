@@ -27,6 +27,16 @@ public class IngredientImpl implements Ingredient {
 	private final String DESCRIPTION;
 	
 	/**
+	 * Show or no show flag.
+	 */
+	private final boolean SHOW;
+		
+	/**
+	 * The deleted flag.
+	 */
+	private final boolean DELETED;
+	
+	/**
 	 * The Ingredient notes.
 	 */
 	private final String NOTES;
@@ -65,12 +75,14 @@ public class IngredientImpl implements Ingredient {
 	 * @param lastUpdatedBy username
 	 * @param lastUpdatedDate String date time
 	 */
-	public IngredientImpl(int id, String name, String description, String notes, 
+	public IngredientImpl(int id, String name, String description, String notes,  boolean show, boolean deleted,
 			String createdBy, Timestamp createdDate, String lastUpdatedBy, Timestamp lastUpdatedDate ) {
 		this.ID = id;
 		this.NAME = name;
 		this.DESCRIPTION = description;
 		this.NOTES = notes;
+		this.SHOW = show;
+		this.DELETED = deleted;
 		this.CREATED_BY = createdBy;
 		this.CREATED_DATE = createdDate;
 		this.LAST_UPDATED_BY = lastUpdatedBy;
@@ -139,5 +151,21 @@ public class IngredientImpl implements Ingredient {
 	@Override
 	public String getNotes() {
 		return NOTES;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isDeleted() {
+		return DELETED;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isShow() {
+		return SHOW;
 	}
 }

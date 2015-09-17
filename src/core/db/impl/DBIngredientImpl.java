@@ -29,14 +29,14 @@ public class DBIngredientImpl implements DBIngredient {
 	 * The final insert sql to create new records.
 	 */
 	private final String INSERT_SQL = "INSERT INTO " + DatabaseTableName.getIngredientTable() 
-            + " (name,description,notes,created_by,last_updated_by)"
-            + " VALUES(?,?,?,?,?)";
+            + " (name,description,notes,show,delete,created_by,last_updated_by)"
+            + " VALUES(?,?,?,?,?,?,?)";
 
 	/**
 	 * The final updating sql to update old records.
 	 */
     private final String UPDATE_SQL = "UPDATE " + DatabaseTableName.getIngredientTable() 
-    		+ " SET access_cd = ?, display_name = ?, description = ?,"
+    		+ " SET access_cd = ?, display_name = ?, description = ?, show = ?, delete = ?, "
     		+ " last_updated_by = ? WHERE id = ? ";
 
 	/**
@@ -109,17 +109,19 @@ public class DBIngredientImpl implements DBIngredient {
 					.executeQuery();
 
 			while ( rs.next() ) {
-				int id                 = rs.getInt(1);
-				String name            = rs.getString(2);
-				String description     = rs.getString(3);
-				String notes           = rs.getString(4);
-				String created_by      = rs.getString(5);
-				Timestamp created_date      = rs.getTimestamp(6);
-				String last_updated_by = rs.getString(7);
-				Timestamp last_updated_date = rs.getTimestamp(8);
+				int id                      = rs.getInt(1);
+				String name                 = rs.getString(2);
+				String description          = rs.getString(3);
+				String notes                = rs.getString(4);
+				boolean show                = rs.getBoolean(5);
+				boolean deleted             = rs.getBoolean(6);
+				String created_by           = rs.getString(7);
+				Timestamp created_date      = rs.getTimestamp(8);
+				String last_updated_by      = rs.getString(9);
+				Timestamp last_updated_date = rs.getTimestamp(10);
 
-				finalIngredientList.add(new IngredientImpl(id, name, description, notes, created_by, 
-						created_date, last_updated_by, last_updated_date));
+				finalIngredientList.add(new IngredientImpl(id, name, description, notes, show, deleted,
+						created_by, created_date, last_updated_by, last_updated_date));
 			}
 
 		} catch (SQLException e) {
@@ -153,8 +155,10 @@ public class DBIngredientImpl implements DBIngredient {
             prepSt.setString(1, ingredient.getName());
             prepSt.setString(2, ingredient.getDescription());
             prepSt.setString(3, ingredient.getNotes());
-            prepSt.setString(4, ingredient.getCreatedBy());
-            prepSt.setString(5, ingredient.getLastUpdatedBy());            
+            prepSt.setBoolean(4, ingredient.isShow());
+            prepSt.setBoolean(5, ingredient.isDeleted());
+            prepSt.setString(6, ingredient.getCreatedBy());
+            prepSt.setString(7, ingredient.getLastUpdatedBy());            
             prepSt.execute();
 
         } catch (SQLException e) {
@@ -185,8 +189,10 @@ public class DBIngredientImpl implements DBIngredient {
                 prepSt.setString(1, ingredient.getName());
                 prepSt.setString(2, ingredient.getDescription());
                 prepSt.setString(3, ingredient.getNotes());
-                prepSt.setString(4, ingredient.getCreatedBy());
-                prepSt.setString(5, ingredient.getLastUpdatedBy());            
+                prepSt.setBoolean(4, ingredient.isShow());
+                prepSt.setBoolean(5, ingredient.isDeleted());
+                prepSt.setString(6, ingredient.getCreatedBy());
+                prepSt.setString(7, ingredient.getLastUpdatedBy());            
                 prepSt.addBatch();
             }
             prepSt.executeBatch();
@@ -218,8 +224,10 @@ public class DBIngredientImpl implements DBIngredient {
             prepSt.setString(1, ingredient.getName());
             prepSt.setString(2, ingredient.getDescription());
             prepSt.setString(3, ingredient.getNotes());
-            prepSt.setString(4, ingredient.getLastUpdatedBy());            
-            prepSt.setInt(5, ingredient.getId());
+            prepSt.setBoolean(4, ingredient.isShow());
+            prepSt.setBoolean(5, ingredient.isDeleted());
+            prepSt.setString(6, ingredient.getLastUpdatedBy());            
+            prepSt.setInt(7, ingredient.getId());
             prepSt.execute();
 
         } catch (SQLException e) {
@@ -245,13 +253,15 @@ public class DBIngredientImpl implements DBIngredient {
             prepSt = this.session.getDB()
             		.getConnection(DatabaseTableName.getIngredientDatabase())
             		.prepareStatement(UPDATE_SQL);
-                
+
             for( Ingredient ingredient : ingredientList ) {
                 prepSt.setString(1, ingredient.getName());
                 prepSt.setString(2, ingredient.getDescription());
                 prepSt.setString(3, ingredient.getNotes());
-                prepSt.setString(4, ingredient.getLastUpdatedBy());
-                prepSt.setInt(5, ingredient.getId());            
+                prepSt.setBoolean(4, ingredient.isShow());
+                prepSt.setBoolean(5, ingredient.isDeleted());
+                prepSt.setString(6, ingredient.getLastUpdatedBy());
+                prepSt.setInt(7, ingredient.getId());            
                 prepSt.addBatch();
             }
             prepSt.executeBatch();
