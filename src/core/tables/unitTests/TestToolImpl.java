@@ -19,138 +19,168 @@ import core.tables.interfaces.Tool;
  *
  */
 public class TestToolImpl {
-	/**
-	 * The tool implementation object.
-	 */
-	private Tool tool;
-	
-	/**
-	 * The Auto-increment id.
-	 */
-	private final int ID = 1;
-	
-	/**
-	 * The Tool unique name code.
-	 */
-	private final String TOOL_CD = "this_tool";
-	
-	/**
-	 * The Tool displaying name.
-	 */
-	private final String DISPLAY_NAME = "This is my tool name";
-	
-	/**
-	 * The Tool description.
-	 */
-	private final String DESCRIPTION = "This is my first tool description";
-	
-	/**
-	 * The username that created this ingredient.
-	 */
-	private final String CREATED_BY = "snoopy";
-	
-	/**
-	 * The date and time this record was created.
-	 */
-	private final Timestamp CREATED_DATE = Timestamp.valueOf("2015-09-05 12:15:18");
-	
-	/**
-	 * The username that last updated this record.
-	 */
-	private final String LAST_UPDATED_BY = "garfield";
-	
-	/**
-	 * The date and time this record was last updated.
-	 */
-	private final Timestamp LAST_UPDATED_DATE = Timestamp.valueOf("2015-09-05 12:15:19");
-	
-	/**
-	 * Load all elements into Tool implementation
-	 * and leave it ready for testing.
-	 */
-	@Before
-	public void before() {
-		tool = new ToolImpl(ID, TOOL_CD, DISPLAY_NAME, DESCRIPTION, CREATED_BY, 
-				CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE);
-	}
+    /**
+     * The tool implementation object.
+     */
+    private Tool tool;
+    
+    /**
+     * The Auto-increment id.
+     */
+    private final int ID = 1;
+    
+    /**
+     * The Tool unique name code.
+     */
+    private final String TOOL_CD = "this_tool";
+    
+    /**
+     * The Tool displaying name.
+     */
+    private final String DISPLAY_NAME = "This is my tool name";
+    
+    /**
+     * The Tool description.
+     */
+    private final String DESCRIPTION = "This is my first tool description";
 
-	/**
-	 * Test id
-	 */
-	@Test
-	public void testId() {
-		int foundId = tool.getId();
-		assertNotNull(foundId);
-		assertTrue(ID == foundId);
-	}
+    /**
+     * The Tool show flag.
+     */
+    private final boolean SHOW = true;
 
-	/**
-	 * Test tool code
-	 */
-	@Test
-	public void testToolCd() {
-		String foundName = tool.getToolCd();
-		assertNotNull(foundName);
-		assertEquals(foundName, TOOL_CD);
-	}
+    /**
+     * The Tool deleted flag.
+     */
+    private final boolean DELETED = false;
 
-	/**
-	 * Test tool display name
-	 */
-	@Test
-	public void testDisplayName() {
-		String foundName = tool.getDisplayName();
-		assertNotNull(foundName);
-		assertEquals(foundName, DISPLAY_NAME);
-	}
+    /**
+     * The username that created this ingredient.
+     */
+    private final String CREATED_BY = "snoopy";
+    
+    /**
+     * The date and time this record was created.
+     */
+    private final Timestamp CREATED_DATE = Timestamp.valueOf("2015-09-05 12:15:18");
+    
+    /**
+     * The username that last updated this record.
+     */
+    private final String LAST_UPDATED_BY = "garfield";
+    
+    /**
+     * The date and time this record was last updated.
+     */
+    private final Timestamp LAST_UPDATED_DATE = Timestamp.valueOf("2015-09-05 12:15:19");
+    
+    /**
+     * Load all elements into Tool implementation
+     * and leave it ready for testing.
+     */
+    @Before
+    public void before() {
+        tool = new ToolImpl(ID, TOOL_CD, DISPLAY_NAME, DESCRIPTION, SHOW, DELETED,
+                CREATED_BY, CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE);
+    }
 
-	/**
-	 * Test description
-	 */
-	@Test
-	public void testDescription() {
-		String foundDescription = tool.getDescription();
-		assertNotNull(foundDescription);
-		assertEquals(foundDescription, DESCRIPTION);
-	}
+    /**
+     * Test id
+     */
+    @Test
+    public void testId() {
+        int foundId = tool.getId();
+        assertNotNull(foundId);
+        assertTrue(ID == foundId);
+    }
 
-	/**
-	 * Test created by
-	 */
-	@Test
-	public void testCreatedBy() {
-		String foundCreatedBy = tool.getCreatedBy();
-		assertNotNull(foundCreatedBy);
-		assertEquals(foundCreatedBy, CREATED_BY);
-	}
+    /**
+     * Test tool code
+     */
+    @Test
+    public void testToolCd() {
+        String foundName = tool.getToolCd();
+        assertNotNull(foundName);
+        assertEquals(foundName, TOOL_CD);
+    }
 
-	/**
-	 * Test created date
-	 */
-	@Test
-	public void testCreatedDate() {
-		Timestamp foundCreatedDate = tool.getCreatedDate();
-		assertNotNull(foundCreatedDate);
-		assertEquals(foundCreatedDate, CREATED_DATE);
-	}
+    /**
+     * Test tool display name
+     */
+    @Test
+    public void testDisplayName() {
+        String foundName = tool.getDisplayName();
+        assertNotNull(foundName);
+        assertEquals(foundName, DISPLAY_NAME);
+    }
 
-	/**
-	 * Test last updated by
-	 */
-	@Test
-	public void testLastUpdatedBy() {
-		String foundLastUpdatedBy = tool.getLastUpdatedBy();
-		assertNotNull(foundLastUpdatedBy);
-		assertEquals(foundLastUpdatedBy, LAST_UPDATED_BY);
-	}
+    /**
+     * Test description
+     */
+    @Test
+    public void testDescription() {
+        String foundDescription = tool.getDescription();
+        assertNotNull(foundDescription);
+        assertEquals(foundDescription, DESCRIPTION);
+    }
 
-	/**
-	 * Test last updated date
-	 */
-	@Test
-	public void testLastUpdatedDate() {
-		Timestamp foundLastUpdatedDate = tool.getLastUpdatedDate();
-		assertNotNull(foundLastUpdatedDate);
-		assertEquals(foundLastUpdatedDate, LAST_UPDATED_DATE);
-	}
+    /**
+     * Test show
+     */
+    @Test
+    public void testShow() {
+        Boolean foundShow = tool.isShow();
+        assertNotNull(foundShow);
+        assertEquals(foundShow, SHOW);
+    }
+
+    /**
+     * Test deleted
+     */
+    @Test
+    public void testDeleted() {
+        Boolean foundDeleted = tool.isDeleted();
+        assertNotNull(foundDeleted);
+        assertEquals(foundDeleted, DELETED);
+    }
+
+    /**
+     * Test created by
+     */
+    @Test
+    public void testCreatedBy() {
+        String foundCreatedBy = tool.getCreatedBy();
+        assertNotNull(foundCreatedBy);
+        assertEquals(foundCreatedBy, CREATED_BY);
+    }
+
+    /**
+     * Test created date
+     */
+    @Test
+    public void testCreatedDate() {
+        Timestamp foundCreatedDate = tool.getCreatedDate();
+        assertNotNull(foundCreatedDate);
+        assertEquals(foundCreatedDate, CREATED_DATE);
+    }
+
+    /**
+     * Test last updated by
+     */
+    @Test
+    public void testLastUpdatedBy() {
+        String foundLastUpdatedBy = tool.getLastUpdatedBy();
+        assertNotNull(foundLastUpdatedBy);
+        assertEquals(foundLastUpdatedBy, LAST_UPDATED_BY);
+    }
+
+    /**
+     * Test last updated date
+     */
+    @Test
+    public void testLastUpdatedDate() {
+        Timestamp foundLastUpdatedDate = tool.getLastUpdatedDate();
+        assertNotNull(foundLastUpdatedDate);
+        assertEquals(foundLastUpdatedDate, LAST_UPDATED_DATE);
+    }
 }

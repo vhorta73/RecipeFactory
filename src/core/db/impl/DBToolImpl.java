@@ -29,14 +29,14 @@ public class DBToolImpl implements DBTool {
      * The insert sql for new records.
      */
     private final String INSERT_SQL = "INSERT INTO " + DatabaseTableName.getToolTable() 
-            + " (tool_cd,display_name,description,created_by,last_updated_by)"
-            + " VALUES(?,?,?,?,?)";
+            + " (tool_cd,display_name,description,show,deleted,created_by,last_updated_by)"
+            + " VALUES(?,?,?,?,?,?,?)";
     
     /**
      * The update sql for old record changes.
      */
     private final String UPDATE_SQL = "UPDATE " + DatabaseTableName.getToolTable() 
-            + " SET tool_cd = ?, display_name = ?, description = ?,"
+            + " SET tool_cd = ?, display_name = ?, description = ?, show = ?, delete = ?,"
             + " last_updated_by = ? WHERE id = ?";
 
 
@@ -104,12 +104,14 @@ public class DBToolImpl implements DBTool {
 				String toolCd               = rs.getString(2);
 				String display_name         = rs.getString(3);
 				String description          = rs.getString(4);
-				String created_by           = rs.getString(5);
-				Timestamp created_date      = rs.getTimestamp(6);
-				String last_updated_by      = rs.getString(7);
-				Timestamp last_updated_date = rs.getTimestamp(8);
+				boolean show                = rs.getBoolean(5);
+				boolean delete              = rs.getBoolean(6);
+				String created_by           = rs.getString(7);
+				Timestamp created_date      = rs.getTimestamp(8);
+				String last_updated_by      = rs.getString(9);
+				Timestamp last_updated_date = rs.getTimestamp(10);
 
-				finalToolList.add(new ToolImpl(id, toolCd, display_name, description, 
+				finalToolList.add(new ToolImpl(id, toolCd, display_name, description, show, delete,
 						created_by, created_date, last_updated_by, last_updated_date));
 			}
 
@@ -154,8 +156,10 @@ public class DBToolImpl implements DBTool {
                 prepSt.setString(1, tool.getToolCd());
                 prepSt.setString(2, tool.getDisplayName());
                 prepSt.setString(3, tool.getDescription());
-                prepSt.setString(4, tool.getCreatedBy());
-                prepSt.setString(5, tool.getLastUpdatedBy());            
+                prepSt.setBoolean(4, tool.isShow());
+                prepSt.setBoolean(5, tool.isDeleted());
+                prepSt.setString(6, tool.getCreatedBy());
+                prepSt.setString(7, tool.getLastUpdatedBy());            
                 prepSt.addBatch();
             }
             prepSt.executeBatch();
@@ -200,8 +204,10 @@ public class DBToolImpl implements DBTool {
                 prepSt.setString(1, tool.getToolCd());
                 prepSt.setString(2, tool.getDisplayName());
                 prepSt.setString(3, tool.getDescription());
-                prepSt.setString(4, tool.getLastUpdatedBy());
-                prepSt.setInt(5, tool.getId());            
+                prepSt.setBoolean(4, tool.isShow());
+                prepSt.setBoolean(5, tool.isDeleted());
+                prepSt.setString(6, tool.getLastUpdatedBy());
+                prepSt.setInt(7, tool.getId());            
                 prepSt.addBatch();
             }
             prepSt.executeBatch();

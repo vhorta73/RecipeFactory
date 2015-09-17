@@ -30,6 +30,16 @@ public class ToolImpl implements Tool {
 	 * The Tool description.
 	 */
 	private final String DESCRIPTION;
+	
+	/**
+	 * Show or no show flag.
+	 */
+	private final boolean SHOW;
+		
+	/**
+	 * The deleted flag.
+	 */
+	private final boolean DELETED;
 		
 	/**
 	 * The username that created this record.
@@ -63,12 +73,14 @@ public class ToolImpl implements Tool {
 	 * @param lastUpdatedBy String 
 	 * @param lastUpdatedDate Timestamp
 	 */
-	public ToolImpl(int id, String toolCd, String displayName, String description, 
+	public ToolImpl(int id, String toolCd, String displayName, String description, boolean show, boolean deleted,
 			String createdBy, Timestamp createdDate, String lastUpdatedBy, Timestamp lastUpdatedDate ) {
 		this.ID = id;
 		this.TOOL_CD = toolCd;
 		this.DISPLAY_NAME = displayName;
 		this.DESCRIPTION = description;
+		this.SHOW = show;
+		this.DELETED = deleted;
 		this.CREATED_BY = createdBy;
 		this.CREATED_DATE = createdDate;
 		this.LAST_UPDATED_BY = lastUpdatedBy;
@@ -137,5 +149,21 @@ public class ToolImpl implements Tool {
 	@Override
 	public String getDescription() {
 		return DESCRIPTION;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isDeleted() {
+		return DELETED;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isShow() {
+		return SHOW;
 	}
 }
