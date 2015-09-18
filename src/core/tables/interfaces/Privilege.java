@@ -27,7 +27,7 @@ public interface Privilege extends TableCommon {
 	 * 
 	 * @return int 
 	 */
-	public int getStatus();
+	public int getStatusId();
 	
 	/**
 	 * The privilege description.
@@ -35,4 +35,18 @@ public interface Privilege extends TableCommon {
 	 * @return String
 	 */
 	public String getDescription();
+
+	/**
+	 * True if this record is deleted.
+	 * 
+	 * @return true if deleted.
+	 */
+	public boolean isDeleted();
+
+	/**
+	 * True if this record is showing.
+	 * 
+	 * @return true if showing
+	 */
+	public boolean isShow();
 }

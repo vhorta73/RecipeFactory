@@ -28,7 +28,17 @@ public class PrivilegeImpl implements Privilege {
 	/**
 	 * The privilege description.
 	 */
-	public final String DESCRIPTION;
+	private final String DESCRIPTION;
+	
+	/**
+	 * Show or no show flag.
+	 */
+	private final boolean SHOW;
+		
+	/**
+	 * The deleted flag.
+	 */
+	private final boolean DELETED;
 
 	/**
 	 * The username that created this privilege.
@@ -57,18 +67,22 @@ public class PrivilegeImpl implements Privilege {
 	 * @param display_name
 	 * @param status_id
 	 * @param description
+	 * @param show
+	 * @param deleted
 	 * @param createdBy
 	 * @param createdDate
 	 * @param lastUpdatedBy
 	 * @param lastUpdatedDate
 	 */
 	public PrivilegeImpl(int id, String display_name, 
-			int status_id, String description, 
+			int status_id, String description,  boolean show, boolean deleted,
 			String createdBy, Timestamp createdDate, 
 			String lastUpdatedBy, Timestamp lastUpdatedDate  ) {
 		this.ID = id;
 		this.DISPLAY_NAME = display_name;
 		this.DESCRIPTION = description;
+		this.SHOW = show;
+		this.DELETED = deleted;
 		this.CREATED_BY = createdBy;
 		this.CREATED_DATE = createdDate;
 		this.LAST_UPDATED_BY = lastUpdatedBy;
@@ -128,7 +142,7 @@ public class PrivilegeImpl implements Privilege {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int getStatus() {
+	public int getStatusId() {
 		return STATUS;
 	}
 
@@ -138,5 +152,21 @@ public class PrivilegeImpl implements Privilege {
 	@Override
 	public String getDescription() {
 		return DESCRIPTION;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isDeleted() {
+		return DELETED;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isShow() {
+		return SHOW;
 	}
 }
