@@ -61,23 +61,15 @@ public class DatabaseTableName {
     }
     
     /**
-     * The Privilege Tool database where the privilege_tool table can be found.
+     * The Privilege Tool Feature Access database 
+     * where the privilege_tool_feature_access table can be found.
      * 
      * @return String database
      */
-    public static String getPrivilegeToolDatabase() {
+    public static String getPrivilegeToolFeatureAccessDatabase() {
         return EnumDatabases.rfact_core.toString();
     }
 
-    /**
-     * The Privilege Tool table name.
-     * 
-     * @return String privilege_tool
-     */
-    public static String getPrivilegeToolTable() {
-        return EnumTables.privilege_tool.toString();
-    }
-    
     /**
      * The Privilege Tool Feature Access table name.
      * 
@@ -138,7 +130,7 @@ public class DatabaseTableName {
      * @return String tool_feature
      */
     public static String getFeatureTable() {
-        return EnumTables.tool_feature.toString();
+        return EnumTables.feature.toString();
     }
 
     /**
