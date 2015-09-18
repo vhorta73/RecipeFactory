@@ -51,15 +51,27 @@ public class DBPrivilegeToolImpl implements DBPrivilegeTool {
     }
     
     /**
-     * Select a PrivilegeTool by privilegeId
+     * Select a PrivilegeTool by Id
      * 
      * @param id int
      * @return PrivilegeTool
      */
     @Override
-    public PrivilegeTool getPrivilegeTool(int privilegeId) {
+    public PrivilegeTool getPrivilegeToolById(int id) {
         // Initialise the final Privilege object to be returned.
-        return getResults("SELECT * FROM " + DatabaseTableName.getPrivilegeToolTable() + " WHERE privilege_id = '"+privilegeId+"'").get(0);
+        return getResults("SELECT * FROM " + DatabaseTableName.getPrivilegeToolTable() + " WHERE id = '"+id+"'").get(0);
+    }
+    
+    /**
+     * Select a PrivilegeTool by privilegeId
+     * 
+     * @param id int
+     * @return PrivilegeTool List
+     */
+    @Override
+    public List<PrivilegeTool> getPrivilegeToolByPrivilegeId(int privilegeId) {
+        // Initialise the final Privilege object to be returned.
+        return getResults("SELECT * FROM " + DatabaseTableName.getPrivilegeToolTable() + " WHERE privilege_id = '"+privilegeId+"'");
     }
     
     /**
@@ -82,8 +94,7 @@ public class DBPrivilegeToolImpl implements DBPrivilegeTool {
                     .getConnection(DatabaseTableName.getPrivilegeToolDatabase())
                     .prepareStatement(sql);
 
-            rs = prepSt
-                    .executeQuery();
+            rs = prepSt.executeQuery();
 
             while ( rs.next() ) {
                 int id                      = rs.getInt(1);

@@ -1,7 +1,6 @@
 package core.db.unitTests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -107,11 +106,45 @@ public class TestDBPrivilegeToolImpl {
         Mockito.when(resultSet.getString(8)).thenReturn(LAST_UPDATED_BY);
         Mockito.when(resultSet.getTimestamp(9)).thenReturn(LAST_UPDATED_DATE);
 
-        PrivilegeTool foundPrivilegeTool = dbPrivilegeTool.getPrivilegeTool(ID);
+        PrivilegeTool foundPrivilegeTool = dbPrivilegeTool.getPrivilegeToolById(ID);
 
         assertNotNull(foundPrivilegeTool);
 
         verify(expectedPrivilegeTool,foundPrivilegeTool);
+    }
+
+    /**
+     * Test getPrivilegeToolPrivilegeId(privilegeId).
+     * 
+     * @throws SQLException 
+     */
+    @Test
+    public void testGetPrivilegeToolByPrivilegeId() throws SQLException {
+        List<PrivilegeTool> expectedPrivilegeToolList = new LinkedList<PrivilegeTool>();
+        expectedPrivilegeToolList.add(new PrivilegeToolImpl(ID, PRIVILEGE_ID, STATUS_ID, 
+                SHOW, DELETED, CREATED_BY, CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE));
+        expectedPrivilegeToolList.add(new PrivilegeToolImpl(ID+1, PRIVILEGE_ID+1, STATUS_ID+1, 
+                SHOW, DELETED, CREATED_BY, CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE));
+
+        Mockito.when(resultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
+        Mockito.when(resultSet.getInt(1)).thenReturn(ID).thenReturn(ID+1);
+        Mockito.when(resultSet.getInt(2)).thenReturn(PRIVILEGE_ID).thenReturn(PRIVILEGE_ID+1);
+        Mockito.when(resultSet.getInt(3)).thenReturn(STATUS_ID).thenReturn(STATUS_ID+1);
+        Mockito.when(resultSet.getBoolean(4)).thenReturn(SHOW).thenReturn(SHOW);
+        Mockito.when(resultSet.getBoolean(5)).thenReturn(DELETED).thenReturn(DELETED);
+        Mockito.when(resultSet.getString(6)).thenReturn(CREATED_BY).thenReturn(CREATED_BY);
+        Mockito.when(resultSet.getTimestamp(7)).thenReturn(CREATED_DATE).thenReturn(CREATED_DATE);
+        Mockito.when(resultSet.getString(8)).thenReturn(LAST_UPDATED_BY).thenReturn(LAST_UPDATED_BY);
+        Mockito.when(resultSet.getTimestamp(9)).thenReturn(LAST_UPDATED_DATE).thenReturn(LAST_UPDATED_DATE);
+
+        List<PrivilegeTool> foundPrivilegeToolList = dbPrivilegeTool.getPrivilegeToolByPrivilegeId(PRIVILEGE_ID);
+
+        assertNotNull(foundPrivilegeToolList);
+        assertTrue(expectedPrivilegeToolList.size() == foundPrivilegeToolList.size());
+
+        for( int index = 0; index < expectedPrivilegeToolList.size(); index++ ) {
+            verify(expectedPrivilegeToolList.get(index),foundPrivilegeToolList.get(index));
+        }
     }
 
     /**
@@ -229,4 +262,6 @@ public class TestDBPrivilegeToolImpl {
         assertEquals(expectedPrivilegeTool.getLastUpdatedBy(),foundPrivilegeTool.getLastUpdatedBy());
         assertEquals(expectedPrivilegeTool.getLastUpdatedDate(),foundPrivilegeTool.getLastUpdatedDate());
     }
+    
+    
 }
