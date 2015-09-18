@@ -51,15 +51,15 @@ public class DBPrivilegeToolImpl implements DBPrivilegeTool {
     }
     
     /**
-     * Select a PrivilegeTool by id
+     * Select a PrivilegeTool by privilegeId
      * 
      * @param id int
      * @return PrivilegeTool
      */
     @Override
-    public PrivilegeTool getPrivilegeToolId(int id) {
+    public PrivilegeTool getPrivilegeTool(int privilegeId) {
         // Initialise the final Privilege object to be returned.
-        return getResults("SELECT * FROM " + DatabaseTableName.getPrivilegeToolTable() + " WHERE privilege_id = '"+id+"'").get(0);
+        return getResults("SELECT * FROM " + DatabaseTableName.getPrivilegeToolTable() + " WHERE privilege_id = '"+privilegeId+"'").get(0);
     }
     
     /**

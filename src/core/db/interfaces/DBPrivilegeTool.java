@@ -13,10 +13,10 @@ public interface DBPrivilegeTool {
     /**
      * Get a PrivilegeTool row by id.
      * 
-     * @param privilegeToolId
+     * @param privilegeId
      * @return PrivilegeTool
      */
-    public PrivilegeTool getPrivilegeToolId(int privilegeToolId);
+    public PrivilegeTool getPrivilegeTool(int privilegeId);
 
     /**
      * Create a new record with given information.

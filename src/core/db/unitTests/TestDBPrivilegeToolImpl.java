@@ -107,7 +107,7 @@ public class TestDBPrivilegeToolImpl {
         Mockito.when(resultSet.getString(8)).thenReturn(LAST_UPDATED_BY);
         Mockito.when(resultSet.getTimestamp(9)).thenReturn(LAST_UPDATED_DATE);
 
-        PrivilegeTool foundPrivilegeTool = dbPrivilegeTool.getPrivilegeToolId(ID);
+        PrivilegeTool foundPrivilegeTool = dbPrivilegeTool.getPrivilegeTool(ID);
 
         assertNotNull(foundPrivilegeTool);
 
