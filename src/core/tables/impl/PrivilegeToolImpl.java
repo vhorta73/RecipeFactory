@@ -25,6 +25,16 @@ public class PrivilegeToolImpl implements PrivilegeTool {
 	 * The tool id.
 	 */
 	public final int TOOL_ID;
+	
+	/**
+	 * Show or no show flag.
+	 */
+	private final boolean SHOW;
+		
+	/**
+	 * The deleted flag.
+	 */
+	private final boolean DELETED;
 
 	/**
 	 * The username that created this record.
@@ -57,12 +67,14 @@ public class PrivilegeToolImpl implements PrivilegeTool {
 	 * @param lastUpdatedBy String
 	 * @param lastUpdatedDate Timestamp
 	 */
-	public PrivilegeToolImpl(int id, int privilegeId, int toolId,
+	public PrivilegeToolImpl(int id, int privilegeId, int toolId, boolean show, boolean deleted,
 			String createdBy, Timestamp createdDate, 
 			String lastUpdatedBy, Timestamp lastUpdatedDate  ) {
 		this.ID = id;
 		this.PRIVILEGE_ID = privilegeId;
 		this.TOOL_ID = toolId;
+		this.SHOW = show;
+		this.DELETED = deleted;
 		this.CREATED_BY = createdBy;
 		this.CREATED_DATE = createdDate;
 		this.LAST_UPDATED_BY = lastUpdatedBy;
@@ -123,5 +135,21 @@ public class PrivilegeToolImpl implements PrivilegeTool {
 	@Override
 	public int getToolId() {
 		return TOOL_ID;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isDeleted() {
+		return DELETED;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isShow() {
+		return SHOW;
 	}
 }
