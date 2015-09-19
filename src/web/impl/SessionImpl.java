@@ -2,7 +2,7 @@ package web.impl;
 
 import web.interfaces.Session;
 import mySQL.ConnectDB;
-import core.UserPrivilege;
+import core.interfaces.UserPrivilege;
 import core.tables.interfaces.User;
 /**
  * The Session implementation.

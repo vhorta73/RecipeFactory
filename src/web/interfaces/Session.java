@@ -1,7 +1,7 @@
 package web.interfaces;
 
 import mySQL.ConnectDB;
-import core.UserPrivilege;
+import core.interfaces.UserPrivilege;
 import core.tables.interfaces.User;
 
 /**
