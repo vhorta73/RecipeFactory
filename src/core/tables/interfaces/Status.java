@@ -1,6 +1,5 @@
 package core.tables.interfaces;
 
-import core.db.interfaces.DBTableCommon;
 
 /**
  * The Status interface.
@@ -8,7 +7,7 @@ import core.db.interfaces.DBTableCommon;
  * @author Vasco
  * 
  */
-public interface Status extends DBTableCommon {
+public interface Status extends TableCommon {
 	/**
 	 * The primary id from the status table,
 	 * 
@@ -38,4 +37,18 @@ public interface Status extends DBTableCommon {
 	 * @return String
 	 */
 	public String getDescription();
+
+	/**
+	 * True if this record is deleted.
+	 * 
+	 * @return true if deleted.
+	 */
+	public boolean isDeleted();
+
+	/**
+	 * True if this record is showing.
+	 * 
+	 * @return true if showing
+	 */
+	public boolean isShow();
 }

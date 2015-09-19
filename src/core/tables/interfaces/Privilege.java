@@ -1,6 +1,5 @@
 package core.tables.interfaces;
 
-import core.db.interfaces.DBTableCommon;
 
 /**
  * The Privileges interface.
@@ -8,7 +7,7 @@ import core.db.interfaces.DBTableCommon;
  * @author Vasco
  *
  */
-public interface Privilege extends DBTableCommon {
+public interface Privilege extends TableCommon {
 	/**
 	 * The auto-increment table unique id.
 	 * 
@@ -28,7 +27,7 @@ public interface Privilege extends DBTableCommon {
 	 * 
 	 * @return int 
 	 */
-	public int getStatus();
+	public int getStatusId();
 	
 	/**
 	 * The privilege description.
@@ -36,4 +35,18 @@ public interface Privilege extends DBTableCommon {
 	 * @return String
 	 */
 	public String getDescription();
+
+	/**
+	 * True if this record is deleted.
+	 * 
+	 * @return true if deleted.
+	 */
+	public boolean isDeleted();
+
+	/**
+	 * True if this record is showing.
+	 * 
+	 * @return true if showing
+	 */
+	public boolean isShow();
 }

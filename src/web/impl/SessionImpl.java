@@ -2,7 +2,7 @@ package web.impl;
 
 import web.interfaces.Session;
 import mySQL.ConnectDB;
-import core.UserPrivilege;
+import core.interfaces.BEUserPrivilege;
 import core.tables.interfaces.User;
 /**
  * The Session implementation.
@@ -24,7 +24,7 @@ public class SessionImpl implements Session {
 	/**
 	 * The User Privileges.
 	 */
-	private UserPrivilege userPrivileges;
+	private BEUserPrivilege userPrivileges;
 	
 	/**
 	 * The dbConnection.
@@ -98,7 +98,7 @@ public class SessionImpl implements Session {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public UserPrivilege getUserPrivileges() {
+	public BEUserPrivilege getUserPrivileges() {
 		return userPrivileges;
 	}
 
@@ -106,7 +106,7 @@ public class SessionImpl implements Session {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setUserPrivileges(UserPrivilege userPrivilege) {
+	public void setUserPrivileges(BEUserPrivilege userPrivilege) {
 		// Only set it once.
 		if ( this.userPrivileges == null ) this.userPrivileges = userPrivilege;
 	}

@@ -30,6 +30,16 @@ public class StatusImpl implements Status {
 	 * The Ingredient description.
 	 */
 	private final String DESCRIPTION;
+	
+	/**
+	 * Show or no show flag.
+	 */
+	private final boolean SHOW;
+		
+	/**
+	 * The deleted flag.
+	 */
+	private final boolean DELETED;
 		
 	/**
 	 * The username that created this ingredient.
@@ -59,18 +69,22 @@ public class StatusImpl implements Status {
 	 * @param id int auto increment
 	 * @param name of the ingredient
 	 * @param description for the ingredient
+	 * @param show record
+	 * @param deleted record
 	 * @param notes on the ingredient
 	 * @param createdBy username
 	 * @param createdDate String date time
 	 * @param lastUpdatedBy username
 	 * @param lastUpdatedDate String date time
 	 */
-	public StatusImpl(int id, String status_cd, String displayName, String description, 
+	public StatusImpl(int id, String status_cd, String displayName, String description, boolean show, boolean deleted,
 			String createdBy, Timestamp createdDate, String lastUpdatedBy, Timestamp lastUpdatedDate ) {
 		this.ID = id;
 		this.STATUS_CD = status_cd;
 		this.DISPLAY_NAME = displayName;
 		this.DESCRIPTION = description;
+		this.SHOW = show;
+		this.DELETED = deleted;
 		this.CREATED_BY = createdBy;
 		this.CREATED_DATE = createdDate;
 		this.LAST_UPDATED_BY = lastUpdatedBy;
@@ -139,5 +153,21 @@ public class StatusImpl implements Status {
 	@Override
 	public String getDescription() {
 		return DESCRIPTION;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isDeleted() {
+		return DELETED;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isShow() {
+		return SHOW;
 	}
 }

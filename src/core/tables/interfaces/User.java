@@ -1,7 +1,5 @@
 package core.tables.interfaces;
 
-import constants.EnumUserStatus;
-import core.db.interfaces.DBTableCommon;
 
 /**
  * The User interface.
@@ -9,7 +7,7 @@ import core.db.interfaces.DBTableCommon;
  * @author Vasco
  *
  */
-public interface User extends DBTableCommon {
+public interface User extends TableCommon {
 	/**
 	 * The primary id from the User table,
 	 * used mostly internally for efficiency on updating
@@ -47,5 +45,5 @@ public interface User extends DBTableCommon {
 	 * 
 	 * @return UserStatus
 	 */
-	public EnumUserStatus getStatus();
+	public String getStatus();
 }

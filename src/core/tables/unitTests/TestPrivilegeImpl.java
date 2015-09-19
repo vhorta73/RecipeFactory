@@ -18,121 +18,147 @@ import core.tables.interfaces.Privilege;
  *
  */
 public class TestPrivilegeImpl {
-	/**
-	 * The auto-increment id.
-	 */
-	private final int ID = 23;
-	
-	/**
-	 * The privilege name.
-	 */
-	private final String NAME = "Privilege name";
-	
-	/**
-	 * The privilege status.
-	 */
-	private final int STATUS = 1;
-	
-	/**
-	 * The privilege description.
-	 */
-	private final String DESCRIPTION = "This is a description.";
+    /**
+     * The auto-increment id.
+     */
+    private final int ID = 23;
+    
+    /**
+     * The privilege name.
+     */
+    private final String NAME = "Privilege name";
+    
+    /**
+     * The privilege status.
+     */
+    private final int STATUS = 1;
+    
+    /**
+     * The privilege description.
+     */
+    private final String DESCRIPTION = "This is a description.";
 
-	/**
-	 * The username that created this privilege.
-	 */
-	private final String CREATED_BY = "snoopy";
-	
-	/**
-	 * The date and time this record was created.
-	 */
-	private final Timestamp CREATED_DATE = Timestamp.valueOf("2015-09-05 12:15:18");
-	
-	/**
-	 * The username that last updated this record.
-	 */
-	private final String LAST_UPDATED_BY = "garfield";
-	
-	/**
-	 * The date and time this record was last updated.
-	 */
-	private final Timestamp LAST_UPDATED_DATE = Timestamp.valueOf("2015-09-05 12:15:19");
+    /**
+     * The show flag.
+     */
+    private final boolean SHOW = true;
 
-	/**
-	 * The Privilege handler.
-	 */
-	private Privilege privilege;
+    /**
+     * The deleted flag.
+     */
+    private final boolean DELETED = false;
 
-	/**
-	 * Initialisations.
-	 */
-	@Before
-	public void before() {
-		privilege = new PrivilegeImpl(ID, NAME, STATUS, DESCRIPTION, 
-				CREATED_BY, CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE);
-	}
-	
-	/**
-	 * Test id.
-	 */
-	@Test
-	public void testId() {
-		assertTrue(ID == privilege.getId());
-	}
+    /**
+     * The username that created this privilege.
+     */
+    private final String CREATED_BY = "snoopy";
+    
+    /**
+     * The date and time this record was created.
+     */
+    private final Timestamp CREATED_DATE = Timestamp.valueOf("2015-09-05 12:15:18");
+    
+    /**
+     * The username that last updated this record.
+     */
+    private final String LAST_UPDATED_BY = "garfield";
+    
+    /**
+     * The date and time this record was last updated.
+     */
+    private final Timestamp LAST_UPDATED_DATE = Timestamp.valueOf("2015-09-05 12:15:19");
 
-	/**
-	 * Test name.
-	 */
-	@Test
-	public void testName() {
-		assertEquals(NAME, privilege.getDisplayName());
-	}
+    /**
+     * The Privilege handler.
+     */
+    private Privilege privilege;
 
-	/**
-	 * Test status.
-	 */
-	@Test
-	public void testStatus() {
-		assertEquals(STATUS, privilege.getStatus());
-	}
+    /**
+     * Initialisations.
+     */
+    @Before
+    public void before() {
+        privilege = new PrivilegeImpl(ID, NAME, STATUS, DESCRIPTION, SHOW, DELETED,
+                CREATED_BY, CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE);
+    }
+    
+    /**
+     * Test id.
+     */
+    @Test
+    public void testId() {
+        assertTrue(ID == privilege.getId());
+    }
 
-	/**
-	 * Test description.
-	 */
-	@Test
-	public void testDescription() {
-		assertEquals(DESCRIPTION, privilege.getDescription());
-	}
+    /**
+     * Test name.
+     */
+    @Test
+    public void testName() {
+        assertEquals(NAME, privilege.getDisplayName());
+    }
 
-	/**
-	 * Test created by
-	 */
-	@Test
-	public void testCreatedBy() {
-		assertEquals(CREATED_BY, privilege.getCreatedBy());
-	}
+    /**
+     * Test status.
+     */
+    @Test
+    public void testStatus() {
+        assertEquals(STATUS, privilege.getStatusId());
+    }
 
-	/**
-	 * Test created date
-	 */
-	@Test
-	public void testCreatedDate() {
-		assertEquals(CREATED_DATE, privilege.getCreatedDate());
-	}
+    /**
+     * Test description.
+     */
+    @Test
+    public void testDescription() {
+        assertEquals(DESCRIPTION, privilege.getDescription());
+    }
 
-	/**
-	 * Test last updated by
-	 */
-	@Test
-	public void testLastUpdatedBy() {
-		assertEquals(LAST_UPDATED_BY, privilege.getLastUpdatedBy());
-	}
+    /**
+     * Test show.
+     */
+    @Test
+    public void testShow() {
+        assertEquals(SHOW, privilege.isShow());
+    }
 
-	/**
-	 * Test last updated date
-	 */
-	@Test
-	public void testLastUpdatedDate() {
-		assertEquals(LAST_UPDATED_DATE, privilege.getLastUpdatedDate());
-	}
+    /**
+     * Test deleted.
+     */
+    @Test
+    public void testDeleted() {
+        assertEquals(DELETED, privilege.isDeleted());
+    }
+
+    /**
+     * Test created by
+     */
+    @Test
+    public void testCreatedBy() {
+        assertEquals(CREATED_BY, privilege.getCreatedBy());
+    }
+
+    /**
+     * Test created date
+     */
+    @Test
+    public void testCreatedDate() {
+        assertEquals(CREATED_DATE, privilege.getCreatedDate());
+    }
+
+    /**
+     * Test last updated by
+     */
+    @Test
+    public void testLastUpdatedBy() {
+        assertEquals(LAST_UPDATED_BY, privilege.getLastUpdatedBy());
+    }
+
+    /**
+     * Test last updated date
+     */
+    @Test
+    public void testLastUpdatedDate() {
+        assertEquals(LAST_UPDATED_DATE, privilege.getLastUpdatedDate());
+    }
 }

@@ -12,10 +12,10 @@ import javax.crypto.spec.PBEKeySpec;
 import mySQL.ConnectDB;
 import web.impl.SessionImpl;
 import web.interfaces.Session;
-import core.UserPrivilege;
-import core.UserPrivilegeImpl;
 import core.db.impl.DBUserImpl;
 import core.db.interfaces.DBUser;
+import core.impl.UserPrivilegeImpl;
+import core.interfaces.BEUserPrivilege;
 import core.tables.interfaces.User;
 
 /**
@@ -81,7 +81,7 @@ public class LoginCredentials {
 	/**
 	 * The User Privilege data from the database
 	 */
-	private UserPrivilege userPrivilege;
+	private BEUserPrivilege userPrivilege;
 
 	/**
 	 * Logging users in.

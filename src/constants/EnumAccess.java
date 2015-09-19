@@ -7,6 +7,6 @@ package constants;
  *
  */
 public enum EnumAccess {
-   FULL,
+   FULL_ACCESS,
    READ_ONLY,
 }

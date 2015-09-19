@@ -1,6 +1,5 @@
 package core.tables.interfaces;
 
-import core.db.interfaces.DBTableCommon;
 
 /**
  * The Ingredient interface.
@@ -8,7 +7,7 @@ import core.db.interfaces.DBTableCommon;
  * @author Vasco
  * 
  */
-public interface Ingredient extends DBTableCommon {
+public interface Ingredient extends TableCommon {
 	/**
 	 * The primary id from the ingredients table,
 	 * used mostly internally for efficiency on updating
@@ -44,4 +43,18 @@ public interface Ingredient extends DBTableCommon {
 	 * @return String
 	 */
 	public String getNotes();
+
+	/**
+	 * True if this record is deleted.
+	 * 
+	 * @return true if deleted.
+	 */
+	public boolean isDeleted();
+
+	/**
+	 * True if this record is showing.
+	 * 
+	 * @return true if showing
+	 */
+	public boolean isShow();
 }

@@ -43,7 +43,17 @@ public class TestFeatureImpl {
 	 * The Feature description.
 	 */
 	private final String DESCRIPTION = "This is my first Feature description";
+
+	/**
+	 * Show flag.
+	 */
+	private final boolean SHOW = true;
 	
+	/**
+	 * The deleted flag.
+	 */
+	private final boolean DELETED = false;
+
 	/**
 	 * The username that created this ingredient.
 	 */
@@ -70,7 +80,7 @@ public class TestFeatureImpl {
 	 */
 	@Before
 	public void before() {
-		feature = new FeatureImpl(ID, FEATURE_CD, DISPLAY_NAME, DESCRIPTION,
+		feature = new FeatureImpl(ID, FEATURE_CD, DISPLAY_NAME, DESCRIPTION, SHOW, DELETED,
 				CREATED_BY, CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE);
 	}
 
@@ -112,6 +122,26 @@ public class TestFeatureImpl {
 		String foundDescription = feature.getDescription();
 		assertNotNull(foundDescription);
 		assertEquals(foundDescription, DESCRIPTION);
+	}
+
+	/**
+	 * Test show
+	 */
+	@Test
+	public void testShow() {
+		boolean foundShow = feature.isShow();
+		assertNotNull(foundShow);
+		assertEquals(foundShow, SHOW);
+	}
+
+	/**
+	 * Test deleted
+	 */
+	@Test
+	public void testDeleted() {
+		boolean foundDeleted = feature.isDeleted();
+		assertNotNull(foundDeleted);
+		assertEquals(foundDeleted, DELETED);
 	}
 
 	/**

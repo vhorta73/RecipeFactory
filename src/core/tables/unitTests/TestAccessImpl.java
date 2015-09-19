@@ -43,7 +43,17 @@ public class TestAccessImpl {
 	 * The Access description.
 	 */
 	private final String DESCRIPTION = "This is my first Access description";
+
+	/**
+	 * The Show flag.
+	 */
+	private final boolean SHOW = true;
 	
+	/**
+	 * The deleted flag.
+	 */
+	private final boolean DELETED = false;
+
 	/**
 	 * The username that created this record.
 	 */
@@ -70,7 +80,7 @@ public class TestAccessImpl {
 	 */
 	@Before
 	public void before() {
-		access = new AccessImpl(ID, ACCESS_CD, DISPLAY_NAME, DESCRIPTION,
+		access = new AccessImpl(ID, ACCESS_CD, DISPLAY_NAME, DESCRIPTION, SHOW, DELETED,
 				CREATED_BY, CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE);
 	}
 
@@ -112,6 +122,26 @@ public class TestAccessImpl {
 		String foundDescription = access.getDescription();
 		assertNotNull(foundDescription);
 		assertEquals(foundDescription, DESCRIPTION);
+	}
+
+	/**
+	 * Test show
+	 */
+	@Test
+	public void testShow() {
+		boolean foundShow = access.isShow();
+		assertNotNull(foundShow);
+		assertEquals(foundShow, SHOW);
+	}
+
+	/**
+	 * Test deleted
+	 */
+	@Test
+	public void testDeleted() {
+		boolean foundDeleted = access.isDeleted();
+		assertNotNull(foundDeleted);
+		assertEquals(foundDeleted, DELETED);
 	}
 
 	/**
