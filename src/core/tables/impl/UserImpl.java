@@ -57,7 +57,7 @@ public class UserImpl implements User {
 	private final Timestamp LAST_UPDATED_DATE;
 
 	
-	public UserImpl(int id, String username, byte[] password, String status, int privilegeId, 
+	public UserImpl(int id, String username, byte[] password, int privilegeId, String status, 
 			String createdBy, Timestamp createdDate, String lastUpdatedBy, Timestamp lastUpdatedDate ) {
 		this.ID = id;
 		this.USERNAME = username;

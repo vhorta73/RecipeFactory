@@ -75,7 +75,7 @@ public class TestUserImpl {
 	 */
 	@Before
 	public void before() {
-		user = new UserImpl(ID, USERNAME, HASHED_PASSWORD, STATUS, PRIVILEGE_ID,
+		user = new UserImpl(ID, USERNAME, HASHED_PASSWORD, PRIVILEGE_ID, STATUS,
 				CREATED_BY, CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE);
 	}
 

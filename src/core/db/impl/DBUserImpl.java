@@ -108,7 +108,7 @@ public class DBUserImpl implements DBUser {
 				Timestamp last_updated_date = rs.getTimestamp(9);
 
 				// There should be only one since username is unique key in user table.
-				user = new UserImpl(id, username, password, status, privilegeId,
+				user = new UserImpl(id, username, password, privilegeId, status, 
 						created_by, created_date, last_updated_by, last_updated_date);
 			}
 
