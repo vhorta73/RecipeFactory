@@ -16,4 +16,5 @@ public class TableNames {
 	public static String getFeatureTable()                    { return "feature"; }                       // List of all features tools may have
 	public static String getAccessTable()                     { return "access"; }                        // List of all types of known accesses
 	public static String getRecipeTable()                     { return "recipe"; }                        // The recipe list
+	public static String getRecipeIngredientTable()           { return "recipe_ingredient"; }             // The recipe ingredient list
 }

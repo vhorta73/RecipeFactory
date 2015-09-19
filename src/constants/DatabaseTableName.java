@@ -132,4 +132,18 @@ public class DatabaseTableName {
      * @return String access
      */
     public static String getRecipeTable() { return TableNames.getRecipeTable(); }
+
+    /**
+     * The RecipeIngredient database where the recipe_ingredient table can be found.
+     * 
+     * @return String database
+     */
+    public static String getRecipeIngredientDatabase() { return DatabaseNames.getCoreDatabase(); }
+
+    /**
+     * The RecipeIngredient table name.
+     * 
+     * @return String access
+     */
+    public static String getRecipeIngredientTable() { return TableNames.getRecipeIngredientTable(); }
 }

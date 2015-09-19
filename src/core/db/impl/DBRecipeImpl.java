@@ -149,7 +149,7 @@ public class DBRecipeImpl implements DBRecipe {
         PreparedStatement prepSt = null;
         try {
             prepSt = this.session.getDB()
-            		.getConnection(DatabaseTableName.getAccessDatabase())
+            		.getConnection(DatabaseTableName.getRecipeDatabase())
             		.prepareStatement(INSERT_SQL);
     
             for( Recipe recipe : recipeList ) {
@@ -199,7 +199,7 @@ public class DBRecipeImpl implements DBRecipe {
         PreparedStatement prepSt = null;
         try {
             prepSt = this.session.getDB()
-            		.getConnection(DatabaseTableName.getAccessDatabase())
+            		.getConnection(DatabaseTableName.getRecipeDatabase())
             		.prepareStatement(UPDATE_SQL);
     
             for( Recipe recipe : recipeList ) {
