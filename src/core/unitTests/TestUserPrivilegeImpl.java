@@ -21,7 +21,7 @@ import constants.EnumAccess;
 import constants.EnumFeature;
 import constants.EnumTool;
 import core.impl.UserPrivilegeImpl;
-import core.interfaces.UserPrivilege;
+import core.interfaces.BEUserPrivilege;
 import core.tables.interfaces.User;
 
 /**
@@ -34,7 +34,7 @@ public class TestUserPrivilegeImpl {
     /**
      * UserPrivilege handle.
      */
-    private UserPrivilege userPrivilege;
+    private BEUserPrivilege userPrivilege;
     
     /** DATA **/
     private final int PRIVILEGE_ID = 10;

@@ -13,7 +13,7 @@ import constants.EnumTool;
  * @author Vasco
  *
  */
-public interface UserPrivilege {
+public interface BEUserPrivilege {
 	/**
 	 * True if user can access to given tool.
 	 * 

@@ -15,7 +15,7 @@ import web.interfaces.Session;
 import core.db.impl.DBUserImpl;
 import core.db.interfaces.DBUser;
 import core.impl.UserPrivilegeImpl;
-import core.interfaces.UserPrivilege;
+import core.interfaces.BEUserPrivilege;
 import core.tables.interfaces.User;
 
 /**
@@ -81,7 +81,7 @@ public class LoginCredentials {
 	/**
 	 * The User Privilege data from the database
 	 */
-	private UserPrivilege userPrivilege;
+	private BEUserPrivilege userPrivilege;
 
 	/**
 	 * Logging users in.

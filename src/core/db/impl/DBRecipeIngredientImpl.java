@@ -81,8 +81,7 @@ public class DBRecipeIngredientImpl implements DBRecipeIngredient {
                     .getConnection(DatabaseTableName.getRecipeIngredientDatabase())
                     .prepareStatement(sql);
 
-            rs = prepSt
-                    .executeQuery();
+            rs = prepSt.executeQuery();
 
             while ( rs.next() ) {
                 int recipeId                = rs.getInt(1);

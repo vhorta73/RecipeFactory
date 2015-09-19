@@ -17,7 +17,7 @@ import core.db.interfaces.DBAccess;
 import core.db.interfaces.DBFeature;
 import core.db.interfaces.DBPrivilegeToolFeatureAccess;
 import core.db.interfaces.DBTool;
-import core.interfaces.UserPrivilege;
+import core.interfaces.BEUserPrivilege;
 import core.tables.interfaces.Access;
 import core.tables.interfaces.Feature;
 import core.tables.interfaces.PrivilegeToolFeatureAccess;
@@ -37,7 +37,7 @@ import core.tables.interfaces.Tool;
  * @author Vasco
  *
  */
-public class UserPrivilegeImpl implements UserPrivilege {
+public class UserPrivilegeImpl implements BEUserPrivilege {
     /**
      * Loaded user Privileges
      */
