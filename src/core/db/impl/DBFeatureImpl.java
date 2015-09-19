@@ -121,7 +121,6 @@ public class DBFeatureImpl implements DBFeature {
 				prepSt.close();
 				rs.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
