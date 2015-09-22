@@ -91,7 +91,7 @@ public class UserPrivilegeImpl implements BEUserPrivilege {
 
             Feature feature = featureDB.getFeature(privilegeToolFeatureAccess.getFeatureId());
             featureMap.put(feature.getFeatureCd(), privilegeToolFeatureAccess.getFeatureId());
-            
+
             Access access = accessDB.getAccess(privilegeToolFeatureAccess.getAccessId());
             accessMap.put(access.getAccessCd(), privilegeToolFeatureAccess.getAccessId());
         }
@@ -105,11 +105,8 @@ public class UserPrivilegeImpl implements BEUserPrivilege {
         // Validate input.
         if ( tool == null ) throw new IllegalArgumentException("Tool cannot be null.");
 
-        // Internally convert all codes to upper case to match enum java naming standards.
-        String toolStr = tool.toString();
-
         // Find the map id of the code.
-        Integer toolId = toolMap.get(toolStr);
+        Integer toolId = toolMap.get(tool.toString());
         
         // If no id found, then nothing assigned to this privileged for the required args.
         if ( toolId == null ) return false;
@@ -132,13 +129,9 @@ public class UserPrivilegeImpl implements BEUserPrivilege {
         if ( tool == null ) throw new IllegalArgumentException("Tool cannot be null.");
         if ( feature == null ) throw new IllegalArgumentException("Feature cannot be null.");
         
-        // Internally convert all codes to upper case to match enum java naming standards.
-        String toolStr = tool.toString();
-        String featureStr = feature.toString();
-
         // Find the map id of the code.
-        Integer toolId = toolMap.get(toolStr);
-        Integer featureId = featureMap.get(featureStr);
+        Integer toolId = toolMap.get(tool.toString());
+        Integer featureId = featureMap.get(feature.toString());
         
         // If no id found, then nothing assigned to this privileged for the required args.
         if ( toolId == null ) return false;
@@ -166,15 +159,10 @@ public class UserPrivilegeImpl implements BEUserPrivilege {
         if ( feature == null ) throw new IllegalArgumentException("Feature cannot be null.");
         if ( access == null ) throw new IllegalArgumentException("Access cannot be null.");
         
-        // Internally convert all codes to upper case to match enum java naming standards.
-        String toolStr = tool.toString();
-        String featureStr = feature.toString();
-        String accessStr = access.toString();
-
         // Find the map id of the code.
-        Integer toolId = toolMap.get(toolStr);
-        Integer featureId = featureMap.get(featureStr);
-        Integer accessId = accessMap.get(accessStr);
+        Integer toolId = toolMap.get(tool.toString());
+        Integer featureId = featureMap.get(feature.toString());
+        Integer accessId = accessMap.get(access.toString());
 
         // If no id found, then nothing assigned to this privileged for the required args.
         if ( toolId == null ) return false;
