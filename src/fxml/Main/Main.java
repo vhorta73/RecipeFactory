@@ -14,7 +14,7 @@ import web.interfaces.Session;
  * @author Vasco
  *
  */
-public class MainWindow extends Application {
+public class Main extends Application {
 	/**
 	 * The User session
 	 */
@@ -27,7 +27,7 @@ public class MainWindow extends Application {
 	 * 
 	 * @param session
 	 */
-	public MainWindow(Session session) {
+	public Main(Session session) {
 		if ( session == null )                     throw new IllegalArgumentException("Session cannot be null.");
 		if ( !session.isLoggedIn() )               throw new IllegalArgumentException("Not logged in.");
 		if ( session.getUser() == null )           throw new IllegalArgumentException("User not loaded.");
@@ -40,7 +40,7 @@ public class MainWindow extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
+		loader = new FXMLLoader(getClass().getResource("Main.fxml"));
 		primaryStage.setScene(new Scene(loader.load()));
 		MainController mainController = loader.getController();
 		mainController.setSession(session);

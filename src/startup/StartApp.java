@@ -13,7 +13,7 @@ import fxml.LogIn.LogInMain;
  * @author Vasco
  *
  */
-public class Main extends Application {
+public class StartApp extends Application {
 	
 	/**
 	 * The Main static method where all begins...
