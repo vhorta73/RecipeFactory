@@ -22,6 +22,10 @@ public class IngredientMain extends Application {
 		primaryStage.setScene(new Scene(loader.load()));
 		ingredientController = loader.getController();
 		ingredientController.setSession(session);
+		primaryStage.setX(0);
+		primaryStage.setY(0);
+//		primaryStage.setX(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2 - 250);
+//		primaryStage.setY(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2 - 250);
 		primaryStage.show();
 	}
 	

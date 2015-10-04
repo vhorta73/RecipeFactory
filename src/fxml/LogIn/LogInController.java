@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 import secure.LoginCredentials;
-import startup.MainWindow;
+import fxml.Main.MainWindow;
 
 /**
  * The logInController.
@@ -50,13 +50,9 @@ public class LogInController {
                 credentials.logIn(username.getText(), password.getText());
 
                 if ( credentials.getSession().isLoggedIn() ) {
-                    // Successful logged in.
-                    // Initialise a new Main Windows with loaded session and exit.
-                    MainWindow main = new MainWindow();
-                    main.setSession(credentials.getSession());
-                    main.start();
-                    Stage stage = (Stage) login.getScene().getWindow();
-                    stage.close();
+                    // Successful logged in. Initialise a new Main Windows with loaded session.
+                    MainWindow main = new MainWindow(credentials.getSession());
+                    main.start((Stage)login.getScene().getWindow());
                 }
                 else {
                     // Wrong username or password. Clean fields, alert user to retry.
