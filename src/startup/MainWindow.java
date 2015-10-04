@@ -12,34 +12,23 @@ import fxml.Ingredient.IngredientMain;
  *
  */
 public class MainWindow extends Application {
-//	private Session session;
+	private Session session;
 	
 	public void setSession(Session session) {
-//		this.session = session;
-		System.out.println(session);
+		this.session = session;
 	}
 	
 	public void start() {
-		System.out.println("gah!2)");
         openIngredientWindow();
 	}
 
 	private void openIngredientWindow() {
-//		System.out.println(ingredientMain);
-//		Thread thread = new Thread(new Runnable() {
-//			@Override
-//			public void run() {
-				IngredientMain ingredientMain = new IngredientMain();
-				try {
-					ingredientMain.start(new Stage());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-//			}
-//		});
-
-//		thread.start();
+		IngredientMain ingredientMain = new IngredientMain(session);
+		try {
+			ingredientMain.start(new Stage());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

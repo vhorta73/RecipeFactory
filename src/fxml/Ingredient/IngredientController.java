@@ -91,11 +91,11 @@ public class IngredientController {
     @FXML
     void pressedOk(ActionEvent event) {
 //    	DBIngredient db = session.getDB().getConnection(DatabaseNames.getCoreDatabase());
-    	System.out.println("selected:" +showOption.getValue()+ " and session is : ");//+session.toString());
+    	System.out.println("selected:" +showOption.getValue()+ " and session is : "+session.toString()+session.getUser().getUsername());
 //    	if ( !session.getUserPrivileges().can(EnumTool.INGREDIENT_MANAGEMENT) ) System.out.print("I am sorry.. but you are not allowed to do this");
     }
     
-    public void setThis(Session session) {
+    public void setSession(Session session) {
     	this.session = session;
     }
     
