@@ -9,9 +9,9 @@ import java.util.List;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-import mySQL.ConnectDB;
 import web.impl.SessionImpl;
 import web.interfaces.Session;
+import core.ConnectDB;
 import core.db.impl.DBUserImpl;
 import core.db.interfaces.DBUser;
 import core.impl.UserPrivilegeImpl;

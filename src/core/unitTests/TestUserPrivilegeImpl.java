@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import mySQL.ConnectDB;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +18,7 @@ import com.mysql.jdbc.Connection;
 import constants.EnumAccess;
 import constants.EnumFeature;
 import constants.EnumTool;
+import core.ConnectDB;
 import core.impl.UserPrivilegeImpl;
 import core.interfaces.BEUserPrivilege;
 import core.tables.interfaces.User;

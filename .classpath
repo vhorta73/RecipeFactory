@@ -4,5 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/Vasco/Desktop/eclipse/plugins/mysql-connector-java-5.0.8-bin.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="C:/Users/Vasco/Desktop/eclipse/plugins/mockito-all-1.9.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Vasco/Desktop/eclipse/plugins/mockito-1.9.5.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

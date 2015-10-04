@@ -11,8 +11,6 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
-import mySQL.ConnectDB;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +18,7 @@ import org.mockito.Mockito;
 
 import web.interfaces.Session;
 import constants.EnumUserStatus;
+import core.ConnectDB;
 import core.db.impl.DBUserImpl;
 import core.db.interfaces.DBUser;
 import core.tables.impl.UserImpl;

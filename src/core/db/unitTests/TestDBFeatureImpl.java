@@ -11,14 +11,13 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
-import mySQL.ConnectDB;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import web.interfaces.Session;
+import core.ConnectDB;
 import core.db.impl.DBFeatureImpl;
 import core.db.interfaces.DBFeature;
 import core.tables.impl.FeatureImpl;
